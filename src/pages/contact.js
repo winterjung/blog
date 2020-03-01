@@ -3,7 +3,9 @@ import Layout from "../components/layout"
 
 export default () => (
   <Layout>
-    <h1>About me</h1>
-    <p>I’m good enough, I’m smart enough, and gosh darn it, people like me!</p>
+    <h1>이메일 보내기</h1>
+    <p>
+      <a href="mailto:me@winterjung.dev">me@winterjung.dev</a>
+    </p>
   </Layout>
 )
