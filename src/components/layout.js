@@ -1,24 +1,47 @@
 import React from "react"
-import { Link } from "gatsby"
+import { css } from "@emotion/core"
+import { useStaticQuery, Link, graphql } from "gatsby"
 
-const ListLink = props => (
-    <li style={{ display: `inline-block`, marginRight: `1rem` }}>
-        <Link to={props.to} style={{ textDecoration: `none`, color: `rgba(0, 0, 0, 0.8)` }}>{props.children}</Link>
-    </li>
-)
+import { rhythm } from "../utils/typography"
 
-export default ({ children }) => (
-    <div style={{ margin: `3rem auto`, maxWidth: 600, padding: `0 1rem` }}>
-        <header style={{ marginBottom: `1.5rem` }}>
-            <Link to="/" style={{ textShadow: `none`, backgroundImage: `none`, textDecoration: `none`, color: `rgba(0, 0, 0, 0.8)` }}>
-                <h3 style={{ display: `inline` }}>Cold Storage</h3>
+export default function Layout({ children }) {
+    const data = useStaticQuery(
+        graphql`
+            query {
+                site {
+                    siteMetadata {
+                        title
+                    }
+                }
+            }
+        `,
+    )
+    return (
+        <div
+            css={css`
+                margin: 0 auto;
+                max-width: 700px;
+                padding: ${rhythm(2)};
+                padding-top: ${rhythm(1.5)};
+            `}>
+            <Link to={`/`}>
+                <h3
+                    css={css`
+                        margin-bottom: ${rhythm(2)};
+                        display: inline-block;
+                        font-style: normal;
+                    `}>
+                    {data.site.siteMetadata.title}
+                </h3>
             </Link>
-            <ul style={{ listStyle: `none`, float: `right` }}>
-                <ListLink to="/">Home</ListLink>
-                <ListLink to="/about/">About</ListLink>
-                <ListLink to="/contact/">Contact</ListLink>
-            </ul>
-        </header>
-        {children}
-    </div>
-)
+            <Link
+                to={`/about/`}
+                css={css`
+                    float: right;
+                `}>
+                About
+            </Link>
+            {children}
+        </div>
+    )
+}

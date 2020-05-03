@@ -2,14 +2,13 @@ import React from "react"
 import Layout from "../components/layout"
 
 export default () => (
-  <Layout>
-    <h1>Hi! I'm building a fake Gatsby site as part of a tutorial!</h1>
-    <p>
-      What do I like to do? Lots of course but definitely enjoy building
-      websites.
-    </p>
-    <p>
-      typography 플러그인을 적용해봤다. 근데 과연 CJK 지원이 제대로 될까?
-    </p>
-  </Layout>
+    <Layout>
+        <h1>블로그 제목 뭐라고 하지</h1>
+        <div>
+            <img
+                src="https://2.bp.blogspot.com/-BMP2l6Hwvp4/TiAxeGx4CTI/AAAAAAAAD_M/XlC_mY3SoEw/s1600/panda-group-eating-bamboo.jpg"
+                alt="Group of pandas eating bamboo"
+            />
+        </div>
+    </Layout>
 )
