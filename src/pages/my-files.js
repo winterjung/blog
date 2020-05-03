@@ -16,14 +16,20 @@ export default function Myfiles({ data }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.allFile.edges.map(({ node }, index) => (
-                        <tr key={index}>
-                            <td>{node.relativePath}</td>
-                            <td>{node.prettySize}</td>
-                            <td>{node.extension}</td>
-                            <td>{node.birthTime}</td>
-                        </tr>
-                    ))}
+                    {data.allFile.edges
+                        .map(({ node }, index) => (
+                            <tr key={index}>
+                                <td>
+                                    <a href={node.publicURL}>
+                                        {node.relativePath}
+                                    </a>
+                                </td>
+                                <td>{node.prettySize}</td>
+                                <td>{node.extension}</td>
+                                <td>{node.birthTime}</td>
+                            </tr>
+                        ))
+                        .sort()}
                 </tbody>
             </table>
         </Layout>
@@ -39,6 +45,7 @@ export const query = graphql`
                     prettySize
                     extension
                     birthTime(fromNow: true)
+                    publicURL
                 }
             }
         }
