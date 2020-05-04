@@ -18,5 +18,18 @@ module.exports = {
                 pathToConfigModule: `src/utils/typography`,
             },
         },
+        {
+          resolve: `gatsby-plugin-manifest`,
+          options: {
+            name: `winterjung blog`,
+            short_name: `winterjung blog`,
+            start_url: `/`,
+            background_color: `#ffffff`,
+            theme_color: `#333333`,
+            display: `standalone`,
+            icon: `static/favicon.png`,
+          },
+        },
+        `gatsby-plugin-offline`,
     ],
 }
