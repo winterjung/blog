@@ -6,3 +6,11 @@
 $ gatsby develop
 $ open http://localhost:8000/
 ```
+
+## For production
+
+```sh
+$ gatsby build
+$ gatsby serve
+$ open http://localhost:9000/
+```
