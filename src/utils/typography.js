@@ -1,7 +1,7 @@
 import Typography from "typography"
-import kirkhamTheme from "typography-theme-kirkham"
 
-const typography = new Typography(kirkhamTheme)
+const typography = new Typography()
 
+typography.injectStyles()
 export const { scale, rhythm, options } = typography
 export default typography
