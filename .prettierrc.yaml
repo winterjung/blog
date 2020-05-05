@@ -1,0 +1,6 @@
+endOfLine: lf
+trailingComma: all
+tabWidth: 4
+semi: false
+singleQuote: false
+jsxBracketSameLine: true
