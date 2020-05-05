@@ -1,0 +1,12 @@
+name: ci
+
+on:
+  - push
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install -g gatsby
+      - run: npm run build
