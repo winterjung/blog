@@ -12,8 +12,7 @@ jobs:
       - run: npm run build
 
   deploy:
-    # debugging을 위해 잠시 비활성화
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
