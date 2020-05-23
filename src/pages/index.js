@@ -7,36 +7,23 @@ import Layout from "../components/layout"
 export default ({ data }) => (
     <Layout>
         <div>
-            <h1
-                css={css`
-                    display: inline-block;
-                    border-bottom: 1px solid;
-                `}>
-                메인 페이지
-            </h1>
-            <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
             {data.allMarkdownRemark.edges.map(({ node }) => (
                 <div key={node.id}>
                     <Link
                         to={node.fields.slug}
                         css={css`
                             text-decoration: none;
-                            color: inherit;
                         `}>
                         <h3
                             css={css`
-                                margin-bottom: ${rhythm(1 / 4)};
+                                margin-bottom: ${rhythm(0.5)};
                             `}>
-                            {node.frontmatter.title}{" "}
-                            <span
-                                css={css`
-                                    color: #bbb;
-                                `}>
-                                - {node.frontmatter.date}
-                            </span>
+                            {node.frontmatter.title}
                         </h3>
                     </Link>
-                    <p>{node.excerpt}</p>
+                    <p>
+                        {node.frontmatter.date} - {node.excerpt}
+                    </p>
                 </div>
             ))}
         </div>
