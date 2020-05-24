@@ -12,8 +12,8 @@ HashiCorp 한국 사용자 모임이 주최하여 2018년 7월 28일 공개SW개
   - Vagrant, Packer, Consul, Terraform, Vault, Nomad
 
 <figure>
-  <a href="{{ site.baseurl }}/images/20180728/T.jpg">
-    <img src="{{ site.baseurl }}/images/20180728/T.jpg" alt="T shirt">
+  <a href="https://winterj.me/images/20180728/T.jpg">
+    <img src="https://winterj.me/images/20180728/T.jpg" alt="T shirt">
   </a>
   <figcaption>
     고마워요 구글. 고마워요 위키피디아
@@ -428,8 +428,8 @@ HashiCorp 한국 사용자 모임이 주최하여 2018년 7월 28일 공개SW개
 ### Summary
 
 <figure>
-  <a href="{{ site.baseurl }}/images/20180728/summary.png">
-    <img src="{{ site.baseurl }}/images/20180728/summary.png" alt="요약">
+  <a href="https://winterj.me/images/20180728/summary.png">
+    <img src="https://winterj.me/images/20180728/summary.png" alt="요약">
   </a>
   <figcaption>
     요약
