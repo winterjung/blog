@@ -1,14 +1,27 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
+const postPathPattern = /(\d{4}-\d{2}-\d{2})-(.*)/
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
     if (node.internal.type === `MarkdownRemark`) {
-        const slug = createFilePath({ node, getNode, trailingSlash: false }).replace(`posts/`, ``)
+        const filePath = createFilePath({
+            node,
+            getNode,
+            trailingSlash: false,
+        }).replace(`posts/`, ``)
+        const [, date, slug] = postPathPattern.exec(filePath)
+
         createNodeField({
             node,
             name: `slug`,
-            value: slug,
+            value: date.split(`-`).join(`/`) + `/` + slug,
+        })
+        createNodeField({
+            node,
+            name: `date`,
+            value: date,
         })
     }
 }
@@ -22,6 +35,7 @@ exports.createPages = async ({ graphql, actions }) => {
                     node {
                         fields {
                             slug
+                            date
                         }
                     }
                 }
@@ -35,6 +49,7 @@ exports.createPages = async ({ graphql, actions }) => {
             component: path.resolve(`./src/templates/post.js`),
             context: {
                 slug: node.fields.slug,
+                date: node.fields.date,
             },
         })
     })
