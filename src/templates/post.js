@@ -11,7 +11,7 @@ export default ({ data }) => {
             <SEO
                 title={post.frontmatter.title}
                 description={post.excerpt}
-                image={post.image}
+                image={post.frontmatter.image}
             />
             <div>
                 <h1>{post.frontmatter.title}</h1>
