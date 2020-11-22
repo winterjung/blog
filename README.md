@@ -1,16 +1,16 @@
-# [blog]((https://winterjung.dev))
+# blog
+> https://blog.winterjung.dev
 
 ## For development
 
 ```sh
-$ gatsby develop
+$ make developd
 $ open http://localhost:8000/
 ```
 
 ## For production
 
 ```sh
-$ gatsby build
-$ gatsby serve
+$ make served
 $ open http://localhost:9000/
 ```
