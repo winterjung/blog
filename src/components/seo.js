@@ -35,7 +35,7 @@ export default function SEO({ title, description, image }) {
             <meta property="og:url" content={seo.url} />
             <meta property="og:description" content={seo.description} />
             <meta property="og:image" content={seo.image} />
-            <meta property="og:type" content="article" />
+            <meta property="og:type" content={pathname === `/` ? "website" : "article"} />
 
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={seo.title} />
