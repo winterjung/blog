@@ -11,6 +11,7 @@ export default ({ data }) => {
             <SEO
                 title={post.frontmatter.title}
                 description={post.excerpt}
+                image={post.image}
             />
             <div>
                 <h1>{post.frontmatter.title}</h1>
@@ -26,6 +27,7 @@ export const query = graphql`
             html
             frontmatter {
                 title
+                image
             }
             excerpt(truncate: true)
         }
