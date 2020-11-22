@@ -23,7 +23,9 @@ export default function SEO({ title, description, image }) {
     }
 
     return (
-        <Helmet>
+        // 새로운 탭을 포커스 하지 않으면 정보가 업데이트되지 않는 이슈가 존재
+        // ref. https://github.com/nfl/react-helmet/issues/315
+        <Helmet defer={false}>
             <title>{seo.title}</title>
             <link rel="canonical" href={seo.url} />
             <meta name="description" content={seo.description} />
