@@ -21,13 +21,14 @@
   "homepage": "https://winterjung.dev",
   "dependencies": {
     "@emotion/core": "^10.0.28",
-    "gatsby": "^2.18.12",
+    "gatsby": "^2.27.0",
     "gatsby-plugin-emotion": "^4.3.0",
     "gatsby-plugin-typography": "^2.5.2",
     "gatsby-source-filesystem": "^2.3.0",
     "gatsby-transformer-remark": "^2.8.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-helmet": "^6.1.0",
     "react-typography": "^0.16.19",
     "typography": "^0.16.19"
   },
