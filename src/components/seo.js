@@ -15,7 +15,7 @@ export default function SEO({ title, description, image }) {
         twitterUsername,
     } = site.siteMetadata
 
-    const seo = {
+    const meta = {
         title: title || defaultTitle,
         description: description || defaultDescription,
         url: new URL(pathname, baseUrl),
@@ -26,21 +26,21 @@ export default function SEO({ title, description, image }) {
         // 새로운 탭을 포커스 하지 않으면 정보가 업데이트되지 않는 이슈가 존재
         // ref. https://github.com/nfl/react-helmet/issues/315
         <Helmet defer={false}>
-            <title>{seo.title}</title>
-            <link rel="canonical" href={seo.url} />
-            <meta name="description" content={seo.description} />
-            <meta name="image" content={seo.image} />
+            <title>{meta.title}</title>
+            <link rel="canonical" href={meta.url} />
+            <meta name="description" content={meta.description} />
+            <meta name="image" content={meta.image} />
 
-            <meta property="og:title" content={seo.title} />
-            <meta property="og:url" content={seo.url} />
-            <meta property="og:description" content={seo.description} />
-            <meta property="og:image" content={seo.image} />
+            <meta property="og:title" content={meta.title} />
+            <meta property="og:url" content={meta.url} />
+            <meta property="og:description" content={meta.description} />
+            <meta property="og:image" content={meta.image} />
             <meta property="og:type" content={pathname === `/` ? "website" : "article"} />
 
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content={seo.title} />
-            <meta name="twitter:description" content={seo.description} />
-            <meta name="twitter:image" content={seo.image} />
+            <meta name="twitter:title" content={meta.title} />
+            <meta name="twitter:description" content={meta.description} />
+            <meta name="twitter:image" content={meta.image} />
             <meta name="twitter:creator" content={twitterUsername} />
         </Helmet>
     )
