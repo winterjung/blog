@@ -35,7 +35,10 @@ export default function SEO({ title, description, image }) {
             <meta property="og:url" content={meta.url} />
             <meta property="og:description" content={meta.description} />
             <meta property="og:image" content={meta.image} />
-            <meta property="og:type" content={pathname === `/` ? "website" : "article"} />
+            <meta
+                property="og:type"
+                content={pathname === `/` ? "website" : "article"}
+            />
 
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={meta.title} />
@@ -50,11 +53,11 @@ export const query = graphql`
     query {
         site {
             siteMetadata {
-            defaultTitle: title
-            defaultDescription: description
-            defaultImage: image
-            baseUrl: url
-            twitterUsername
+                defaultTitle: title
+                defaultDescription: description
+                defaultImage: image
+                baseUrl: url
+                twitterUsername
             }
         }
     }
