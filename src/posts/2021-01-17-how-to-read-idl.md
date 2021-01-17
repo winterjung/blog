@@ -123,9 +123,9 @@ rpc의 형태는 `rpc Xxx(Yyy) returns (Zzz)`처럼 생겼는데 마치 우리�
 
 여기서 `post: "/v1/users"`처럼 생긴 부분이 http api로 rpc를 호출할 때 어떤 endpoint를 어떤 method로 호출해야하는지 알려준다.
 
-* `CreateUser` rpc는 `POST /v1/users`를 호출하면 된다.
-* `GetUser` rpc는 `GET /v1/users/123`처럼 호출하면 된다.
-* `UpdateUser` rpc는 `PATCH /v1/users/123`처럼 호출하면 된다.
+-   `CreateUser` rpc는 `POST /v1/users`를 호출하면 된다.
+-   `GetUser` rpc는 `GET /v1/users/123`처럼 호출하면 된다.
+-   `UpdateUser` rpc는 `PATCH /v1/users/123`처럼 호출하면 된다.
 
 `body: "*"`, `body: "update_spec"` 부분은 `XxxRequest` message 안에 있는 필드 중 무엇을 실제 요청으로 보내는 json body로 간주할거냐는 의미다. `"*"`면 모든 필드가 body에 들어가고 `"update_spec"`처럼 있으면 뒤에 나올 `XxxRequest` message 안에서 `update_spec`라는 이름을 가진 필드의 내용만 보내면 된다는 뜻이다.
 
@@ -202,17 +202,17 @@ message CreateUserRequest {
 
 ```json
 {
-  "name": "john",
-  "memo": null,
-  "role": "USER_ROLE_ADMIN",
-  "joined_at_ms": "1612137600000"
+    "name": "john",
+    "memo": null,
+    "role": "USER_ROLE_ADMIN",
+    "joined_at_ms": "1612137600000"
 }
 ```
 
-* string 타입인 `name` 필드가 있다.
-* `google.protobuf.StringValue` 타입은 optional 필드를 의미한다. `google.protobuf.XxxValue`처럼 생긴 애들이 여럿 있는데(e.g. `BoolValue`, `Int64Value`) 모두 해당 필드는 `null`이 올 수 있다는 의미다.
-* `UserRole`은 enum 타입이다. `1`을 보내든 `"USER_ROLE_ADMIN"`을 보내든 동일하게 처리한다.
-* int64 타입은 numeric value라는 것을 알려주지만 [json은 64bit 정수형 타입을 처리하지 못하기에] string으로 주고받는다. (정확한 동작은 http 라이브러리마다 다를 수 있다)
+-   string 타입인 `name` 필드가 있다.
+-   `google.protobuf.StringValue` 타입은 optional 필드를 의미한다. `google.protobuf.XxxValue`처럼 생긴 애들이 여럿 있는데(e.g. `BoolValue`, `Int64Value`) 모두 해당 필드는 `null`이 올 수 있다는 의미다.
+-   `UserRole`은 enum 타입이다. `1`을 보내든 `"USER_ROLE_ADMIN"`을 보내든 동일하게 처리한다.
+-   int64 타입은 numeric value라는 것을 알려주지만 [json은 64bit 정수형 타입을 처리하지 못하기에] string으로 주고받는다. (정확한 동작은 http 라이브러리마다 다를 수 있다)
 
 여기서 나와있진 않지만 필드 중 타입 앞에 `repeated`가 붙은 필드가 있다. (e.g. `repeated int32 values = 1;`)
 이런 필드는 array 타입이고 `{"values": []}`, `{"values": [1, 2, 3]}`처럼 주고받을 수 있다.
@@ -236,20 +236,20 @@ message CreateUserResponse {
 
 ```json
 {
-  "user": {
-    "id": "1",
-    "name": "john",
-    "memo": null,
-    "role": "USER_ROLE_ADMIN"
-  }
+    "user": {
+        "id": "1",
+        "name": "john",
+        "memo": null,
+        "role": "USER_ROLE_ADMIN"
+    }
 }
 ```
 
-* `User` 같은 message 타입은 `{...}` 처럼 object라고 해석할 수 있다.
-* 기본적으로 message 타입은 모두 `null`이 올 수 있다. 그래서 위 api의 응답으로 아래처럼 오는게 가능은 하다.
+-   `User` 같은 message 타입은 `{...}` 처럼 object라고 해석할 수 있다.
+-   기본적으로 message 타입은 모두 `null`이 올 수 있다. 그래서 위 api의 응답으로 아래처럼 오는게 가능은 하다.
     ```json
     {
-    "user": null
+        "user": null
     }
     ```
 
@@ -291,22 +291,22 @@ message UpdateUserResponse {}
 
 뭔가 조금 복잡해 보이지만 결국 클라이언트에선 아래처럼 보내주면 된다.
 
-* 이름만 업데이트할 때
+-   이름만 업데이트할 때
     ```json
     {
-    "name": "Bob"
+        "name": "Bob"
     }
     ```
-* 메모를 추가할 때
+-   메모를 추가할 때
     ```json
     {
-    "memo": "I'm admin user"
+        "memo": "I'm admin user"
     }
     ```
-* 메모를 지울 때
+-   메모를 지울 때
     ```json
     {
-    "memo": null
+        "memo": null
     }
     ```
 
