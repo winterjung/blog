@@ -3,7 +3,7 @@ module.exports = {
         title: `winterjung blog`,
         description: `글 쓰는 소프트웨어 엔지니어`,
         url: `https://blog.winterjung.dev`,
-        image: `favicon-256.png`,
+        image: `header.png`,
         twitterUsername: `@res_tin`,
     },
     plugins: [

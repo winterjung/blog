@@ -8,7 +8,11 @@ export default ({ data }) => {
     const post = data.markdownRemark
     return (
         <Layout>
-            <SEO title={post.frontmatter.title} description={post.excerpt} />
+            <SEO
+                title={post.frontmatter.title}
+                description={post.excerpt}
+                image={post.frontmatter.image}
+            />
             <div>
                 <h1>{post.frontmatter.title}</h1>
                 <div dangerouslySetInnerHTML={{ __html: post.html }} />
@@ -23,6 +27,7 @@ export const query = graphql`
             html
             frontmatter {
                 title
+                image
             }
             excerpt(truncate: true)
         }
