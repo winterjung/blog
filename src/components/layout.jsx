@@ -1,8 +1,8 @@
-import React from "react"
 import { css } from "@emotion/core"
-import { useStaticQuery, Link, graphql } from "gatsby"
-
+import { graphql, Link, useStaticQuery } from "gatsby"
+import React from "react"
 import { rhythm } from "../utils/typography"
+import "./layout.css"
 
 export default function Layout({ children }) {
     const data = useStaticQuery(
