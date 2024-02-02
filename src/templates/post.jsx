@@ -1,12 +1,11 @@
-import { css } from "@emotion/core";
-import { graphql } from "gatsby";
-import React from "react";
-import Layout from "../components/layout";
-import SEO from "../components/seo";
-
+import { css } from "@emotion/react"
+import { graphql } from "gatsby"
+import React from "react"
+import Layout from "../components/layout"
+import SEO from "../components/seo"
 
 export default ({ data }) => {
-    const post = data.markdownRemark;
+    const post = data.markdownRemark
     return (
         <Layout>
             <SEO
@@ -20,15 +19,15 @@ export default ({ data }) => {
                     dangerouslySetInnerHTML={{ __html: post.html }}
                     css={css`
                         word-break: keep-all;
-                    `}>
-                </div>
+                    `}
+                ></div>
             </div>
         </Layout>
-    );
-};
+    )
+}
 
 export const query = graphql`
-    query($slug: String!) {
+    query ($slug: String!) {
         markdownRemark(fields: { slug: { eq: $slug } }) {
             html
             frontmatter {
@@ -38,4 +37,4 @@ export const query = graphql`
             excerpt(truncate: true)
         }
     }
-`;
+`

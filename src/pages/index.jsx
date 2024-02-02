@@ -1,6 +1,6 @@
-import React from "react"
+import { css } from "@emotion/react"
 import { Link, graphql } from "gatsby"
-import { css } from "@emotion/core"
+import React from "react"
 import { rhythm } from "../utils/typography"
 
 import Layout from "../components/layout"
@@ -16,11 +16,13 @@ export default ({ data }) => (
                         to={node.fields.slug}
                         css={css`
                             text-decoration: none;
-                        `}>
+                        `}
+                    >
                         <h3
                             css={css`
                                 margin-bottom: ${rhythm(0.5)};
-                            `}>
+                            `}
+                        >
                             {node.frontmatter.title}
                         </h3>
                     </Link>
@@ -35,7 +37,7 @@ export default ({ data }) => (
 
 export const query = graphql`
     query {
-        allMarkdownRemark(sort: { fields: [fields___date], order: DESC }) {
+        allMarkdownRemark(sort: { fields: { date: DESC } }) {
             totalCount
             edges {
                 node {

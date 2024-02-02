@@ -1,7 +1,7 @@
+import { useLocation } from "@reach/router"
+import { graphql, useStaticQuery } from "gatsby"
 import React from "react"
 import { Helmet } from "react-helmet"
-import { useLocation } from "@reach/router"
-import { useStaticQuery, graphql } from "gatsby"
 
 export default function SEO({ title, description, image }) {
     const { pathname } = useLocation()
@@ -56,7 +56,7 @@ export const query = graphql`
                 defaultTitle: title
                 defaultDescription: description
                 defaultImage: image
-                baseUrl: url
+                baseUrl: siteUrl
                 twitterUsername
             }
         }
