@@ -15,6 +15,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
         createNodeField({
             node,
+            name: `rawPath`,
+            value: slug,
+        })
+        createNodeField({
+            node,
             name: `slug`,
             value: date.split(`-`).join(`/`) + `/` + slug,
         })
@@ -36,6 +41,7 @@ exports.createPages = async ({ graphql, actions }) => {
                         fields {
                             slug
                             date
+                            rawPath
                         }
                     }
                 }
@@ -46,6 +52,14 @@ exports.createPages = async ({ graphql, actions }) => {
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
         createPage({
             path: node.fields.slug,
+            component: path.resolve(`./src/templates/post.jsx`),
+            context: {
+                slug: node.fields.slug,
+                date: node.fields.date,
+            },
+        })
+        createPage({
+            path: node.fields.rawPath,
             component: path.resolve(`./src/templates/post.jsx`),
             context: {
                 slug: node.fields.slug,

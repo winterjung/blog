@@ -13,7 +13,7 @@ export default ({ data }) => (
             {data.allMarkdownRemark.edges.map(({ node }) => (
                 <div key={node.id}>
                     <Link
-                        to={node.fields.slug}
+                        to={node.fields.rawPath}
                         css={css`
                             text-decoration: none;
                         `}
@@ -48,6 +48,7 @@ export const query = graphql`
                     fields {
                         slug
                         date
+                        rawPath
                     }
                     excerpt(truncate: true)
                 }
