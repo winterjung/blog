@@ -22,7 +22,7 @@ jobs:
         working-directory: public
         run: |
           cp ../CNAME ./
-          git init
+          git init -b main
           git config user.name $GITHUB_ACTOR
           git config user.email $GITHUB_ACTOR@users.noreply.github.com
           git add .
