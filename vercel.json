@@ -1,0 +1,9 @@
+{
+    "redirects": [
+        {
+            "source": "/\\d{4}/\\d{2}/\\d{2}/:slug",
+            "destination": "/:slug",
+            "permanent": true
+        }
+    ]
+}
