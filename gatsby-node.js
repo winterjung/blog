@@ -25,8 +25,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
         })
         createNodeField({
             node,
-            name: `date`,
-            value: date,
+            name: `lastmod`,
+            value: node.frontmatter.lastmod ? node.frontmatter.lastmod : date,
         })
     }
 }
