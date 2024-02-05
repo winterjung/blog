@@ -18,13 +18,15 @@
   "bugs": {
     "url": "https://github.com/JungWinter/blog/issues"
   },
-  "homepage": "https://winterjung.dev",
+  "homepage": "https://www.winterjung.dev",
   "dependencies": {
     "@emotion/core": "^11.0.0",
     "gatsby": "^5.13.3",
     "gatsby-plugin-emotion": "^8.13.1",
     "gatsby-plugin-google-gtag": "^5.13.1",
     "gatsby-plugin-react-helmet": "^6.13.1",
+    "gatsby-plugin-robots-txt": "^1.8.0",
+    "gatsby-plugin-sitemap": "^6.13.1",
     "gatsby-plugin-typography": "^5.13.1",
     "gatsby-source-filesystem": "^5.13.1",
     "gatsby-transformer-remark": "^6.13.1",
