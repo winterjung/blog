@@ -24,10 +24,10 @@ module.exports = {
         },
         `gatsby-plugin-react-helmet`,
         {
-          resolve: "gatsby-plugin-google-gtag",
-          options: {
-            trackingIds: ["G-GHDZ9WX1EH"],
-          },
+            resolve: "gatsby-plugin-google-gtag",
+            options: {
+                trackingIds: ["G-GHDZ9WX1EH"],
+            },
         },
     ],
 }
