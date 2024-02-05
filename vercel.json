@@ -1,27 +1,119 @@
 {
     "redirects": [
-        {"source": "/2017/02/23/pyinstaller(/?)", "destination": "/pyinstaller/", "permanent": true},
-        {"source": "/2017/04/21/list-of-lists-to-flatten(/?)", "destination": "/list-of-lists-to-flatten/", "permanent": true},
-        {"source": "/2017/10/08/references-to-deploy-smart-contract(/?)", "destination": "/references-to-deploy-smart-contract/", "permanent": true},
-        {"source": "/2017/11/27/smart-contract-with-python(/?)", "destination": "/smart-contract-with-python/", "permanent": true},
-        {"source": "/2017/12/07/file-on-blockchain(/?)", "destination": "/file-on-blockchain/", "permanent": true},
-        {"source": "/2018/02/13/python-generator(/?)", "destination": "/python-generator/", "permanent": true},
-        {"source": "/2018/02/13/python-mro(/?)", "destination": "/python-mro/", "permanent": true},
-        {"source": "/2018/02/18/python-gc(/?)", "destination": "/python-gc/", "permanent": true},
-        {"source": "/2018/03/11/realistic-smart-contract(/?)", "destination": "/realistic-smart-contract/", "permanent": true},
-        {"source": "/2018/04/08/flask-concurrency-test(/?)", "destination": "/flask-concurrency-test/", "permanent": true},
-        {"source": "/2018/04/27/flask-1.0-release(/?)", "destination": "/flask-1.0-release/", "permanent": true},
-        {"source": "/2018/04/29/ndc2018-durango(/?)", "destination": "/ndc2018-durango/", "permanent": true},
-        {"source": "/2018/06/22/python-await-vs-return(/?)", "destination": "/python-await-vs-return/", "permanent": true},
-        {"source": "/2018/06/30/python-make-command(/?)", "destination": "/python-make-command/", "permanent": true},
-        {"source": "/2018/07/28/hashicorp-meetup(/?)", "destination": "/hashicorp-meetup/", "permanent": true},
-        {"source": "/2018/09/15/reactivity-in-python(/?)", "destination": "/reactivity-in-python/", "permanent": true},
-        {"source": "/2019/12/31/end-of-2019(/?)", "destination": "/end-of-2019/", "permanent": true},
-        {"source": "/2020/01/06/floating-point-in-python(/?)", "destination": "/floating-point-in-python/", "permanent": true},
-        {"source": "/2020/01/19/python-books-for-intermediate(/?)", "destination": "/python-books-for-intermediate/", "permanent": true},
-        {"source": "/2020/11/08/new-blog-techspec(/?)", "destination": "/new-blog-techspec/", "permanent": true},
-        {"source": "/2020/11/22/support-meta-tags(/?)", "destination": "/support-meta-tags/", "permanent": true},
-        {"source": "/2021/01/17/how-to-read-idl(/?)", "destination": "/how-to-read-idl/", "permanent": true},
-        {"source": "/2021/03/15/no-blame(/?)", "destination": "/no-blame/", "permanent": true}
+        {
+            "source": "/2017/02/23/pyinstaller(/?)",
+            "destination": "/pyinstaller/",
+            "permanent": true
+        },
+        {
+            "source": "/2017/04/21/list-of-lists-to-flatten(/?)",
+            "destination": "/list-of-lists-to-flatten/",
+            "permanent": true
+        },
+        {
+            "source": "/2017/10/08/references-to-deploy-smart-contract(/?)",
+            "destination": "/references-to-deploy-smart-contract/",
+            "permanent": true
+        },
+        {
+            "source": "/2017/11/27/smart-contract-with-python(/?)",
+            "destination": "/smart-contract-with-python/",
+            "permanent": true
+        },
+        {
+            "source": "/2017/12/07/file-on-blockchain(/?)",
+            "destination": "/file-on-blockchain/",
+            "permanent": true
+        },
+        {
+            "source": "/2018/02/13/python-generator(/?)",
+            "destination": "/python-generator/",
+            "permanent": true
+        },
+        {
+            "source": "/2018/02/13/python-mro(/?)",
+            "destination": "/python-mro/",
+            "permanent": true
+        },
+        {
+            "source": "/2018/02/18/python-gc(/?)",
+            "destination": "/python-gc/",
+            "permanent": true
+        },
+        {
+            "source": "/2018/03/11/realistic-smart-contract(/?)",
+            "destination": "/realistic-smart-contract/",
+            "permanent": true
+        },
+        {
+            "source": "/2018/04/08/flask-concurrency-test(/?)",
+            "destination": "/flask-concurrency-test/",
+            "permanent": true
+        },
+        {
+            "source": "/2018/04/27/flask-1.0-release(/?)",
+            "destination": "/flask-1.0-release/",
+            "permanent": true
+        },
+        {
+            "source": "/2018/04/29/ndc2018-durango(/?)",
+            "destination": "/ndc2018-durango/",
+            "permanent": true
+        },
+        {
+            "source": "/2018/06/22/python-await-vs-return(/?)",
+            "destination": "/python-await-vs-return/",
+            "permanent": true
+        },
+        {
+            "source": "/2018/06/30/python-make-command(/?)",
+            "destination": "/python-make-command/",
+            "permanent": true
+        },
+        {
+            "source": "/2018/07/28/hashicorp-meetup(/?)",
+            "destination": "/hashicorp-meetup/",
+            "permanent": true
+        },
+        {
+            "source": "/2018/09/15/reactivity-in-python(/?)",
+            "destination": "/reactivity-in-python/",
+            "permanent": true
+        },
+        {
+            "source": "/2019/12/31/end-of-2019(/?)",
+            "destination": "/end-of-2019/",
+            "permanent": true
+        },
+        {
+            "source": "/2020/01/06/floating-point-in-python(/?)",
+            "destination": "/floating-point-in-python/",
+            "permanent": true
+        },
+        {
+            "source": "/2020/01/19/python-books-for-intermediate(/?)",
+            "destination": "/python-books-for-intermediate/",
+            "permanent": true
+        },
+        {
+            "source": "/2020/11/08/new-blog-techspec(/?)",
+            "destination": "/new-blog-techspec/",
+            "permanent": true
+        },
+        {
+            "source": "/2020/11/22/support-meta-tags(/?)",
+            "destination": "/support-meta-tags/",
+            "permanent": true
+        },
+        {
+            "source": "/2021/01/17/how-to-read-idl(/?)",
+            "destination": "/how-to-read-idl/",
+            "permanent": true
+        },
+        {
+            "source": "/2021/03/15/no-blame(/?)",
+            "destination": "/no-blame/",
+            "permanent": true
+        }
     ]
 }

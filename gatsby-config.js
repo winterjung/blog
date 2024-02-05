@@ -4,7 +4,7 @@ module.exports = {
         description: `글 쓰는 소프트웨어 엔지니어`,
         image: `header.png`,
         twitterUsername: `@res_tin`,
-        siteUrl: `https://blog.winterjung.dev`,
+        siteUrl: `https://www.winterjung.dev`,
     },
     plugins: [
         {
@@ -24,9 +24,43 @@ module.exports = {
         },
         `gatsby-plugin-react-helmet`,
         {
-            resolve: "gatsby-plugin-google-gtag",
+            resolve: `gatsby-plugin-google-gtag`,
             options: {
-                trackingIds: ["G-GHDZ9WX1EH"],
+                trackingIds: [`G-GHDZ9WX1EH`],
+            },
+        },
+        {
+            resolve: `gatsby-plugin-robots-txt`,
+            options: {
+                sitemap: `/sitemap-index.xml`,
+            },
+        },
+        {
+            resolve: `gatsby-plugin-sitemap`,
+            options: {
+                excludes: [`/my-files/`],
+                query: `
+            {
+                site {
+                    siteMetadata {
+                        siteUrl
+                    }
+                }
+                allSitePage {
+                    nodes {
+                        path
+                        pageContext
+                    }
+                }
+            }
+            `,
+                serialize: ({ path, pageContext }) => {
+                    console.log(path, pageContext)
+                    return {
+                        url: path,
+                        lastmod: pageContext?.lastmod,
+                    }
+                },
             },
         },
     ],
