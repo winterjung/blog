@@ -15,13 +15,13 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
         createNodeField({
             node,
-            name: `rawPath`,
+            name: `slug`,
             value: slug,
         })
         createNodeField({
             node,
-            name: `slug`,
-            value: date.split(`-`).join(`/`) + `/` + slug,
+            name: `date`,
+            value: date,
         })
         createNodeField({
             node,
@@ -41,7 +41,7 @@ exports.createPages = async ({ graphql, actions }) => {
                         fields {
                             slug
                             date
-                            rawPath
+                            lastmod
                         }
                     }
                 }
@@ -56,14 +56,7 @@ exports.createPages = async ({ graphql, actions }) => {
             context: {
                 slug: node.fields.slug,
                 date: node.fields.date,
-            },
-        })
-        createPage({
-            path: node.fields.rawPath,
-            component: path.resolve(`./src/templates/post.jsx`),
-            context: {
-                slug: node.fields.slug,
-                date: node.fields.date,
+                lastmod: node.fields.lastmod,
             },
         })
     })
