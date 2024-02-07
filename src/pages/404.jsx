@@ -28,7 +28,7 @@ export default function NotFound() {
             <ul>
                 {data.allMarkdownRemark.edges.map(({ node }) => (
                     <li key={node.id}>
-                        <Link to={node.fields.slug}>
+                        <Link to={`/${node.fields.slug}`}>
                             {node.frontmatter.title}
                         </Link>
                     </li>
