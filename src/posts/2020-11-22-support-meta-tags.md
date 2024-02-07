@@ -28,6 +28,6 @@ image: images/focus.jpg
 
 ## 다음 기능
 
-사실 스리슬쩍 이전 블로그 포스트의 마이그레이션도 끝내둔 상태입니다. [예전 블로그 글 링크](https://winterj.me/floating-point-in-python/)로 들어가면 [이 블로그의 글](https://blog.winterjung.dev/2020/01/06/floating-point-in-python)로 301코드<sub>Moved Permanently</sub>와 함께 리다이렉트됩니다.
+사실 스리슬쩍 이전 블로그 포스트의 마이그레이션도 끝내둔 상태입니다. [예전 블로그 글 링크](https://winterj.me/floating-point-in-python/)로 들어가면 [이 블로그의 글](https://www.winterjung.dev/floating-point-in-python/)로 301코드<sub>Moved Permanently</sub>와 함께 리다이렉트됩니다.
 
 다음으론 다크 모드를 지원하는 작업을 가볍게 해볼까 하고, 생각보다 코드 태그(`<pre>`, `<code>`)를 구분하기 어려워 syntax highlight까진 아니지만 간단한 스타일을 적용시켜주려 합니다.

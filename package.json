@@ -13,10 +13,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JungWinter/blog.git"
+    "url": "git+https://github.com/winterjung/blog.git"
   },
   "bugs": {
-    "url": "https://github.com/JungWinter/blog/issues"
+    "url": "https://github.com/winterjung/blog/issues"
   },
   "homepage": "https://www.winterjung.dev",
   "dependencies": {

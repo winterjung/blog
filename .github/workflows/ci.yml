@@ -7,24 +7,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - run: npm ci
       - run: npm run build
 
-  deploy:
-    if: github.ref == 'refs/heads/main'
+  diff:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: npm ci
-      - run: npm run build
-      - name: Push to gh-pages
-        working-directory: public
+      - uses: actions/checkout@v4
+      - name: Diff
         run: |
-          cp ../CNAME ./
-          git init -b main
-          git config user.name $GITHUB_ACTOR
-          git config user.email $GITHUB_ACTOR@users.noreply.github.com
-          git add .
-          git commit -m "Deploy blog for $GITHUB_SHA"
-          git push -f https://${{ secrets.GH_ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git main:gh-pages
+          npm run format
+          if [ -n "$(git status --porcelain)" ]; then git status; git diff; exit 1; else exit 0; fi
