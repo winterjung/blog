@@ -1,5 +1,5 @@
 # blog
-> https://blog.winterjung.dev
+> https://winterjung.dev
 
 ## For development
 

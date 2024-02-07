@@ -38,7 +38,6 @@ module.exports = {
         {
             resolve: `gatsby-plugin-sitemap`,
             options: {
-                excludes: [`/my-files/`],
                 query: `
             {
                 site {
