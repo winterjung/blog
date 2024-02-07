@@ -1,4 +1,5 @@
 import { css } from "@emotion/react"
+import { Analytics } from "@vercel/analytics/react"
 import { graphql, Link, useStaticQuery } from "gatsby"
 import React from "react"
 import { rhythm } from "../utils/typography"
@@ -36,6 +37,7 @@ export default function Layout({ children }) {
                 <hr />
             </Link>
             {children}
+            <Analytics />
         </div>
     )
 }
