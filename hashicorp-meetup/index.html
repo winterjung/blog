@@ -1,0 +1,693 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.45 'georgia',serif;box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.8);font-family:'georgia',serif;font-weight:normal;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}h1{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:2rem;line-height:1.1;}h2{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:1.51572rem;line-height:1.1;}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:1.31951rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:0.87055rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Oxygen','Ubuntu','Cantarell','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;font-weight:bold;text-rendering:optimizeLegibility;font-size:0.81225rem;line-height:1.1;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}ul{margin-left:1.45rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;list-style-position:outside;list-style-image:none;}ol{margin-left:1.45rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;font-size:0.85rem;line-height:1.45rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;font-size:1rem;line-height:1.45rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}blockquote{margin-left:1.45rem;margin-right:1.45rem;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(1.45rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}b{font-weight:bold;}strong{font-weight:bold;}dt{font-weight:bold;}th{font-weight:bold;}li{margin-bottom:calc(1.45rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.45rem;margin-bottom:calc(1.45rem / 2);margin-top:calc(1.45rem / 2);}li > ul{margin-left:1.45rem;margin-bottom:calc(1.45rem / 2);margin-top:calc(1.45rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(1.45rem / 2);}code{font-size:0.85rem;line-height:1.45rem;}kbd{font-size:0.85rem;line-height:1.45rem;}samp{font-size:0.85rem;line-height:1.45rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:0.96667rem;padding-right:0.96667rem;padding-top:0.725rem;padding-bottom:calc(0.725rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}</style><meta name="generator" content="Gatsby 5.13.3"/><meta data-react-helmet="true" name="description" content="HashiCorp 한국 사용자 모임이 주최하여 2018년 7월 28일 공개SW개발자센터 대강의장에서 있었던 하시코프 한국 사용자 모임 밋업 내용을 정리했다. 밋업소개 HashiCorp korea user group 소개 HashiCorp korea …"/><meta data-react-helmet="true" name="image" content="https://www.winterjung.dev/header.png"/><meta data-react-helmet="true" property="og:title" content="하시코프 한국 사용자 모임 밋업 정리"/><meta data-react-helmet="true" property="og:url" content="https://www.winterjung.dev/hashicorp-meetup/"/><meta data-react-helmet="true" property="og:description" content="HashiCorp 한국 사용자 모임이 주최하여 2018년 7월 28일 공개SW개발자센터 대강의장에서 있었던 하시코프 한국 사용자 모임 밋업 내용을 정리했다. 밋업소개 HashiCorp korea user group 소개 HashiCorp korea …"/><meta data-react-helmet="true" property="og:image" content="https://www.winterjung.dev/header.png"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"/><meta data-react-helmet="true" name="twitter:title" content="하시코프 한국 사용자 모임 밋업 정리"/><meta data-react-helmet="true" name="twitter:description" content="HashiCorp 한국 사용자 모임이 주최하여 2018년 7월 28일 공개SW개발자센터 대강의장에서 있었던 하시코프 한국 사용자 모임 밋업 내용을 정리했다. 밋업소개 HashiCorp korea user group 소개 HashiCorp korea …"/><meta data-react-helmet="true" name="twitter:image" content="https://www.winterjung.dev/header.png"/><meta data-react-helmet="true" name="twitter:creator" content="@res_tin"/><style data-href="/styles.763531abacb6bc2bb1d5.css" data-identity="gatsby-global-css">code,pre{font-family:Fira Code,SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace}pre{background-color:#f6f8fa;line-height:1.45;overflow:auto;padding:16px}code,pre{border-radius:3px}code{background-color:rgba(27,31,35,.05);font-size:.85em;margin:0;padding:.2em .4em}pre>code{background:transparent;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal}</style><title data-react-helmet="true">하시코프 한국 사용자 모임 밋업 정리</title><link data-react-helmet="true" rel="canonical" href="https://www.winterjung.dev/hashicorp-meetup/"/><link rel="preconnect" href="https://www.googletagmanager.com"/><link rel="dns-prefetch" href="https://www.googletagmanager.com"/><link rel="sitemap" type="application/xml" href="/sitemap-index.xml"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><style data-emotion="css 1uuzzhj">.css-1uuzzhj{margin:0 auto;max-width:700px;padding:2.9rem;padding-top:2.175rem;}</style><div class="css-1uuzzhj"><a href="/"><style data-emotion="css jfvr3k">.css-jfvr3k{margin-bottom:1.45rem;display:inline-block;font-style:normal;}</style><h2 class="css-jfvr3k">winterjung blog</h2><hr/></a><div><h1>하시코프 한국 사용자 모임 밋업 정리</h1><style data-emotion="css 255c6r">.css-255c6r{word-break:keep-all;}</style><div class="css-255c6r"><p>HashiCorp 한국 사용자 모임이 주최하여 2018년 7월 28일 공개SW개발자센터 대강의장에서 있었던 <a href="https://festa.io/events/45">하시코프 한국 사용자 모임 밋업</a> 내용을 정리했다.</p>
+<h2>밋업소개</h2>
+<ul>
+<li>HashiCorp korea user group 소개</li>
+<li>HashiCorp korea 대표</li>
+<li>HashiCorp 서비스 이름 맞추기 퀴즈: 내가 받았다.
+<ul>
+<li>Vagrant, Packer, Consul, Terraform, Vault, Nomad</li>
+</ul>
+</li>
+</ul>
+<figure>
+  <a href="https://winterj.me/images/20180728/T.jpg">
+    <img src="https://winterj.me/images/20180728/T.jpg" alt="T shirt">
+  </a>
+  <figcaption>
+    고마워요 구글. 고마워요 위키피디아
+  </figcaption>
+</figure>
+<hr>
+<h2>레거시 위에서 재현 가능한 환경 구축하기 - <a href="https://github.com/mingrammer">권민재</a></h2>
+<ul>
+<li>발표자 SundayToz, 게임 서버 개발</li>
+<li>써보고 싶은 사람에게 맞는 내용일듯</li>
+<li>구성: 기존 문제 - Vagrant - Terraform</li>
+</ul>
+<h3>기존 개발 환경</h3>
+<ul>
+<li>rsync로 배포</li>
+<li>ssh로 들어가서 요청해서 또 rsync</li>
+<li>계속 ssh로 들어가서 작업, 쌓이는 스크립트, 쌓이는 패키지</li>
+<li>블랙박스 서버가 됨</li>
+</ul>
+<h3>문제</h3>
+<ul>
+<li>로컬 디버깅
+<ul>
+<li>데브 서버는 배포만하고 로컬 서버에서 테스트 하자는 필요</li>
+<li>구글 드라이브에 돌아다니는 의문의 Vagrant Box</li>
+<li>당연히 안돌아가고 동일한 환경인지도 모름</li>
+<li><strong>서버 환경 정의를 코드로 남겨야겠다는 필요를 느낌</strong></li>
+</ul>
+</li>
+<li>다중 테스트 서버
+<ul>
+<li>원래 스테이지 서버에서 하다가 2개 이상의 QA 필요가 생김</li>
+<li>스위칭 하면서 동시 테스트 -> 실수 유발</li>
+<li><strong>필요에 따라 찍어낼 수 있는 서버가 필요</strong></li>
+</ul>
+</li>
+<li>환경 재현의 어려움
+<ul>
+<li>라이브에서 광역으로 버그 발생</li>
+<li>로그로는 알 수 없는 버그</li>
+<li>라이브 서버 환경을 재현할 방법이 없어 난감</li>
+<li>급한대로 라이브 서버의 루트 파일 시스템 덤프, 어찌어찌 고치긴함</li>
+<li><strong>이미지로 서버 프로비저닝이 가능한 환경 필요</strong></li>
+</ul>
+</li>
+<li>AWS 인프라 이전
+<ul>
+<li>반드시 동일해야함</li>
+<li>이왕할거 인프라 자동화를 하자</li>
+</ul>
+</li>
+</ul>
+<h3>HashiCorp와의 만남</h3>
+<ul>
+<li>Vagrant, Ansible, Packer, Terraform</li>
+<li>요구사항
+<ol>
+<li>모든 머신에서 동일한 로컬 프로비저닝 -> Vagrant</li>
+<li>관리 가능한 인프라 프로비저닝 -> Terraform</li>
+</ol>
+</li>
+</ul>
+<h3>Vagrant</h3>
+<ul>
+<li>어려웠던점
+<ul>
+<li>레거시 코드 추적</li>
+<li>과연 정말로 배포된 환경과 같을까 확신은 없음</li>
+<li>로컬 서버 DB 자체 구성</li>
+</ul>
+</li>
+<li>나아진점
+<ul>
+<li>클린 서버</li>
+<li>로컬 디버깅 수월</li>
+<li>코드로 남아 추적이 용이</li>
+<li>새로운 환경 구성 용이</li>
+</ul>
+</li>
+</ul>
+<h3>Terraform</h3>
+<ul>
+<li>인프라 정의 파일 작성</li>
+<li><code>terraform plan</code>, <code>terraform apply</code>, 출력값 확인</li>
+<li>리소스간 데이터 참조 가능</li>
+<li>불필요한 중복 -> Terramform module 활용</li>
+<li>모듈화 단위는 Network와 Compute로 함</li>
+<li>정의는 다 됐는데 AMI가 필요함, 그런데 어디서 가져오지?
+<ul>
+<li>웹에 들어가서 스냅샷 찍어서 빼오기?</li>
+<li>답은 Packer</li>
+</ul>
+</li>
+<li>packer build + config.yml -> 인스턴스 생성 -> 프로비저닝 -> 스냅샷 -> AMI 생성 -> AMI ID 출력
+<ul>
+<li>EBS 타입으로 ubuntu 16.04를 베이스로 base.sh를 프로비저닝 한 뒤 출력을 저장하라</li>
+<li>로컬 서버 구축시 사용한 스크립트와 동일</li>
+<li>jq로 ami를 가져와 terraform 변수로 남김 <code>.tfvars</code></li>
+</ul>
+</li>
+<li>어려웠던점
+<ul>
+<li>학습 비용: 모듈화 구조잡기 테스트</li>
+<li>Terramform 버그</li>
+<li><strong>이 방식을 검증해줄 사람이 없음</strong></li>
+</ul>
+</li>
+<li>나아진점
+<ul>
+<li>클린 서버</li>
+<li>인프라 프로비저닝이 아주 편리해짐</li>
+<li>코드로 남아 추적이 용이</li>
+<li>인스턴스 내린 뒤에도 정확히 동일한 환경 구성 가능</li>
+</ul>
+</li>
+<li>남아있는 문제
+<ul>
+<li>아직 로컬 서버의 환경 구성 변경을 즉시 못따라감</li>
+<li>tfstate, tf 데이터 관리</li>
+<li>프로덕션 서버에는 아직 적용 못해봄, 코드 이전 이슈</li>
+<li>DevOps, IaC 문화</li>
+<li>서버 프로비저닝과 코드 배포 프로세스의 개선 여지가 많음</li>
+</ul>
+</li>
+</ul>
+<h3>마무리</h3>
+<ul>
+<li>최종적으로 프로덕션에서 사용할 수 있을지는 미지수</li>
+<li>재현 가능 환경은 구성했으나 개선 여지는 많음</li>
+<li>학습 비용과 구축 비용은 감안</li>
+<li>정의나 명세 파일의 버전관리가 핵심</li>
+</ul>
+<h3>QNA</h3>
+<ul>
+<li>aws 콘솔보다 코드로 관리하니 효율적이었다</li>
+<li>패커로 이미지 만들었을 때 이미지 id를 가져오는 방법이 리소스말고 데이터소스로 ami에 대한 데이터소스를 정의하고 필터를 줘서 어느걸 가져올지 줘서 이미지 id 패턴을 지정해 줄 수 있음.
+<ul>
+<li>packer에서 만든 id를 가져올 수 있다는 분에게, 콘솔에서 id를 등록해서 가져오는 방법도 좋지 않을까 고민이 되는 문제</li>
+</ul>
+</li>
+<li>state 공유하는 문제는 terraform 백엔드가 지원해서 여러 사람 사용할 수 있게 aws s3로 쓸 수 있음</li>
+<li>코드 배포 프로세스 개선은 ansible을 고려중이나 아직 미정</li>
+</ul>
+<br>
+<h2>20명 규모의 팀에서 Vault 사용하기 - <a href="https://github.com/synthdnb">김민규</a>, <a href="https://github.com/solmonk">김도윤</a></h2>
+<ul>
+<li>잠시 데브시스터즈 회사소개</li>
+<li>많은 하시코프 제품 사용/리서치 중</li>
+<li>그 중에서 Valut를 다뤄보고자 함</li>
+</ul>
+<h3>&#x3C; 10명 시절</h3>
+<ul>
+<li>입사자 선물 세트: 공용 비밀번호, 공용 SSH Key</li>
+<li>서버 100대, 사람 10명 정도가 저 공용 secret을 공유하는 상황</li>
+<li>어느날 퇴사자 발생 -> key rotate</li>
+<li>슬랙으로 전달할수도 없고 구전으로 전파함</li>
+<li>ssh 키는 파일만 바꾸면 되는데 그게 100대</li>
+<li>스크립트 못만들어요?
+<ul>
+<li>aws 계정이 다름</li>
+<li>os가 다름</li>
+<li>잘못 돌리면 대처하기 골치아픔</li>
+</ul>
+</li>
+<li>키 교체 TF 결성</li>
+</ul>
+<h3>+ 20명</h3>
+<ul>
+<li>서버는 500+대, 사람 20+명, aws 계정 5+개, VPC 10+개</li>
+<li>찾다가 알아낸게 Vault, 그 중에서 Vault를 통한 SSH 기능</li>
+</ul>
+<h3>Vault를 통한 SSH</h3>
+<ul>
+<li>간단한 기술적인 설명</li>
+<li>볼트는 믿을 수 있는 Secret store -> 훌륭한 Certificate Authority 역할 가능
+<ol>
+<li>client가 제가 볼트한테 이런 사람입니다. 접근을 허가해 주세요 하며 public key 보냄.</li>
+<li>접근을 허가한다. 5분 안에 접속하시오. 서명된 인증서 반환</li>
+<li>클라이언트는 서버로 제가 접속해도 된대요</li>
+<li>서버는 인증서가 있으니까 서명된 것이 맞네요. 계속 진행해도 좋습니다.</li>
+<li>퇴사자가 시도하면 서명은 됐는데 시간이 지나서 안됩니다.</li>
+</ol>
+</li>
+<li>초간단 서버 셋업 (볼트가 구성되어있다는 가정하에)
+<ol>
+<li>인증서를 만든다. 퍼블릭 키만 내려옴</li>
+<li>접속할 수 있는 인스턴스가 다를 수도 있으니 역할을 등록한다.</li>
+<li>서버에 인증서 공개키를 등록한다.</li>
+<li>공용 AMI로 굽는다.</li>
+</ol>
+</li>
+<li>클라이언트는 더 간단 <code>vault ssh -mode=ca --role=my-role user@1.2.3.4</code>. 앞에 vault만 붙이면 됨</li>
+<li>새 팀원이 오면 필요한 그룹에 넣어주기만 하면 된다.</li>
+<li>Vault에 장애가 나면?
+<ul>
+<li>비상용 키 aws 키페어</li>
+<li>서버들에 기본으로 public key 등록</li>
+</ul>
+</li>
+<li>문서화가 잘 되어있음
+<ul>
+<li>어느날 보면 잘 되어있음</li>
+</ul>
+</li>
+</ul>
+<h3>Application에 Secret 넘기기</h3>
+<ul>
+<li>겪고있던 또 다른 문제</li>
+<li>어떤 식으로든 <code>db_password</code> 같은걸 app에 전달해줘야함</li>
+<li>어떻게 알려주죠?
+<ul>
+<li>처음엔 Password in Code, 좋은 방법은 아님
+<ul>
+<li>Code의 접근 권한과 Secret의 접근 권한이 다른 경우가 많음</li>
+<li>Rotate하면 코드 싹 다 갈아엎어야</li>
+<li>Github에 저장을 하는데 관리밖에 있는 인프라스트럭쳐임</li>
+</ul>
+</li>
+<li>AMI에 넣어서 구워두는거도 문제가 많음</li>
+<li>서버에만 올려두면 오토스케일링 하기 힘듬</li>
+<li>결국 작업자가 모르는게 최고</li>
+</ul>
+</li>
+<li>그래서 사용한게 Vault KeyValue store
+<ul>
+<li>권한이 있는 사용자가 볼트에 접근해 요청하면</li>
+<li>볼트가 값을 내려줌</li>
+</ul>
+</li>
+<li>Vault는 뭘 믿고 얘한테 키를 줄까
+<ul>
+<li>aws에서 찍어주는 옥새, 인스턴스 자격 증명 문서
+<ol>
+<li>aws에 자격증명서 주세요. 하면 aws가 줌</li>
+<li>프로비저닝 될때 볼트에 자격 증명 문서를 보냄</li>
+<li>볼트가 aws와 검증함. 태그, IAM 역할, 메타데이터 받음</li>
+<li>적합한 토큰 생성해 인스턴스에 반환함</li>
+</ol>
+</li>
+<li>쉘로 짜면 2줄정도, Packer로 모든 AMI에 구워넣음</li>
+<li>3일 전에 Vault Agent 기능이 베타로 출시</li>
+<li>얘가 지금 말해준 일을 알아서 다 해주는것같음</li>
+</ul>
+</li>
+</ul>
+<h3>FAQ</h3>
+<ul>
+<li>가로채이면 어쩌지?
+<ul>
+<li>첫 번째 로그인한 사람만 신뢰, 두 번째부터는 처음때 썼던 nonce값 필요</li>
+</ul>
+</li>
+<li>이제는 100% 완벽하고 안전하게 관리하는지?
+<ul>
+<li>100%는 아니다</li>
+<li>도커에 환경변수로 전달하는데 그 방법이 안전한건 아님</li>
+<li>제대로 하려면 각 앱이 Vault API를 호출해야함</li>
+<li>그래도 예전 코드에 넣거나 작업자가 외워서 사용하는 방식보단 진보함</li>
+</ul>
+</li>
+</ul>
+<h3>Vault 구축 과정</h3>
+<ul>
+<li>되게 좋은데 도입을 못하는건 구축 과정이나 사람들의 습관을 바꾸는것 때문이기도</li>
+<li>만약
+<ul>
+<li>도입했는데 장애도 많고 불편해요</li>
+<li>우리 팀은 안쓸래요 뭐가 좋은지 모르겠어요</li>
+<li>셋업 어려워요 어떻게 써요?</li>
+<li>하던대로 하면 안돼요?</li>
+</ul>
+</li>
+</ul>
+<h4>구축시 신경쓸 점</h4>
+<ul>
+<li>안정성
+<ul>
+<li>갑작스런 장애는 아무도 원하지 않음</li>
+<li>Vault는 업데이트가 잦다. 무중단 업데이트 가능할 필요성</li>
+</ul>
+</li>
+<li>보안
+<ul>
+<li>절대 털리면 안될 곳이므로 최대한 안전하게</li>
+<li>Vault 권장사항 정독 후 충실히 따름</li>
+</ul>
+</li>
+<li>사용성
+<ul>
+<li>개인적으로 제일 중요하다고 생각</li>
+<li>사람들의 생활 습관을 최대한 적게 바꾸는 방향으로</li>
+<li>사람들이 적응하는데 어렵지 않도록</li>
+</ul>
+</li>
+</ul>
+<h4>안정성</h4>
+<ul>
+<li>일단 지원되는 건 엄청 많음</li>
+<li>MySQL, Dynamo, FileSystem</li>
+<li>제일 끌린건 자사제품 Consul
+<ul>
+<li>KV Store, Service Discovery 등</li>
+<li>뭔가 믿음직함 (중요), <strong>HashiCorp Supported</strong></li>
+</ul>
+</li>
+</ul>
+<h4>고가용성</h4>
+<ul>
+<li>서버가 두 대면 됨</li>
+<li>Active-Standby, Consul Cluster 3대 -> Vault 2대</li>
+<li>라우팅을 잘해줘야 하니 ELB를 사용</li>
+<li>이미 Consul이 훌륭한 Service Discovery 기능 제공
+<ul>
+<li>유저가 DNS 설정만 잘 해줘도 Vault 알아서 잘 찾음</li>
+</ul>
+</li>
+<li>그럼에도 ELB를 선택한 이유
+<ul>
+<li>테라폼으로 뚝딱 만들면 되니 관리 코스트가 몹시 적음</li>
+<li>유저에게도 뭔가 시키지 않는 선택지</li>
+<li>사용성이 좋았다.</li>
+</ul>
+</li>
+<li>볼트 클러스터 5대 구성을 테라폼으로 다하고있음</li>
+</ul>
+<h4>보안</h4>
+<ul>
+<li>볼트에서 시키는거 다 하려면 꽤 피곤함</li>
+<li>할거면 제대로 해야지 뭐 라는 마인드로 이것저것 다 함</li>
+<li>제일 힘들었던 건 End-to-End TLS
+<ul>
+<li>웹 서버 같은 경우는 ELB와 앱 사이는 그냥 HTTP로 하기도 하는데 볼트는 그러지 않길 권장함</li>
+<li>Vault는 기본으로 자체적으로 SSL 서빙이 가능한 상태로</li>
+<li>인증서, 각각의 인스턴스에서 알아서 발급, 알아서 갱신 -> Let's Encrypt!</li>
+<li><a href="https://github.com/Neilpang/acme.sh">Neilpang/acme.sh</a> 스크립트 사용</li>
+<li>Route53을 활용한 DNS-01 인증</li>
+</ul>
+</li>
+<li>Audit Logging
+<ul>
+<li>s3에 logrotate로 적재</li>
+<li>syslog도 사용 가능</li>
+<li>ELK같은 로깅 인프라가 있다면 활용 가능</li>
+</ul>
+</li>
+</ul>
+<h4>사용성</h4>
+<ul>
+<li>제일 중요한건 문서화라 생각</li>
+<li>셋업은 한때일 뿐 권한 설정에 더 많은 시간을 쓰게 된다.</li>
+<li>GitHub 그룹 권한 활용, 사내 LDAP</li>
+<li>Secret 관리
+<ul>
+<li>체계적이고 직관적인 경로 설정, 예 <code>/secret/app/appname/rds</code></li>
+<li>정책에 관한 꼼꼼한 문서화</li>
+<li>가급적 도입 전부터</li>
+</ul>
+</li>
+<li>적응에 도움주기
+<ul>
+<li>개념 자체가 생소하고 어려움</li>
+<li>기본 개념부터 하나하나 문서화</li>
+<li>회사 개발팀 돌면서 강의 진행</li>
+<li>도움되는 스크립트 공유</li>
+</ul>
+</li>
+</ul>
+<h3>회고</h3>
+<ul>
+<li>굉장히 편함</li>
+</ul>
+<h4>예상을 벗어났던 것</h4>
+<ul>
+<li>권장은 권장일 뿐
+<ul>
+<li>End-to-End TLS는 셋업 난이도 수직상승</li>
+</ul>
+</li>
+<li>Consul
+<ul>
+<li>은근 관리 까다로움</li>
+<li>버전업을 한번에 성공한적이 없음</li>
+<li>적극적인 백업 권장</li>
+</ul>
+</li>
+<li>히어로
+<ul>
+<li>없던 정책을 새로 설정하고 관리하는 건 생각보다 힘든 일</li>
+<li>의지와 추진력을 가진 자가 필요함</li>
+<li>Case: Unseal
+<ul>
+<li>Vault 인스턴스는 처음 뜨면 봉인된 상태</li>
+<li>n명 중 m명이 모이면 해제할 수 있다</li>
+<li>7명의 Unsealers를 지정해서 관리 책임을 분산</li>
+<li>이상은 어벤져스</li>
+<li>현실은 저스티스리그</li>
+<li>혼자서는 팀을 구할 수 없다</li>
+<li>애매하게 분산된 책임</li>
+<li>결국 운영하는 두 명이 Unseal도 하는 중</li>
+<li>처음엔 unseal 최저 인원 무조건 낮게 잡는게 좋을 듯</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>인내심
+<ul>
+<li>기다리던 업데이트도 문제가 생겨 종종 롤백</li>
+<li>새로 개발되는 기능은 좀 기다렸다 써보자</li>
+<li>혹은 PR과 이슈</li>
+</ul>
+</li>
+</ul>
+<h4>예상보다 더 좋았던 것</h4>
+<ul>
+<li>Audit Logging
+<ul>
+<li>최고의 장점이자 핵심 가치</li>
+<li>조사하면 정말 뭐든지 다 나온다</li>
+<li>비밀번호 누가 바꿔놨지 -> 검거</li>
+<li>세팅이 왜이래 -> 검거</li>
+</ul>
+</li>
+<li>일단 넣기 문화
+<ul>
+<li>config 파일 -> KV에 넣어</li>
+<li>공용 OTP는 -> TOTP Backend</li>
+<li>그냥 간단히 안전하게 전달하고 싶은데 -> Transit Backend</li>
+<li>이게 극히 일부만 쓰고 있는 것</li>
+</ul>
+</li>
+<li>엄청난 발전 속도
+<ul>
+<li>없던 UI</li>
+<li>가이드 문서</li>
+<li>버저닝</li>
+<li>CLI 자동완성</li>
+</ul>
+</li>
+<li>줄줄이 패키지
+<ul>
+<li>자사 제품과의 연계가 좋음</li>
+<li>Consul, Terraform, Packer, Nomad</li>
+<li>쿠버네틱스는 볼트랑 같이 쓰기 그리 쉽진 않았음</li>
+</ul>
+</li>
+</ul>
+<h4>이런 분들에게 추천</h4>
+<ul>
+<li>Terraform 적극 사용 팀</li>
+<li>보안 스탠다드가 높거나 높이고 싶음 팀</li>
+<li>급격히 성장중이고 빠르게 인원이 증가하는 팀</li>
+<li>아니면 데브시스터즈 오세요</li>
+</ul>
+<hr>
+<h2>Why Terraform, Why not CloudFormation - <a href="https://www.linkedin.com/in/geunwoo-shin/">신근우</a></h2>
+<ul>
+<li>대상 청중
+<ul>
+<li>AWS 사용하시는 분들</li>
+<li>Infrastructure as code 를 시작하시려는 분들</li>
+<li>Terraform 도입을 하시려는 분들</li>
+</ul>
+</li>
+</ul>
+<h3>클라우드포메이션 얘기</h3>
+<ul>
+<li>문제가 많다</li>
+</ul>
+<h3>Terraform 얘기</h3>
+<ul>
+<li>다양한  Provider
+<ul>
+<li>AWS, Azure, GCP, K8S, RabbitMQ, Vault 등</li>
+</ul>
+</li>
+<li>Built-in functions</li>
+<li>State는 Terraform 설정과 Real-world Infrastructure 간의 매핑, 알파이자 오메가라고 생각함</li>
+<li>Data Source / Module / State로 유연하게 Resource 관리 가능</li>
+<li>단점
+<ul>
+<li>제대로 롤백이 안될 때가 있음</li>
+<li>느린 속도때문에 반 강제된 모듈화</li>
+<li>익숙하지 않은 HCL</li>
+</ul>
+</li>
+<li>Simple and Powerful</li>
+</ul>
+<hr>
+<h2>그들이 서비스와 엔터프라이즈 인프라를 AWS 위에서 다루는 방법 - <a href="https://1ambda.blog/">박훈</a></h2>
+<ul>
+<li>ZEPL, 소프트웨어 엔지니어</li>
+<li><a href="https://docs.google.com/presentation/d/17BuIWIkuh9ews6MsFimi0z1g3vt859j3cL_BBpNM95E/edit?usp=sharing">슬라이드 주소</a></li>
+</ul>
+<h3>문제</h3>
+<ul>
+<li>사용자 하나당 컨테이너 하나나 n개 받아갈 수 있음</li>
+<li>2018년 1월에 k8s 관련해 발표함.</li>
+<li>주키퍼 카우치DB는 설치해 사용함</li>
+<li>k8s cluster, ecs cluster</li>
+<li>엔터프라이즈를 위해 복사할 인프라, 제약조건들
+<ul>
+<li>AWS Infra</li>
+<li>인스턴스를 띄워서 소프트웨어를 깔고 클러스터링</li>
+<li>k8s와 에드온 설치</li>
+<li>스키마 채워주기</li>
+<li>앱 설치 + 마이크로서비스</li>
+<li>모니터링 + 알림</li>
+<li>로깅</li>
+<li>엔터프라이즈 고객이 쓰고있는 서비스를 테스트돌릴 수 있어야함</li>
+</ul>
+</li>
+<li>엔터프라이즈 특화 문제
+<ul>
+<li>커스텀, 스케일링, ECR 공유, 깐깐한 인프라 룰, 보안 정책</li>
+</ul>
+</li>
+<li>Feature Flags/Toggles</li>
+<li>고객마다 k8s 클러스터가 생기면
+<ul>
+<li>Users X Clusters, 배포방법 알아야함</li>
+<li>Secrets</li>
+<li>지식 전파</li>
+</ul>
+</li>
+</ul>
+<h3>어떻게</h3>
+<ul>
+<li>인프라 레이어, k8s 레이어, 앱 레이어</li>
+<li>각 레이어에 인스톨, 모니터, 배포 총 9개</li>
+</ul>
+<h4>Infra + Install -> Terraform, Ansible</h4>
+<ul>
+<li>Generate Template &#x26; Execute Task</li>
+<li>다양한 옵션</li>
+</ul>
+<h4>Infra + Monitor/Logging -> AWS Cloudwatch &#x26; LOG</h4>
+<ul>
+<li>EC2 MEM, DISK 기본으로 안줌</li>
+<li>오토 스케일링 그룹에서 알람 가게하려면 또 복잡함</li>
+<li>ECS 모니터링 하려면 이런거 이런거 하면 됨</li>
+<li>Storage는 메트릭이 더 많음</li>
+<li>직접 설치한 서비스 EC2, ELB 활용</li>
+</ul>
+<h4>k8s + Install/Deploy -> kops</h4>
+<ul>
+<li>Terraform 으로 만들고 kops replace</li>
+</ul>
+<h4>App + Install -> HELM</h4>
+<ul>
+<li>Flyway</li>
+</ul>
+<h4>App + Monitor -> Prometheus</h4>
+<ul>
+<li>operator</li>
+</ul>
+<h3>TODO</h3>
+<ul>
+<li>App + Deploy -> Spinnaker</li>
+</ul>
+<h3>Summary</h3>
+<figure>
+  <a href="https://winterj.me/images/20180728/summary.png">
+    <img src="https://winterj.me/images/20180728/summary.png" alt="요약">
+  </a>
+  <figcaption>
+    요약
+  </figcaption>
+</figure>
+<hr>
+<h2>Packer와 Ansible로 AMI 빌드하고 Vagrant로 빌드 과정 검증하기 - <a href="https://keybase.io/nacyot/">nacyot</a></h2>
+<ul>
+<li>당근마켓 재직, <a href="https://www.44bits.io/">44bits.io</a> 운영</li>
+<li>패커와 베이그런트</li>
+</ul>
+<h3>Packer: 범용 커스텀 이미지 빌드 도구</h3>
+<ul>
+<li>타켓 애플리케이션이 작동하는 균형 상태</li>
+<li>프로비저닝이 끝난 상태를 이미지로 저장</li>
+</ul>
+<blockquote>
+<p>프로비저닝은 서버 등의 요소를 사용할 수 있는 상태로 만드는 것 - 코드로 인프라 관리하기</p>
+</blockquote>
+<ul>
+<li>기존의 이미지 빌드
+<ul>
+<li>서버 관리자가 서버를 직접 수정하고 그대로 저장</li>
+<li>처음엔 혁신적인 방법이었음</li>
+<li>지금은 관리가 어렵고 재현 불가능</li>
+<li>수동임</li>
+<li>언제 필요할지 모르는 이전 이미지는 쌓이기만 함</li>
+</ul>
+</li>
+<li>Build <strong>Automated</strong> Machine Images</li>
+<li>패커의 핵심 부분은 <strong>빌더</strong>와 <strong>프로비저너</strong>
+<ul>
+<li>빌더: 특정 플랫폼 이미지 만드는 플러그인</li>
+<li>프로비저너: 프로비저닝을 수행하는 플러그인 (sh나 chef, ansible등을 사용함)</li>
+</ul>
+</li>
+<li>e.g. Builder는 Docker, Virtualbox, amazon-ebs 등등</li>
+<li>이미지 빌드 특징 -> 패커 프로젝트 repo
+<ul>
+<li>코드로 관리</li>
+<li>변경 때마다 매번 이미지 새로 빌드</li>
+<li>재현 가능</li>
+<li>자동화 가능</li>
+</ul>
+</li>
+<li>데모 01 - 패커로 AMI 빌드</li>
+<li>단점
+<ul>
+<li>단 한 방에 이루어짐</li>
+<li>빌드 시간이 김</li>
+<li>빌드 과정에 개입할 수 없음</li>
+<li>프로비저닝에서 문제가 생기면 처음부터 다시</li>
+</ul>
+</li>
+</ul>
+<h3>Vagrant</h3>
+<ul>
+<li>점진적 이미지 빌드</li>
+<li>프로바이더 + 프로비저너</li>
+<li>프로바이더 vs 빌더
+<ul>
+<li>프로바이더는 아웃풋으로 VM</li>
+<li>빌더는 아웃풋으로 이미지</li>
+</ul>
+</li>
+<li>프로비저너 업데이트 후 provision 명령어로 반영 가능</li>
+<li>패커는 되기 전까지 될지 안될지 모름</li>
+<li>베이그런트로 개선 가능
+<ul>
+<li>vagrant up -> vagrant provision -> 에러가 나면 다시 고치고 -> vagrant provision (이 때 ansible 같은 경우 성공한 부분은 넘어가기 때문에 이 개선이 빠르게 이루어짐)</li>
+</ul>
+</li>
+<li>가상 머신과 패커 빌드 환경은 다르다 -> vagrant-aws 라는 프로바이더 사용 가능
+<ul>
+<li>VM 대신 AWS 인스턴스 실행</li>
+<li>키페어 지정 부분만 다르고 거의 똑같음</li>
+</ul>
+</li>
+<li>데모 02 - Vagrant aws</li>
+<li>함정
+<ul>
+<li>destroy 안하면 인스턴스 계속 남아있음</li>
+<li>미묘하게 패커 빌드 환경과 다를 수 있음</li>
+<li>프로비저닝을 하다 보면 달라질 수 있어서 destroy 후 up 을 통해 검증</li>
+</ul>
+</li>
+</ul>
+<h3>결론</h3>
+<ul>
+<li>패커로 이미지 빌드 자동화</li>
+<li>베이그런트를 통해 이미지 빌드 과정을 사전에 검증</li>
+<li>급할수록 돌아가자</li>
+</ul>
+<h2>개인적인 후기</h2>
+<ul>
+<li>작은 부분부터 Terraform으로 바꿔보자.</li>
+<li>데브시스터즈 발표 재밌다.</li>
+<li>NDC에서 듀랑고팀도 Packer와 Ansible 얘기하던데 슬라이드 다시 봐야겠다.</li>
+<li>서버로 SSH 접속해 업데이트하는 배포에서 벗어나자.</li>
+</ul></div></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GHDZ9WX1EH"></script><script>
+      
+      
+      if(true) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-GHDZ9WX1EH', {"send_page_view":false});
+      }
+      </script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/hashicorp-meetup/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
+          <script
+            id="gatsby-chunk-mapping"
+          >
+            window.___chunkMapping="{\"app\":[\"/app-2de8dd80665bcb02167b.js\"],\"component---src-pages-404-jsx\":[\"/component---src-pages-404-jsx-2e46b0aedfddc9ed0d72.js\"],\"component---src-pages-index-jsx\":[\"/component---src-pages-index-jsx-a3f57e32931f87b809ea.js\"],\"component---src-pages-my-files-jsx\":[\"/component---src-pages-my-files-jsx-e3918b5adbccab2e288d.js\"],\"component---src-templates-post-jsx\":[\"/component---src-templates-post-jsx-8e21b8079b44f8d9ec12.js\"]}";
+          </script>
+        <script>window.___webpackCompilationHash="f2cff95366a5da3cb373";</script><script src="/webpack-runtime-ef87f0342182738b6f71.js" async></script><script src="/framework-1f1ec840701ba3409b52.js" async></script><script src="/app-2de8dd80665bcb02167b.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
