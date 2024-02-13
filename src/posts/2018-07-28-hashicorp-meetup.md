@@ -1,5 +1,6 @@
 ---
 title: 하시코프 한국 사용자 모임 밋업 정리
+image: images/20180728/meetup.jpg
 ---
 
 HashiCorp 한국 사용자 모임이 주최하여 2018년 7월 28일 공개SW개발자센터 대강의장에서 있었던 [하시코프 한국 사용자 모임 밋업](https://festa.io/events/45) 내용을 정리했다.
@@ -12,8 +13,8 @@ HashiCorp 한국 사용자 모임이 주최하여 2018년 7월 28일 공개SW개
   - Vagrant, Packer, Consul, Terraform, Vault, Nomad
 
 <figure>
-  <a href="https://winterj.me/images/20180728/T.jpg">
-    <img src="https://winterj.me/images/20180728/T.jpg" alt="T shirt">
+  <a href="/images/20180728/T.jpg">
+    <img src="/images/20180728/T.jpg" alt="T shirt">
   </a>
   <figcaption>
     고마워요 구글. 고마워요 위키피디아
@@ -428,8 +429,8 @@ HashiCorp 한국 사용자 모임이 주최하여 2018년 7월 28일 공개SW개
 ### Summary
 
 <figure>
-  <a href="https://winterj.me/images/20180728/summary.png">
-    <img src="https://winterj.me/images/20180728/summary.png" alt="요약">
+  <a href="/images/20180728/summary.png">
+    <img src="/images/20180728/summary.png" alt="요약">
   </a>
   <figcaption>
     요약

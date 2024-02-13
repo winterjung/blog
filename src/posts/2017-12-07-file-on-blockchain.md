@@ -9,7 +9,7 @@ title: File on blockchain 개발기
 앞서 [파이썬으로 스마트 컨트랙트 개발하기](https://winterj.me/smart-contract-with-python/) 글을 통해서 파이썬 서버를 운영하면서 동시에 `geth`, `solc`, `web3.py`를 이용해 javascript가 아닌 파이썬으로 간단한 스마트 컨트랙트를 배포하고 사용하는 법에 대해 알아봤다.
 
 <figure>
-	<a href="https://winterj.me/images/20171127/finish.png"><img src="https://winterj.me/images/20171127/finish.png" alt=""></a>
+	<a href="/images/20171127/finish.png"><img src="/images/20171127/finish.png" alt=""></a>
 	<figcaption style="text-align: center;">저번에 한 걸 요약한 사진. 파이썬으로 스마트 컨트랙트를 배포하고 호출했다.</figcaption>
 </figure>
 
@@ -21,16 +21,16 @@ PoC 수준에서 간단한 원본 증명 서비스를 제공한다. 사용자는
 ### 참고 사진 (클릭 시 커짐)
 
 <figure class="third">
-	<a href="https://winterj.me/images/20171203/02_upload_file.png"><img src="https://winterj.me/images/20171203/02_upload_file.png" alt=""></a>
-	<a href="https://winterj.me/images/20171203/03_upload_result.png"><img src="https://winterj.me/images/20171203/03_upload_result.png" alt=""></a>
-	<a href="https://winterj.me/images/20171203/04_info.png"><img src="https://winterj.me/images/20171203/04_info.png" alt=""></a>
+	<a href="/images/20171203/02_upload_file.png"><img src="/images/20171203/02_upload_file.png" alt=""></a>
+	<a href="/images/20171203/03_upload_result.png"><img src="/images/20171203/03_upload_result.png" alt=""></a>
+	<a href="/images/20171203/04_info.png"><img src="/images/20171203/04_info.png" alt=""></a>
 	<figcaption style="text-align: center;">파일 업로드와 파일 메타 정보 조회 화면</figcaption>
 </figure>
 
 <figure class="third">
-	<a href="https://winterj.me/images/20171203/05_check.png"><img src="https://winterj.me/images/20171203/05_check.png" alt=""></a>
-	<a href="https://winterj.me/images/20171203/06_true.png"><img src="https://winterj.me/images/20171203/06_true.png" alt=""></a>
-	<a href="https://winterj.me/images/20171203/08_false.png"><img src="https://winterj.me/images/20171203/08_false.png" alt=""></a>
+	<a href="/images/20171203/05_check.png"><img src="/images/20171203/05_check.png" alt=""></a>
+	<a href="/images/20171203/06_true.png"><img src="/images/20171203/06_true.png" alt=""></a>
+	<a href="/images/20171203/08_false.png"><img src="/images/20171203/08_false.png" alt=""></a>
 	<figcaption style="text-align: center;">블록체인에 있는 파일인지 확인한 결과 화면</figcaption>
 </figure>
 
