@@ -55,9 +55,6 @@ export default function Layout({ children }) {
                 <Link to="/" css={navLinkStyle}>
                     posts
                 </Link>
-                <Link to="/" css={navLinkStyle}>
-                    resume
-                </Link>
                 <Link to="/rss.xml" css={navLinkStyle}>
                     rss
                 </Link>
