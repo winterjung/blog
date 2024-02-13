@@ -151,6 +151,6 @@ n_lol = np.array(list_of_lists)
 성능들을 한눈에 알아보기 쉽게 하기 위해 `matplotlib`를 통해 그래프로 시각화 시켜주었다.  
 [그래프를 생성하는 Jupyter 코드](https://github.com/JungWinter/Code_Study/blob/master/Etc/list%20of%20lists%20to%20flatten.ipynb)  
 
-![결과](https://winterj.me/images/20170421/result.png)
+![결과](/images/20170421/result.png)
 log스케일의 그래프임으로 x축에서 1칸의 차이는 실질적으로 10배의 차이다.  
 `Numpy`와 `itertools`의 차이는 약 100배, `Numpy`와 `sum()`의 차이는 **1000배 이상**이다.

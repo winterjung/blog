@@ -71,14 +71,14 @@ pandas, plotly를 이용해 그래프로 그렸으며 과정은 [jupyter noteboo
 #### Request per second (클릭시 커짐)
 
 <figure class="third">
-	<a href="https://winterj.me/images/20180408/s_rps.png">
-        <img src="https://winterj.me/images/20180408/s_rps.png" alt="">
+	<a href="/images/20180408/s_rps.png">
+        <img src="/images/20180408/s_rps.png" alt="">
     </a>
-	<a href="https://winterj.me/images/20180408/r_rps.png">
-        <img src="https://winterj.me/images/20180408/r_rps.png" alt="">
+	<a href="/images/20180408/r_rps.png">
+        <img src="/images/20180408/r_rps.png" alt="">
     </a>
-	<a href="https://winterj.me/images/20180408/c_rps.png">
-        <img src="https://winterj.me/images/20180408/c_rps.png" alt="">
+	<a href="/images/20180408/c_rps.png">
+        <img src="/images/20180408/c_rps.png" alt="">
     </a>
 	<figcaption style="text-align: center;">sleep / request / compute test rps</figcaption>
 </figure>
@@ -86,14 +86,14 @@ pandas, plotly를 이용해 그래프로 그렸으며 과정은 [jupyter noteboo
 #### Time per request (클릭시 커짐)
 
 <figure class="third">
-	<a href="https://winterj.me/images/20180408/s_tpr.png">
-        <img src="https://winterj.me/images/20180408/s_tpr.png" alt="">
+	<a href="/images/20180408/s_tpr.png">
+        <img src="/images/20180408/s_tpr.png" alt="">
     </a>
-	<a href="https://winterj.me/images/20180408/r_tpr.png">
-        <img src="https://winterj.me/images/20180408/r_tpr.png" alt="">
+	<a href="/images/20180408/r_tpr.png">
+        <img src="/images/20180408/r_tpr.png" alt="">
     </a>
-	<a href="https://winterj.me/images/20180408/c_tpr.png">
-        <img src="https://winterj.me/images/20180408/c_tpr.png" alt="">
+	<a href="/images/20180408/c_tpr.png">
+        <img src="/images/20180408/c_tpr.png" alt="">
     </a>
 	<figcaption style="text-align: center;">sleep / request / compute test tpr</figcaption>
 </figure>
