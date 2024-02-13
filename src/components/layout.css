@@ -32,3 +32,11 @@ pre>code {
     background: transparent;
     border: 0;
 }
+
+blockquote {
+    margin: 0;
+    margin-bottom: 16px;
+    padding: 0 1em;
+    color: #656d76;
+    border-left: .25em solid #d0d7de;
+}
