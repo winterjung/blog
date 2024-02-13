@@ -54,12 +54,67 @@ module.exports = {
             }
             `,
                 serialize: ({ path, pageContext }) => {
-                    console.log(path, pageContext)
                     return {
                         url: path,
                         lastmod: pageContext?.lastmod,
                     }
                 },
+            },
+        },
+        {
+            resolve: `gatsby-plugin-feed`,
+            options: {
+                query: `
+              {
+                site {
+                  siteMetadata {
+                    title
+                    description
+                    siteUrl
+                    site_url: siteUrl
+                  }
+                }
+              }
+            `,
+                feeds: [
+                    {
+                        serialize: ({ query: { site, allMarkdownRemark } }) => {
+                            return allMarkdownRemark.edges.map((edge) => {
+                                return Object.assign(
+                                    {},
+                                    edge.node.frontmatter,
+                                    {
+                                        description: edge.node.excerpt,
+                                        date: edge.node.fields.date,
+                                        url: `${site.siteMetadata.siteUrl}/${edge.node.fields.slug}/?utm_source=feed&utm_medium=feed&utm_campaign=feed`,
+                                        guid: `${edge.node.fields.slug}`,
+                                    },
+                                )
+                            })
+                        },
+                        query: `
+                  {
+                    allMarkdownRemark(sort: { fields: { date: DESC }}) {
+                      edges {
+                        node {
+                          excerpt(truncate: true)
+                          html
+                          fields {
+                            slug
+                            date
+                          }
+                          frontmatter {
+                            title
+                          }
+                        }
+                      }
+                    }
+                  }
+                `,
+                        output: "/rss.xml",
+                        title: "winterjung blog rss feed",
+                    },
+                ],
             },
         },
     ],
