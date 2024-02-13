@@ -40,3 +40,24 @@ blockquote {
     color: #656d76;
     border-left: .25em solid #d0d7de;
 }
+
+details {
+    margin-bottom: 16px;
+}
+
+details:not([open]), summary {
+    cursor: pointer;
+}
+
+summary {
+    padding-left: 1.2em;
+    margin-left: -1em;
+}
+
+summary::before {
+    content: '▶︎ ';
+}
+
+details[open] summary:before {
+    content: "▼ ";
+}
