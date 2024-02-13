@@ -11,7 +11,7 @@ title: 파이썬으로 스마트 컨트랙트 개발하기
 ![](/images/20171127/study.jpeg)
 
 ## 보편적인 스마트 컨트랙트 배포 방식
-저번 스터디에는 [Time Token](http://winterj.me/project/time_second_token.sol)이라는 간단한 스마트 컨트랙트를 만들어 이를 [Mist 지갑](https://github.com/ethereum/mist) 클라이언트를 사용해 직접 배포하는 방식을 시연했다. 보통 배포 자체는 지갑 클라이언트를 사용하거나 [Truffle](https://github.com/trufflesuite/truffle)을 이용해 컴파일과 테스트를 거친 후 연동되어있는 이더리움 노드(e.g. [Geth](https://github.com/ethereum/go-ethereum), [Parity](https://github.com/paritytech/parity))를 통해 직접 배포하곤한다. TestRPC는 보통 개발단계에서 사용되며 현재 [Ganache](https://github.com/trufflesuite/ganache)로 이관되었다. (트러플에 가나슈까지 네이밍은 잘한다는 생각이 든다) 뒤에서도 말하겠지만 가나슈를 이용하면 스마트 컨트랙트를 개발하고 배포하는데 있어 여러 이점이 있다.
+저번 스터디에는 [Time Token](https://github.com/winterjung/JungWinter.github.io/blob/284ba471852e7abac3fccedb57f8d90ac21cd7bd/project/time_second_token.sol)이라는 간단한 스마트 컨트랙트를 만들어 이를 [Mist 지갑](https://github.com/ethereum/mist) 클라이언트를 사용해 직접 배포하는 방식을 시연했다. 보통 배포 자체는 지갑 클라이언트를 사용하거나 [Truffle](https://github.com/trufflesuite/truffle)을 이용해 컴파일과 테스트를 거친 후 연동되어있는 이더리움 노드(e.g. [Geth](https://github.com/ethereum/go-ethereum), [Parity](https://github.com/paritytech/parity))를 통해 직접 배포하곤한다. TestRPC는 보통 개발단계에서 사용되며 현재 [Ganache](https://github.com/trufflesuite/ganache)로 이관되었다. (트러플에 가나슈까지 네이밍은 잘한다는 생각이 든다) 뒤에서도 말하겠지만 가나슈를 이용하면 스마트 컨트랙트를 개발하고 배포하는데 있어 여러 이점이 있다.
 
 - [스마트 컨트랙트의 이해](http://goodjoon.tistory.com/261)
 
