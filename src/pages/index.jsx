@@ -4,36 +4,38 @@ import React from "react"
 import { rhythm } from "../utils/typography"
 
 import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Seo from "../components/seo"
 
-export default ({ data }) => (
-    <Layout>
-        <SEO />
-        <div>
-            {data.allMarkdownRemark.edges.map(({ node }) => (
-                <div key={node.id}>
-                    <Link
-                        to={node.fields.slug}
-                        css={css`
-                            text-decoration: none;
-                        `}
-                    >
-                        <h3
+export default function Index({ data }) {
+    return (
+        <Layout>
+            <Seo />
+            <div>
+                {data.allMarkdownRemark.edges.map(({ node }) => (
+                    <div key={node.id}>
+                        <Link
+                            to={node.fields.slug}
                             css={css`
-                                margin-bottom: ${rhythm(0.5)};
+                                text-decoration: none;
                             `}
                         >
-                            {node.frontmatter.title}
-                        </h3>
-                    </Link>
-                    <p>
-                        {node.fields.date} - {node.excerpt}
-                    </p>
-                </div>
-            ))}
-        </div>
-    </Layout>
-)
+                            <h3
+                                css={css`
+                                    margin-bottom: ${rhythm(0.5)};
+                                `}
+                            >
+                                {node.frontmatter.title}
+                            </h3>
+                        </Link>
+                        <p>
+                            {node.fields.date} - {node.excerpt}
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </Layout>
+    )
+}
 
 export const query = graphql`
     query {
