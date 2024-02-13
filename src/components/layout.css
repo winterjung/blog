@@ -4,19 +4,23 @@ pre {
 }
 
 pre {
-    overflow: auto;
-    background-color: #f6f8fa;
-    border-radius: 3px;
-    line-height: 1.45;
     padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    color: #1F2328;
+    background-color: #f6f8fa;
+    border-radius: 6px;
+    word-break: normal;
 }
 
 code {
     padding: .2em .4em;
     margin: 0;
-    font-size: 0.85em;
-    background-color: rgba(27,31,35,.05);
-    border-radius: 3px;
+    font-size: 85%;
+    white-space: break-spaces;
+    background-color: rgba(175,184,193,0.2);
+    border-radius: 6px;
 }
 
 pre>code {
@@ -27,4 +31,33 @@ pre>code {
     white-space: pre;
     background: transparent;
     border: 0;
+}
+
+blockquote {
+    margin: 0;
+    margin-bottom: 16px;
+    padding: 0 1em;
+    color: #656d76;
+    border-left: .25em solid #d0d7de;
+}
+
+details {
+    margin-bottom: 16px;
+}
+
+details:not([open]), summary {
+    cursor: pointer;
+}
+
+summary {
+    padding-left: 1.2em;
+    margin-left: -1em;
+}
+
+summary::before {
+    content: '▶︎ ';
+}
+
+details[open] summary:before {
+    content: "▼ ";
 }
