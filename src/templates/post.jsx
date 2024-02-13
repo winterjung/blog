@@ -2,13 +2,14 @@ import { css } from "@emotion/react"
 import { graphql } from "gatsby"
 import React from "react"
 import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Seo from "../components/seo"
 
-export default ({ data }) => {
+export default function Post({ data }) {
     const post = data.markdownRemark
+
     return (
         <Layout>
-            <SEO
+            <Seo
                 title={post.frontmatter.title}
                 description={post.excerpt}
                 image={post.frontmatter.image}
