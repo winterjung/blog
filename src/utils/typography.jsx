@@ -2,6 +2,7 @@ import Typography from "typography"
 
 // Use github font-family
 const fontFamilies = [
+    "Pretendard",
     "-apple-system",
     "BlinkMacSystemFont",
     "Segoe UI",

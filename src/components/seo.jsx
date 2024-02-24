@@ -45,6 +45,8 @@ export default function Seo({ title, description, image }) {
             <meta name="twitter:description" content={meta.description} />
             <meta name="twitter:image" content={meta.image} />
             <meta name="twitter:creator" content={twitterUsername} />
+
+            <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
         </Helmet>
     )
 }
