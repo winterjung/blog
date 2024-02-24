@@ -133,3 +133,26 @@ ul, ol {
 ul ul, ul ol, ol ol, ol ul {
     margin: 0;
 }
+
+nav {
+    margin-bottom: 0.7rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: baseline;
+}
+
+.home {
+    margin-top: 0;
+    margin-bottom: 0.4rem;
+    display: inline-block;
+    font-style: normal;
+}
+
+body {
+    /* ref: https://www.swyx.io/css-100-bytes */
+    max-width: 70ch;
+    padding: 3em 1em;
+    margin: auto;
+    line-height: 1.75;
+}
