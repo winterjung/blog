@@ -2,7 +2,6 @@ import { css } from "@emotion/react"
 import { Analytics } from "@vercel/analytics/react"
 import { graphql, Link, useStaticQuery } from "gatsby"
 import React from "react"
-import { rhythm } from "../utils/typography"
 import "./layout.css"
 
 export default function Layout({ children }) {
@@ -24,34 +23,11 @@ export default function Layout({ children }) {
         }
     `
     return (
-        <div
-            css={css`
-                margin: 0 auto;
-                max-width: 700px;
-                padding: ${rhythm(2)};
-                padding-top: ${rhythm(1.5)};
-            `}
-        >
+        <div>
             <Link to={`/`}>
-                <h2
-                    css={css`
-                        margin-bottom: ${rhythm(0.5)};
-                        display: inline-block;
-                        font-style: normal;
-                    `}
-                >
-                    {data.site.siteMetadata.title}
-                </h2>
+                <h2 className="home">{data.site.siteMetadata.title}</h2>
             </Link>
-            <div
-                css={css`
-                    margin-bottom: ${rhythm(0.5)};
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: flex-start;
-                    align-items: baseline;
-                `}
-            >
+            <nav>
                 <Link to="/" css={navLinkStyle}>
                     posts
                 </Link>
@@ -74,7 +50,7 @@ export default function Layout({ children }) {
                 >
                     linkedin
                 </a>
-            </div>
+            </nav>
             <hr />
             {children}
             <Analytics />
