@@ -5,7 +5,7 @@ image: images/resume-rewriting.webp
 
 뱅크샐러드에서 퇴사하고 5년 만에 이력서를 다시 썼다. 평소에 주기적으로 써오지 않아 이번 기회에 아예 백지에서 시작했다. 그동안 면접관으로 여러 이력서를 봐왔는데 어떤 이력서가 좋았는지 떠올리며 무슨 내용을 넣고 무슨 내용을 뺐는지, 이력서에 적을 내용을 어떻게 관리했는지, 어떤 형식으로 썼는지 적어본다.
 
-![preview of resume](/images/20240224/preview.png)
+![preview of resume](/images/2023-en-resume.png)
 > 이력서의 일부. 다시 쓴 이력서는 [한국어 pdf](/2023-ko-resume.pdf), [영어 pdf](/2023-en-resume.pdf)로 각 링크에서 볼 수 있다.
 
 ## 무엇이 좋은 이력서였는지
