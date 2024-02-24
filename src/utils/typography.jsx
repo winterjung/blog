@@ -1,8 +1,21 @@
 import Typography from "typography"
 
+// Use github font-family
+const fontFamilies = [
+    "-apple-system",
+    "BlinkMacSystemFont",
+    "Segoe UI",
+    "Noto Sans",
+    "Helvetica",
+    "Arial",
+    "sans-serif",
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+]
+
 const typography = new Typography({
-    headerFontFamily: ["Pretendard", "Avenir Next", "Helvetica Neue"],
-    bodyFontFamily: ["Pretendard", "Avenir Next", "Helvetica Neue"],
+    bodyFontFamily: fontFamilies,
+    headerFontFamily: fontFamilies,
 })
 
 typography.injectStyles()

@@ -1,8 +1,56 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+/* reset css */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 
-code,
-pre {
-    font-family: Fira Code,SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+* {
+    margin:0;
+    padding:0;
+    font:inherit;
+}
+
+:root {
+    -webkit-tap-highlight-color:transparent;
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+    cursor:default;
+    line-height:1.5;
+    overflow-wrap:break-word;
+}
+
+body {
+    line-height: 1.5;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+    margin: auto;
+    display: block;
+    max-width: 100%;
+}
+
+input, button, textarea, select {
+    font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+#root, #__next {
+    isolation: isolate;
+}
+
+/* github style */
+code, pre {
+    font-family:
+        Fira Code,
+        SFMono-Regular,
+        Consolas,
+        Liberation Mono,
+        Menlo,
+        monospace;
 }
 
 pre {
@@ -10,22 +58,22 @@ pre {
     overflow: auto;
     font-size: 85%;
     line-height: 1.45;
-    color: #1F2328;
+    color: #1f2328;
     background-color: #f6f8fa;
     border-radius: 6px;
     word-break: normal;
 }
 
 code {
-    padding: .2em .4em;
+    padding: 0.2em 0.4em;
     margin: 0;
     font-size: 85%;
     white-space: break-spaces;
-    background-color: rgba(175,184,193,0.2);
+    background-color: rgba(175, 184, 193, 0.2);
     border-radius: 6px;
 }
 
-pre>code {
+pre > code {
     padding: 0;
     margin: 0;
     font-size: 100%;
@@ -40,7 +88,7 @@ blockquote {
     margin-bottom: 16px;
     padding: 0 1em;
     color: #656d76;
-    border-left: .25em solid #d0d7de;
+    border-left: 0.25em solid #d0d7de;
 }
 
 details {
@@ -57,9 +105,31 @@ summary {
 }
 
 summary::before {
-    content: '▶︎ ';
+    content: "▶︎ ";
 }
 
 details[open] summary:before {
     content: "▼ ";
+}
+
+/* custom style */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    line-height: 1.25;
+}
+
+li {
+    margin-top: 0.25em;
+    margin-bottom: 0;
+}
+
+ul, ol {
+    padding-left: 2em;
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+    margin: 0;
 }
