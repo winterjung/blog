@@ -2,6 +2,7 @@ import { graphql } from "gatsby"
 import React from "react"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import "../utils/typography"
 
 export default function Post({ data }) {
     const post = data.markdownRemark
