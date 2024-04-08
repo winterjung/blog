@@ -122,5 +122,6 @@ module.exports = {
                 ],
             },
         },
+        `@vercel/gatsby-plugin-vercel-analytics`,
     ],
 }
