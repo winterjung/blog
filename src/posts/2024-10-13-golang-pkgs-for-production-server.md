@@ -27,11 +27,10 @@ func TestSomething(t *testing.T) {
   - require 패키지는 assert와 거의 같은데 실패하면 그 테스트가 그대로 종료되는 점이 다르다.
   - 아마 다른 언어를 쓰다 go 언어로 넘어왔다면 require 패키지의 동작이 좀 더 익숙할 수 있다.
   - assert 패키지를 사용하면 이후 라인의 assertion까지 실행되기에 한 번에 여러 실패를 볼 수 있어 좀 더 디버깅을 도와주는 측면이 있다.
-  - given, when, then으로 나누어진 구조에서 client 초기화나 성공해야만 하는 given 부분에선 require를 애용하기도 한다.
-* testify엔 다양한 assertion 함수가 있으니 이를 최대한 활용해 보길 추천한다.
+  - given, when, then으로 나뉘어진 구조에서 client 초기화나 성공해야만 하는 given 부분에선 require를 애용하기도 한다.
+* testify엔 다양한 assertion 함수가 있으니 이를 최대한 활용해보길 추천한다.
 * [suite 패키지는 객체 지향 언어가 익숙했던 사람을 위해 제공되는 패키지](https://github.com/stretchr/testify#suite-package)라 처음 시작하는 사람은 assert 패키지만으로도 충분하다.
-  * 현재 v1 기준으로 병렬 테스트를 지원하지 않아 이 점은 참고해야 한다.
-  * `SetUp`, `TearDown`보단 [table driven tests](https://go.dev/wiki/TableDrivenTests)를 하자.
+  * 현재 v1 기준으로 병렬 테스트를 지원하지 않아 이 점은 참고해야한다.
 * [Antonboom/testifylint](https://github.com/Antonboom/testifylint) 린터와 같이 사용해도 좋다.
 
 ## [rs/zerolog](https://github.com/rs/zerolog) & [sirupsen/logrus](https://github.com/sirupsen/logrus)
@@ -65,7 +64,7 @@ func main() {
 - 두 로깅 패키지 모두 contextual하고 structed한 로깅을 지원한다.
   - 서버에서 로깅을 할 땐 언제나 one line json logging을 하길 권장한다.
 - zerolog가 좀 더 성능이 좋다고 하나 둘 다 프로덕션 레벨에서 사용하기 좋은 패키지다.
-  - logrus는 메인테넨스 모드이나 이미 기능이 풍부하고 보안 패치는 계속 이루어지는 점은 참고해야 한다.
+  - logrus는 메인테넨스 모드이나 이미 기능이 풍부하고 보안 패치는 계속 이루어지는 점은 참고해야한다.
   - 개인적으론 logrus가 `WithFields` 메서드 때문에 zerolog 대비 사용성이 좋았다.
 - 둘 다 hook을 지원해 로그와 함께 메트릭을 찍을 때나 스택트레이스를 주입해주는 용도로 쓰기 좋았다.
 - go 1.21 이상 버전부터 표준 라이브러리로 포함된 `log/slog`도 사용해볼만한 대안이다.
@@ -81,7 +80,7 @@ if err != nil {
 ```
 > Simple error handling primitives
 - 에러에 컨텍스트와 스택트레이스를 추가해준다.
-- go 1.13 이전 시절 `errors` 표준 라이브러리의 기능 부족으로 생겼으나 [￼`Unwrap`￼, ￼`Is`￼, ￼`As`￼가 편입된 지금](https://go.dev/blog/go1.13-errors)까지도 de-facto로 사용된다.
+- go 1.13 이전 시절 `errors` 표준 라이브러리의 기능 부족으로 생겼으나 [Unwrap, Is, As가 편입된 이후](https://go.dev/blog/go1.13-errors)에도 de-facto로 사용된다.
 
 ## [hashicorp/go-multierror](https://github.com/hashicorp/go-multierror)
 ```go
@@ -100,7 +99,7 @@ return errs.ErrorOrNil()
 ```
 > A Go (golang) package for representing a list of errors as a single error.
 - config나 요청의 유효성을 검사할 때 한 번에 좀 더 풍부한 에러 정보를 얻을 수 있어 종종 사용한다.
-- 해당 패키지에 들어있는 `multierror.Group`도 고루틴을 fanout해 실행하고 각각의 에러를 취합해야할 때 사용하곤한다.
+- 해당 패키지에 들어있는 `multierror.Group`도 고루틴을 fanout해 실행하고 각각의 에러를 취합해야 할 때 사용하곤한다.
 - 비슷하게 준 표준 라이브러리인 [golang.org/x/sync/errgroup](https://pkg.go.dev/golang.org/x/sync/errgroup) 패키지도 존재한다.
   - 해당 패키지는 고루틴 중 하나에서 에러가 발생하면 다른 고루틴으로 에러가 전파되어 작업이 취소되니 상황에 맞게 취사선택하자.
   - multierror는 모든 고루틴을 실행한 뒤 에러를 병합한다.
@@ -113,7 +112,7 @@ names := lo.Uniq([]string{"Samuel", "John", "Samuel"})
 > A Lodash-style Go library based on Go 1.18+ Generics (map, filter, contains, find...)
 - go 1.18 이상에서 제네릭을 사용해 성능 손해 없이 좀 더 보일러플레이트 없는 코드를 짤 수 있게 도와준다.
 - 주로 `Map`, `SliceToMap`, `Keys` 함수를 많이 사용했다.
-  - 예전과 달리 go 1.21부터 생긴 [maps](https://pkg.go.dev/maps), [slices 패키지](https://pkg.go.dev/slices)가 담당해주는 부분이 많아졌으니 참고해보면 좋겠다.
+  - 예전과 달리 go 1.21부터 생긴 [maps](https://pkg.go.dev/maps), [slices 패키지](https://pkg.go.dev/slices)가 담당해 주는 부분이 많아졌으니 참고해 보면 좋겠다.
 - 메인테이너의 다른 패키지로 의존성 주입을 위한 [samber/do](https://github.com/samber/do), 모나드를 위한 [samber/mo](https://github.com/samber/mo) 패키지가 있는데 개인적으로 선호하는 go 코드 컨벤션과 맞지 않아 사용하진 않았다.
 
 ## [shopspring/decimal](https://github.com/shopspring/decimal)
@@ -150,7 +149,7 @@ func main() {
   - 최적의 설정은 상황에 따라 다르므로 여러 메트릭과 벤치마크를 통해 결정하길 권장한다.
 - 제네릭도 지원한다.
   - [patrickmn/go-cache](https://github.com/patrickmn/go-cache) 패키지는 제네릭을 지원하지 않고 유지보수 되지 않고 있어 추천하지 않는다.
-- 대용량 트래픽에서 좀 더 성능 튜닝이 필요하다면 [creativecreature/sturdyc](https://github.com/creativecreature/sturdyc), [maypok86/otter](https://github.com/maypok86/otter) 패키지도 참고해볼 수 있다.
+- 대용량 트래픽에서 좀 더 성능 튜닝이 필요하다면 [creativecreature/sturdyc](https://github.com/creativecreature/sturdyc), [maypok86/otter](https://github.com/maypok86/otter) 패키지도 참고해 볼 수 있다.
   - 성능을 위해선 로컬 캐시에서 무엇이 중요한지 [Writing a very fast cache service with millions of entries in Go](https://blog.allegro.tech/2016/03/writing-fast-cache-service-in-go.html) 블로그 글에서 다루고 있으니 읽어볼 만하다.
 
 ## [volatiletech/sqlboiler](https://github.com/volatiletech/sqlboiler)
@@ -168,7 +167,7 @@ func main() {
     ))
 ```
 > Generate a Go ORM tailored to your database schema.
-- go 코드로 db 모델을 관리하는게 아닌, 이미 존재하는 db 모델을 따르는 go 코드를 생성해준다.
+- go 코드로 db 모델을 관리하는게 아닌, 이미 존재하는 db 모델을 따르는 go 코드를 생성해 준다.
 - 쿼리를 만들 때도 string을 직접 사용하지 않고 이미 생성된 타입을 그대로 사용할 수 있어 경험이 좋았다.
 - 다른 패키지도 많은데 개인적인 경험으론 [sqlc-dev/sqlc](https://github.com/sqlc-dev/sqlc)는 사용하기가 불편했고, [go-gorm/gorm](https://github.com/go-gorm/gorm)는 취향에 맞다면 사용해볼만 하다 느껴졌다.
 
@@ -186,7 +185,7 @@ func TestShouldUpdateStats(t *testing.T) {
 ```
 > Sql mock driver for golang to test database interactions
 - mysql, postgresql 등을 쓸 때 의도한 sql 문이 수행되는지 유닛테스트 하는 용도로 쓸만하다.
-  - 쓰다보면 패키지 경로가 이상한데 싶긴 한데 그래도 별 문제는 없다.
+  - 쓰다 보면 패키지 경로가 이상한데 싶긴 한데 그래도 별 문제는 없다.
 - '왜 사람이 직접 sql 문을 쓰고 검사해야하지?!' 싶은 사람에겐 추천하지 않는다.
 
 ## 그 외
@@ -194,14 +193,14 @@ func TestShouldUpdateStats(t *testing.T) {
 - github api가 필요하다면 [google/go-github](https://github.com/google/go-github)을 쓰자.
   - 버전업이 잦으니 틈틈이 업데이트 해주자.
 - sentry가 필요하다면 공식 문서를 참고해 [getsentry/sentry-go](https://github.com/getsentry/sentry-go)를 쓰자.
-  - 참고로 그냥 쓰면 에러 그룹핑이 잘 안돼 튜닝이 필요한데 이 부분은 별도의 블로그 글로 다루고자한다.
-- 고루틴에서 map에 동시에 써야한다면 [syncmap](https://pkg.go.dev/golang.org/x/sync/syncmap)을 쓰자.
+  - 참고로 그냥 쓰면 에러 그룹화가 잘 안돼 튜닝이 필요한데 이 부분은 별도의 블로그 글로 다루고자 한다.
+- 고루틴에서 map에 동시에 써야 한다면 [syncmap](https://pkg.go.dev/golang.org/x/sync/syncmap)을 쓰자.
   - 참고로 map은 동시 쓰기를 시도하면 panic이 나서 알아채기가 쉬운데 slice는 그렇지 않아 감지하기 어려우니 주의하자.
-- 시맨틱 버저닝으로 뭔갈 해야한다면 [Masterminds/semver](https://github.com/Masterminds/semver)를 쓰자.
+- 시맨틱 버저닝으로 뭔갈 해야 한다면 [Masterminds/semver](https://github.com/Masterminds/semver)를 쓰자.
 - uuid가 필요하다면 [google/uuid](https://github.com/google/uuid)를 쓰자.
   - uuid v7도 지원한다.
 - kubernetes에 배포한다면 [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs)로 cpu 세팅을 맞춰주자.
-  - 안그러면 pod에 할당된 cpu 리소스는 1인데 32가 들어가있고 그런다.
+  - 안 그러면 pod에 할당된 cpu 리소스는 1인데 32가 들어가 있고 그런다.
 - statsd 메트릭을 찍는다면 [smira/go-statsd](https://github.com/smira/go-statsd) 를 쓰자.
   - 쓰는 쪽에서 별도의 인터페이스를 선언해 noop client 구현과 함께쓰길 추천한다. 그래야 테스트가 편하다.
 - redis를 쓴다면 [redis/rueidis](https://github.com/redis/rueidis)를 쓰자.
@@ -212,5 +211,4 @@ func TestShouldUpdateStats(t *testing.T) {
   - 통합 테스트 방법은 조직마다 상황에 따라 많은 방법이 있겠으나 테스트컨테이너도 옵션 중 하나로 고려해보기 좋다.
 
 ---
-
 이렇게 그 동안 자주 사용하고 유용한 패키지를 정리해봤다. 위 내용은 서버 개발에 치중되어 있고, 너무 지엽적인 패키지(e.g. 레벤슈타인 거리 구하는 패키지)는 제외했는데 이 외에도 추천할만한 패키지가 있다면 계속 업데이트 할 예정이다.
