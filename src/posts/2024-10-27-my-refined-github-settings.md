@@ -1,6 +1,6 @@
 ---
 title: 슬기로운 깃헙 생활을 위한 refined github 세팅
-image: //images/20241027/refined-github.png
+image: /images/20241027/refined-github.png
 ---
 
 GitHub에서 코드 작업과 리뷰를 하다보면 사소하지만 불편한 부분들이 있다. 깃헙팀에서도 이런 불편함을 개선하기 위해 <kbd>⌘</kbd> + <kbd>k</kbd>로 이용 가능한 [command palette 기능](https://docs.github.com/en/get-started/accessibility/github-command-palette)이나 [코드 트리](https://github.blog/news-insights/product-news/github-code-search-is-generally-available/)와 [심볼을 사이드바로 볼 수 있게 하는 패치](https://docs.github.com/ko/repositories/working-with-files/using-files/navigating-code-on-github) 등 예전엔 브라우저 확장을 이용해야만 가능했던 기능을 꾸준히 도입하고 있다. 그럼에도 아쉬움으로 남아있는 부분들은 존재하고 이를 위해 여러 플러그인이 있는데, 그 중 [refined-github](https://github.com/refined-github/refined-github) 브라우저 확장을 몇 년째 애용하고 있다. 이 글에서는 내가 코드를 생산하고, 이슈를 탐색하며, 다른 동료의 코드를 리뷰할 때 인지부하를 줄이고 깃헙 생활을 더 쉽고 유용하게 만들어주는 refined github 세팅을 공유하려한다.
