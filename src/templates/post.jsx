@@ -1,5 +1,6 @@
 import { graphql } from "gatsby"
 import React from "react"
+import Giscus from "../components/Giscus"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import "../utils/typography"
@@ -18,6 +19,7 @@ export default function Post({ data }) {
                 <h1>{post.frontmatter.title}</h1>
                 <div dangerouslySetInnerHTML={{ __html: post.html }}></div>
             </div>
+            <Giscus />
         </Layout>
     )
 }
