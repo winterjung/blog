@@ -1,6 +1,6 @@
 import { graphql } from "gatsby"
 import React from "react"
-import Giscus from "../components/Giscus"
+import Giscus from "../components/giscus"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import "../utils/typography"
