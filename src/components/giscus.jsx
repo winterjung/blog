@@ -20,16 +20,17 @@ export default function Giscus() {
             "data-lang": "ko",
             "data-loading": "lazy",
             crossorigin: "anonymous",
-            async: true,
+            defer: true,
         }
 
         Object.entries(giscusAttributes).forEach(([key, value]) => {
             script.setAttribute(key, value)
         })
 
-        containerRef.current.appendChild(script)
+        const container = containerRef.current
+        container.appendChild(script)
         return () => {
-            containerRef.current?.removeChild(script)
+            container?.removeChild(script)
         }
     }, [])
 
