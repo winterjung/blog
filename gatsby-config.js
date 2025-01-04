@@ -21,6 +21,13 @@ module.exports = {
             options: {
                 plugins: [
                     {
+                        resolve: `gatsby-remark-prismjs`,
+                        options: {
+                          showLineNumbers: false,
+                          noInlineHighlight: false,
+                        },
+                    },
+                    {
                         resolve: `gatsby-remark-images`,
                     },
                 ],
