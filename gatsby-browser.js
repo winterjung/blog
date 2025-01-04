@@ -1,1 +1,1 @@
-import "./static/theme/github-light.css";
+import "./static/theme/github-light.css"

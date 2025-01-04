@@ -23,8 +23,8 @@ module.exports = {
                     {
                         resolve: `gatsby-remark-prismjs`,
                         options: {
-                          showLineNumbers: false,
-                          noInlineHighlight: false,
+                            showLineNumbers: false,
+                            noInlineHighlight: false,
                         },
                     },
                     {
