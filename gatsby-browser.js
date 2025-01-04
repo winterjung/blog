@@ -1,3 +1,3 @@
-import "./static/fonts/pretendard.css"
-import "./static/theme/github-light.css"
+import "./static/fonts/pretendardvariable.css";
+import "./static/theme/github-light.css";
 
