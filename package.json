@@ -9,7 +9,8 @@
     "format": "prettier --write \"**/*.{js,jsx,json}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "preload-fonts": "gatsby-preload-fonts"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "gatsby-plugin-emotion": "^8.13.1",
     "gatsby-plugin-feed": "^5.13.1",
     "gatsby-plugin-image": "^3.13.1",
+    "gatsby-plugin-preload-fonts": "^4.14.0",
     "gatsby-plugin-react-helmet": "^6.13.1",
     "gatsby-plugin-robots-txt": "^1.8.0",
     "gatsby-plugin-sharp": "^5.13.1",
