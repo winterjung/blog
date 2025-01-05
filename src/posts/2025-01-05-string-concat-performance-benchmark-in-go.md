@@ -17,17 +17,7 @@ Go에서 문자열을 이어 붙여야 할 때 `pk := row.ID + "#" + row.Name` �
 5. `strings.Join()`: 이어 붙여야 할 문자열이 꽤 되는 경우 코드가 간결해 선호하곤 했다.
 6. `bytes.Buffer`: buffer를 만들고 `WriteString`하는 방식인데 직접 쓴 적은 없고 라이브러리 내부 구현에서 종종 봤다.
 7. `strings.Builder`: 1.10 버전에 생겨 `bytes.Buffer`를 대체한다고 한다.
-    - 위 두 방식은 모두 내부적으로 `.Grow()` 메서드가 있어 pre allocating이 가능했다. 
-
-## 앞서보는 결과
-
-![](/images/20250105/fixed_sec.png)
-![](/images/20250105/fixed_memory.png)
-![](/images/20250105/fixed_allocs.png)
-
-- 성능: pre allocated `strings.Builder` > `+` 연산자 > `strings.Join()` 순으로 빨랐다.
-- 메모리 사용량: pre allocated `strings.Builder` = `+` 연산자 = `strings.Join()`으로 세 방식의 사용량이 똑같이 적었다.
-- 메모리 할당 횟수: pre allocated `strings.Builder` = `+` 연산자 = `strings.Join()`으로 세 방식 모두 주어진 인자와 관계없이 최소한의 할당으로 수행했다.
+    - 위 두 방식은 모두 내부적으로 `.Grow()` 메서드가 있어 pre allocating이 가능하기에 두 경우를 구분해 테스트해봤다. 
 
 ### 함수 구현 코드
 
@@ -112,6 +102,98 @@ func FixedBufferPreAlloc(a, b, c string) string {
 	buf.WriteString(c)
 	return buf.String()
 }
+
+const (
+	delimiterLen = len(delimiter)
+)
+
+func VarPlusOp(ss []string) string {
+	if len(ss) == 0 {
+		return ""
+	}
+
+	result := ss[0]
+	for _, s := range ss[1:] {
+		result += delimiter + s
+	}
+	return result
+}
+
+func VarJoin(ss []string) string {
+	return strings.Join(ss, delimiter)
+}
+
+func VarBuilder(ss []string) string {
+	if len(ss) == 0 {
+		return ""
+	}
+
+	var builder strings.Builder
+	builder.WriteString(ss[0])
+	for _, s := range ss[1:] {
+		builder.WriteString(delimiter)
+		builder.WriteString(s)
+	}
+	return builder.String()
+}
+
+func VarBuilderPreAlloc(ss []string) string {
+	if len(ss) == 0 {
+		return ""
+	}
+
+	var length int
+	for _, s := range ss {
+		length += delimiterLen
+		length += len(s)
+	}
+
+	var builder strings.Builder
+	builder.Grow(length)
+
+	builder.WriteString(ss[0])
+	for _, s := range ss[1:] {
+		builder.WriteString(delimiter)
+		builder.WriteString(s)
+	}
+	return builder.String()
+}
+
+func VarBuffer(ss []string) string {
+	if len(ss) == 0 {
+		return ""
+	}
+
+	var buf bytes.Buffer
+	buf.WriteString(ss[0])
+	for _, s := range ss[1:] {
+		buf.WriteString(delimiter)
+		buf.WriteString(s)
+	}
+	return buf.String()
+}
+
+func VarBufferPreAlloc(ss []string) string {
+	if len(ss) == 0 {
+		return ""
+	}
+
+	var length int
+	for _, s := range ss {
+		length += delimiterLen
+		length += len(s)
+	}
+
+	var buf bytes.Buffer
+	buf.Grow(length)
+
+	buf.WriteString(ss[0])
+	for _, s := range ss[1:] {
+		buf.WriteString(delimiter)
+		buf.WriteString(s)
+	}
+	return buf.String()
+}
 ```
 
 ### 벤치마크 코드
@@ -178,6 +260,53 @@ func randString(n int) string {
 	}
 	return string(b)
 }
+
+func BenchmarkVar(b *testing.B) {
+	funcs := []struct {
+		name string
+		do   func([]string) string
+	}{
+		{name: "PlusOp", do: VarPlusOp},
+		{name: "Join", do: VarJoin},
+		{name: "Builder", do: VarBuilder},
+		{name: "Buffer", do: VarBuffer},
+		{name: "BuilderPreAlloc", do: VarBuilderPreAlloc},
+		{name: "BufferPreAlloc", do: VarBufferPreAlloc},
+	}
+
+	// 다양한 입력 개수 테스트를 위한 케이스들
+	cases := []struct {
+		name string
+		ss   []string
+	}{
+		{"4 args", randStringSlice(4)},
+		{"16 args", randStringSlice(16)},
+		{"256 args", randStringSlice(256)},
+	}
+
+	for _, tc := range cases {
+		for _, f := range funcs {
+			var r string
+			b.Run(fmt.Sprintf("%s/%s", f.name, tc.name), func(b *testing.B) {
+				b.ReportAllocs()
+				b.ResetTimer()
+				for i := 0; i < b.N; i++ {
+					r = f.do(tc.ss)
+				}
+				b.StopTimer()
+				result = r
+			})
+		}
+	}
+}
+
+func randStringSlice(n int) []string {
+	s := make([]string, n)
+	for i := range s {
+		s[i] = randString(rand.IntN(10))
+	}
+	return s
+}
 ```
 
 ### 테스트
@@ -195,7 +324,7 @@ Hardware:
 $ go version
 go version go1.22.5 darwin/arm64
 
-$ go test -bench=^BenchmarkFixed$ -benchmem -cpu=1 -count=5 . | tee result.txt
+$ go test -bench=^Benchmark$ -benchmem -cpu=1 -count=5 . | tee result.txt
 $ benchstat result.txt
 ```
 
@@ -206,100 +335,193 @@ $ benchstat result.txt
 goos: darwin
 goarch: arm64
 pkg: playground/concat
-                               │  result.txt  │
-                               │    sec/op    │
-Fixed/FixedPlusOp/1              53.18n ±  0%
-Fixed/FixedAssignOp/1            138.0n ±  1%
-Fixed/FixedSprintf/1             277.6n ±  1%
-Fixed/FixedSprint/1              269.9n ±  0%
-Fixed/FixedJoin/1                54.80n ±  1%
-Fixed/FixedBuilder/1             39.70n ±  1%
-Fixed/FixedBuffer/1              88.43n ±  0%
-Fixed/FixedBuilderPreAlloc/1     40.41n ±  2%
-Fixed/FixedBufferPreAlloc/1      86.49n ±  0%
-Fixed/FixedPlusOp/10             61.40n ±  0%
-Fixed/FixedAssignOp/10           169.8n ±  0%
-Fixed/FixedSprintf/10            286.8n ±  0%
-Fixed/FixedSprint/10             278.6n ±  1%
-Fixed/FixedJoin/10               65.14n ±  0%
-Fixed/FixedBuilder/10            75.61n ±  0%
-Fixed/FixedBuffer/10             95.29n ±  0%
-Fixed/FixedBuilderPreAlloc/10    49.04n ±  0%
-Fixed/FixedBufferPreAlloc/10     93.21n ±  0%
-Fixed/FixedPlusOp/100            89.20n ±  0%
-Fixed/FixedAssignOp/100          249.7n ±  0%
-Fixed/FixedSprintf/100           336.3n ±  0%
-Fixed/FixedSprint/100            321.8n ±  0%
-Fixed/FixedJoin/100              98.55n ±  2%
-Fixed/FixedBuilder/100           203.6n ±  3%
-Fixed/FixedBuffer/100            352.6n ±  3%
-Fixed/FixedBuilderPreAlloc/100   86.54n ±  0%
-Fixed/FixedBufferPreAlloc/100    177.6n ± 19%
+                          │  result.txt  │
+                          │    sec/op    │
+Fixed/PlusOp/1              53.18n ±  0%
+Fixed/AssignOp/1            138.0n ±  1%
+Fixed/Sprintf/1             277.6n ±  1%
+Fixed/Sprint/1              269.9n ±  0%
+Fixed/Join/1                54.80n ±  1%
+Fixed/Builder/1             39.70n ±  1%
+Fixed/Buffer/1              88.43n ±  0%
+Fixed/BuilderPreAlloc/1     40.41n ±  2%
+Fixed/BufferPreAlloc/1      86.49n ±  0%
+Fixed/PlusOp/10             61.40n ±  0%
+Fixed/AssignOp/10           169.8n ±  0%
+Fixed/Sprintf/10            286.8n ±  0%
+Fixed/Sprint/10             278.6n ±  1%
+Fixed/Join/10               65.14n ±  0%
+Fixed/Builder/10            75.61n ±  0%
+Fixed/Buffer/10             95.29n ±  0%
+Fixed/BuilderPreAlloc/10    49.04n ±  0%
+Fixed/BufferPreAlloc/10     93.21n ±  0%
+Fixed/PlusOp/100            89.20n ±  0%
+Fixed/AssignOp/100          249.7n ±  0%
+Fixed/Sprintf/100           336.3n ±  0%
+Fixed/Sprint/100            321.8n ±  0%
+Fixed/Join/100              98.55n ±  2%
+Fixed/Builder/100           203.6n ±  3%
+Fixed/Buffer/100            352.6n ±  3%
+Fixed/BuilderPreAlloc/100   86.54n ±  0%
+Fixed/BufferPreAlloc/100    177.6n ± 19%
 geomean                          121.0n
 
-                               │  result.txt  │
-                               │     B/op     │
-Fixed/FixedPlusOp/1                5.000 ± 0%
-Fixed/FixedAssignOp/1              16.00 ± 0%
-Fixed/FixedSprintf/1               53.00 ± 0%
-Fixed/FixedSprint/1                53.00 ± 0%
-Fixed/FixedJoin/1                  5.000 ± 0%
-Fixed/FixedBuilder/1               8.000 ± 0%
-Fixed/FixedBuffer/1                69.00 ± 0%
-Fixed/FixedBuilderPreAlloc/1       5.000 ± 0%
-Fixed/FixedBufferPreAlloc/1        69.00 ± 0%
-Fixed/FixedPlusOp/10               32.00 ± 0%
-Fixed/FixedAssignOp/10             96.00 ± 0%
-Fixed/FixedSprintf/10              80.00 ± 0%
-Fixed/FixedSprint/10               80.00 ± 0%
-Fixed/FixedJoin/10                 32.00 ± 0%
-Fixed/FixedBuilder/10              48.00 ± 0%
-Fixed/FixedBuffer/10               96.00 ± 0%
-Fixed/FixedBuilderPreAlloc/10      32.00 ± 0%
-Fixed/FixedBufferPreAlloc/10       96.00 ± 0%
-Fixed/FixedPlusOp/100              320.0 ± 0%
-Fixed/FixedAssignOp/100            848.0 ± 0%
-Fixed/FixedSprintf/100             368.0 ± 0%
-Fixed/FixedSprint/100              368.0 ± 0%
-Fixed/FixedJoin/100                320.0 ± 0%
-Fixed/FixedBuilder/100             784.0 ± 0%
-Fixed/FixedBuffer/100            1.078Ki ± 0%
-Fixed/FixedBuilderPreAlloc/100     320.0 ± 0%
-Fixed/FixedBufferPreAlloc/100      640.0 ± 0%
+                           │  result.txt  │
+                           │     B/op     │
+Fixed/PlusOp/1                5.000 ± 0%
+Fixed/AssignOp/1              16.00 ± 0%
+Fixed/Sprintf/1               53.00 ± 0%
+Fixed/Sprint/1                53.00 ± 0%
+Fixed/Join/1                  5.000 ± 0%
+Fixed/Builder/1               8.000 ± 0%
+Fixed/Buffer/1                69.00 ± 0%
+Fixed/BuilderPreAlloc/1       5.000 ± 0%
+Fixed/BufferPreAlloc/1        69.00 ± 0%
+Fixed/PlusOp/10               32.00 ± 0%
+Fixed/AssignOp/10             96.00 ± 0%
+Fixed/Sprintf/10              80.00 ± 0%
+Fixed/Sprint/10               80.00 ± 0%
+Fixed/Join/10                 32.00 ± 0%
+Fixed/Builder/10              48.00 ± 0%
+Fixed/Buffer/10               96.00 ± 0%
+Fixed/BuilderPreAlloc/10      32.00 ± 0%
+Fixed/BufferPreAlloc/10       96.00 ± 0%
+Fixed/PlusOp/100              320.0 ± 0%
+Fixed/AssignOp/100            848.0 ± 0%
+Fixed/Sprintf/100             368.0 ± 0%
+Fixed/Sprint/100              368.0 ± 0%
+Fixed/Join/100                320.0 ± 0%
+Fixed/Builder/100             784.0 ± 0%
+Fixed/Buffer/100            1.078Ki ± 0%
+Fixed/BuilderPreAlloc/100     320.0 ± 0%
+Fixed/BufferPreAlloc/100      640.0 ± 0%
 geomean                            81.48
 
-                               │ result.txt │
-                               │ allocs/op  │
-Fixed/FixedPlusOp/1              1.000 ± 0%
-Fixed/FixedAssignOp/1            4.000 ± 0%
-Fixed/FixedSprintf/1             4.000 ± 0%
-Fixed/FixedSprint/1              4.000 ± 0%
-Fixed/FixedJoin/1                1.000 ± 0%
-Fixed/FixedBuilder/1             1.000 ± 0%
-Fixed/FixedBuffer/1              2.000 ± 0%
-Fixed/FixedBuilderPreAlloc/1     1.000 ± 0%
-Fixed/FixedBufferPreAlloc/1      2.000 ± 0%
-Fixed/FixedPlusOp/10             1.000 ± 0%
-Fixed/FixedAssignOp/10           4.000 ± 0%
-Fixed/FixedSprintf/10            4.000 ± 0%
-Fixed/FixedSprint/10             4.000 ± 0%
-Fixed/FixedJoin/10               1.000 ± 0%
-Fixed/FixedBuilder/10            2.000 ± 0%
-Fixed/FixedBuffer/10             2.000 ± 0%
-Fixed/FixedBuilderPreAlloc/10    1.000 ± 0%
-Fixed/FixedBufferPreAlloc/10     2.000 ± 0%
-Fixed/FixedPlusOp/100            1.000 ± 0%
-Fixed/FixedAssignOp/100          4.000 ± 0%
-Fixed/FixedSprintf/100           4.000 ± 0%
-Fixed/FixedSprint/100            4.000 ± 0%
-Fixed/FixedJoin/100              1.000 ± 0%
-Fixed/FixedBuilder/100           3.000 ± 0%
-Fixed/FixedBuffer/100            4.000 ± 0%
-Fixed/FixedBuilderPreAlloc/100   1.000 ± 0%
-Fixed/FixedBufferPreAlloc/100    2.000 ± 0%
+                          │ result.txt │
+                          │ allocs/op  │
+Fixed/PlusOp/1              1.000 ± 0%
+Fixed/AssignOp/1            4.000 ± 0%
+Fixed/Sprintf/1             4.000 ± 0%
+Fixed/Sprint/1              4.000 ± 0%
+Fixed/Join/1                1.000 ± 0%
+Fixed/Builder/1             1.000 ± 0%
+Fixed/Buffer/1              2.000 ± 0%
+Fixed/BuilderPreAlloc/1     1.000 ± 0%
+Fixed/BufferPreAlloc/1      2.000 ± 0%
+Fixed/PlusOp/10             1.000 ± 0%
+Fixed/AssignOp/10           4.000 ± 0%
+Fixed/Sprintf/10            4.000 ± 0%
+Fixed/Sprint/10             4.000 ± 0%
+Fixed/Join/10               1.000 ± 0%
+Fixed/Builder/10            2.000 ± 0%
+Fixed/Buffer/10             2.000 ± 0%
+Fixed/BuilderPreAlloc/10    1.000 ± 0%
+Fixed/BufferPreAlloc/10     2.000 ± 0%
+Fixed/PlusOp/100            1.000 ± 0%
+Fixed/AssignOp/100          4.000 ± 0%
+Fixed/Sprintf/100           4.000 ± 0%
+Fixed/Sprint/100            4.000 ± 0%
+Fixed/Join/100              1.000 ± 0%
+Fixed/Builder/100           3.000 ± 0%
+Fixed/Buffer/100            4.000 ± 0%
+Fixed/BuilderPreAlloc/100   1.000 ± 0%
+Fixed/BufferPreAlloc/100    2.000 ± 0%
 geomean                          2.030
 ```
+
+```sh
+goos: darwin
+goarch: arm64
+pkg: playground/concat
+                          │ result_var.txt │
+                          │     sec/op     │
+Var/PlusOp/4                 145.3n ± 4%
+Var/Join/4                   78.26n ± 1%
+Var/Builder/4                115.4n ± 0%
+Var/Buffer/4                 110.9n ± 0%
+Var/BuilderPreAlloc/4        59.25n ± 0%
+Var/BufferPreAlloc/4         112.6n ± 3%
+Var/PlusOp/16                742.9n ± 0%
+Var/Join/16                  199.7n ± 3%
+Var/Builder/16               273.1n ± 3%
+Var/Buffer/16                331.2n ± 1%
+Var/BuilderPreAlloc/16       165.7n ± 6%
+Var/BufferPreAlloc/16        287.4n ± 1%
+Var/PlusOp/256               37.34µ ± 0%
+Var/Join/256                 2.810µ ± 1%
+Var/Builder/256              2.490µ ± 2%
+Var/Buffer/256               4.471µ ± 2%
+Var/BuilderPreAlloc/256      2.638µ ± 1%
+Var/BufferPreAlloc/256       4.119µ ± 1%
+geomean                           520.5n
+
+                          │ result_var.txt │
+                          │      B/op      │
+Var/PlusOp/4                  64.00 ± 0%
+Var/Join/4                    24.00 ± 0%
+Var/Builder/4                 56.00 ± 0%
+Var/Buffer/4                  88.00 ± 0%
+Var/BuilderPreAlloc/4         24.00 ± 0%
+Var/BufferPreAlloc/4          88.00 ± 0%
+Var/PlusOp/16                 616.0 ± 0%
+Var/Join/16                   80.00 ± 0%
+Var/Builder/16                248.0 ± 0%
+Var/Buffer/16                 272.0 ± 0%
+Var/BuilderPreAlloc/16        80.00 ± 0%
+Var/BufferPreAlloc/16         160.0 ± 0%
+Var/PlusOp/256              185.6Ki ± 0%
+Var/Join/256                1.375Ki ± 0%
+Var/Builder/256             3.242Ki ± 0%
+Var/Buffer/256              5.312Ki ± 0%
+Var/BuilderPreAlloc/256     1.375Ki ± 0%
+Var/BufferPreAlloc/256      2.750Ki ± 0%
+geomean                            364.7
+
+                           │ result_var.txt │
+                           │   allocs/op    │
+Var/PlusOp/4                  3.000 ± 0%
+Var/Join/4                    1.000 ± 0%
+Var/Builder/4                 3.000 ± 0%
+Var/Buffer/4                  2.000 ± 0%
+Var/BuilderPreAlloc/4         1.000 ± 0%
+Var/BufferPreAlloc/4          2.000 ± 0%
+Var/PlusOp/16                 15.00 ± 0%
+Var/Join/16                   1.000 ± 0%
+Var/Builder/16                5.000 ± 0%
+Var/Buffer/16                 3.000 ± 0%
+Var/BuilderPreAlloc/16        1.000 ± 0%
+Var/BufferPreAlloc/16         2.000 ± 0%
+Var/PlusOp/256                255.0 ± 0%
+Var/Join/256                  1.000 ± 0%
+Var/Builder/256               9.000 ± 0%
+Var/Buffer/256                7.000 ± 0%
+Var/BuilderPreAlloc/256       1.000 ± 0%
+Var/BufferPreAlloc/256        2.000 ± 0%
+geomean                            3.050
+```
+
 </details>
+
+## 결과
+
+> tl;dr 주어진 인자만큼 미리 capacity를 할당한 pre allocated `strings.Builder` 혹은 `strings.Join()`을 쓰자.
+
+![고정된 인자 개수에서 실행 시간 비교](/images/20250105/fixed_sec.png)
+![고정된 인자 개수에서 메모리 사용량 비교](/images/20250105/fixed_memory.png)
+![고정된 인자 개수에서 메모리 할당 횟수 비교](/images/20250105/fixed_allocs.png)
+
+- 성능: pre allocated `strings.Builder` > `+` 연산자 > `strings.Join()` 순으로 빨랐다.
+- 메모리 사용량: pre allocated `strings.Builder` = `+` 연산자 = `strings.Join()`으로 세 방식의 사용량이 똑같이 적었다.
+- 메모리 할당 횟수: pre allocated `strings.Builder` = `+` 연산자 = `strings.Join()`으로 세 방식 모두 주어진 인자와 관계없이 최소한의 할당으로 수행했다.
+
+![가변 인자 개수에서 실행 시간 비교](/images/20250105/var_sec.png)
+![가변 인자 개수에서 메모리 사용량 비교](/images/20250105/var_memory.png)
+![가변 인자 개수에서 메모리 할당 횟수 비교](/images/20250105/var_allocs.png)
+
+- 성능: pre allocated `strings.Builder` > `strings.Join()` 순으로 탑2 결과를 보여준다.
+- 메모리 사용량: pre allocated `strings.Builder` = `strings.Join()`
+- 메모리 할당 횟수: pre allocated `strings.Builder` = `strings.Join()`
+- 로그 스케일임을 감안했을 때 `+=` 연산자를 사용하는 방식의 비효율이 눈에 띈다.
 
 ## 참고해볼만한 글
 
