@@ -45,6 +45,14 @@ export default function Seo({ title, description, image }) {
             <meta name="twitter:description" content={meta.description} />
             <meta name="twitter:image" content={meta.image} />
             <meta name="twitter:creator" content={twitterUsername} />
+
+            <link rel="preload" href="/fonts/pretendard.css" as="style" />
+            <link
+                rel="stylesheet"
+                href="/fonts/pretendard.css"
+                media="print"
+                onload="this.media='all'"
+            />
         </Helmet>
     )
 }
