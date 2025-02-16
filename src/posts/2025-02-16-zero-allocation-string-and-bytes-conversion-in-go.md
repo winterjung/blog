@@ -128,6 +128,7 @@ ToStringUnsafe   1.917n ± 0%
 `unsafe` 패키지를 사용함으로서 따라오는 몇 가지 주의할 점이 있다
 
 1. 변환된 `[]byte`를 직접 수정하면 원본 문자열도 변경될 수 있다
+    - 아래처럼 변환 전의 `[]byte`를 수정하는 경우에 [map의 key로 사용할 때 등 미묘한 버그](https://stackoverflow.com/questions/33952378/what-are-the-possible-consequences-of-using-unsafe-conversion-from-byte-to-str/33953027#33953027)가 발생할 수 있기에 정말 전, 후로 변형이 일어나지 않는지 충분히 검증하고 사용하는게 좋다.
 
 ```go
 func main() {
@@ -143,7 +144,12 @@ func main() {
 ```
 
 2. `unsafe` 패키지를 사용하므로 Go 버전 업그레이드시 호환성 문제가 발생할 수 있다
+    - [Go 1 호환성 약속](https://go.dev/doc/go1compat) 문서에선 아래처럼 unsafe 동작의 호환성을 보장해주지 않는다고 명시한다.
+    > Use of package unsafe. Packages that import unsafe may depend on internal properties of the Go implementation. We reserve the right to make changes to the implementation that may break such programs.
+
 3. 코드의 안전성과 이식성이 떨어질 수 있다
+    - [`unsafe` 패키지 사양](https://go.dev/ref/spec#Package_unsafe)에선 아래처럼 경고한다.
+    > A package using unsafe must be vetted manually for type safety and may not be portable.
 
 ## 결론
 
