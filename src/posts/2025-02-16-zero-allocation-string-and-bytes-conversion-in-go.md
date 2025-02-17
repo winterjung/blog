@@ -125,7 +125,66 @@ ToStringUnsafe   1.917n ± 0%
 
 ## 그러면 항상 이 방법을 써도 될까?
 
-`unsafe` 패키지를 사용함으로서 따라오는 몇 가지 주의할 점이 있다
+일단 `unsafe` 버전의 출력은 아래같은 기존 버전의 출력과 동일하다.
+
+```go
+func ToStringRaw(b []byte) string {
+	return string(b)
+}
+
+func ToBytesRaw(s string) []byte {
+	return []byte(s)
+}
+```
+
+이는 아래처럼 [fuzzing 테스트](https://go.dev/doc/security/fuzz/)로도 검증해볼 수 있다.
+
+```go
+func FuzzToBytes(f *testing.F) {
+	f.Add("")
+	f.Add("Hello, World!")
+	f.Add("한글도 테스트")
+	f.Add("🚀 이모지도")
+
+	f.Fuzz(func(t *testing.T, s string) {
+		raw := ToBytesRaw(s)
+		unsafe := ToBytesUnsafe(s)
+
+		if string(raw) != string(unsafe) {
+			t.Errorf("내용이 다름: raw=%q, unsafe=%q", raw, unsafe)
+		}
+	})
+}
+
+func FuzzToString(f *testing.F) {
+	f.Add([]byte{})
+	var nilCase []byte
+	f.Add(nilCase)
+	f.Add([]byte("Hello, World!"))
+	f.Add([]byte("한글도 테스트"))
+	f.Add([]byte("🚀 이모지도"))
+
+	f.Fuzz(func(t *testing.T, b []byte) {
+		raw := ToStringRaw(b)
+		unsafe := ToStringUnsafe(b)
+
+		if raw != unsafe {
+			t.Errorf("내용이 다름: raw=%q, unsafe=%q", raw, unsafe)
+		}
+	})
+}
+```
+
+```shell
+$ go test -fuzz=FuzzToString -fuzztime=20s
+fuzz: elapsed: 0s, gathering baseline coverage: 4/4 completed, now fuzzing with 8 workers
+fuzz: elapsed: 3s, execs: 975426 (325115/sec), new interesting: 0 (total: 4)
+fuzz: elapsed: 12s, execs: 3864940 (321077/sec), new interesting: 0 (total: 4)
+fuzz: elapsed: 20s, execs: 6244040 (216995/sec), new interesting: 0 (total: 4)
+PASS
+```
+
+다만 `unsafe` 패키지를 사용함으로서 따라오는 몇 가지 주의할 점이 있다
 
 1. 변환된 `[]byte`를 직접 수정하면 원본 문자열도 변경될 수 있다
     - 아래처럼 변환 전의 `[]byte`를 수정하는 경우에 [map의 key로 사용할 때 등 미묘한 버그](https://stackoverflow.com/questions/33952378/what-are-the-possible-consequences-of-using-unsafe-conversion-from-byte-to-str/33953027#33953027)가 발생할 수 있기에 정말 전, 후로 변형이 일어나지 않는지 충분히 검증하고 사용하는게 좋다.
@@ -159,17 +218,7 @@ func main() {
 2. 변환된 데이터를 읽기만 하고 수정하지 않는 경우
 3. 성능이 매우 중요한 핫패스인 경우
 
-일반적인 상황에서는 아래처럼 기본 변환 방식을 사용하는 것도 충분히 좋은 선택이다.
-
-```go
-func ToStringRaw(b []byte) string {
-	return string(b)
-}
-
-func ToBytesRaw(s string) []byte {
-	return []byte(s)
-}
-```
+일반적인 상황에서는 기본 변환 방식을 사용하는 것도 충분히 좋은 선택이다.
 
 ## 덧붙인 말
 
