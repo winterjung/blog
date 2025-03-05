@@ -1,5 +1,5 @@
 ---
-title: Go에서 문자열 빠르게 이어붙이는 방법
+title: Go 문자열 연결 성능 최적화, 15가지 방법 비교
 image: images/20250105/fixed_sec.png
 ---
 

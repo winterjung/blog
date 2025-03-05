@@ -1,5 +1,5 @@
 ---
-title: Go에서 메모리 할당 없이 문자열 빠르게 변환하기
+title: Go에서 string ⇄ []byte 7배 빠르게 변환하기
 ---
 
 Go 서버 로직을 구현하다 보면 `string`과 `[]byte` 사이의 변환이 자주 필요하다. `json.Marshal`한 결과로 나온 `[]byte`를 response로 내려주거나, db에 저장하거나, 이벤트로 발행하거나, 로깅하기 위해 `string`으로 변환하고, 어디선가 갖고온 `string`을 다시 `json.Unmarshal`를 통해 struct로 매핑하기 위해 `[]byte`로 변환하는 일이 늘상 있다. 그럴때 `string(bb)` 혹은 `[]byte(s)`처럼 기본적인 변환 방법을 사용하곤 하고 보통은 이 정도로도 충분하다.
