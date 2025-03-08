@@ -57,14 +57,6 @@ export default function Seo({ title, description, image }) {
                 type="text/css"
                 href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
             />
-            <style>
-                {`
-                :root {
-                    font-family: "Pretendard", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Noto Sans", "Helvetica", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji";
-                    font-display: block;
-                }
-                `}
-            </style>
         </Helmet>
     )
 }
