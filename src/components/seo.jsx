@@ -46,13 +46,25 @@ export default function Seo({ title, description, image }) {
             <meta name="twitter:image" content={meta.image} />
             <meta name="twitter:creator" content={twitterUsername} />
 
-            <link rel="preload" href="/fonts/pretendard.css" as="style" />
+            <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+            <link
+                rel="preload"
+                href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+                as="style"
+            />
             <link
                 rel="stylesheet"
-                href="/fonts/pretendard.css"
-                media="print"
-                onload="this.media='all'"
+                type="text/css"
+                href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
             />
+            <style>
+                {`
+                :root {
+                    font-family: "Pretendard", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Noto Sans", "Helvetica", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji";
+                    font-display: block;
+                }
+                `}
+            </style>
         </Helmet>
     )
 }
