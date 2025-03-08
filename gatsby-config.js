@@ -133,6 +133,7 @@ module.exports = {
             resolve: `gatsby-plugin-manifest`,
             options: {
                 icon: `static/favicon-256.png`,
+                cache_busting_mode: `none`,
             },
         },
         `@vercel/gatsby-plugin-vercel-analytics`,
