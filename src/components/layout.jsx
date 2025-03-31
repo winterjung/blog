@@ -2,7 +2,6 @@ import { css } from "@emotion/react"
 import { Analytics } from "@vercel/analytics/react"
 import { graphql, Link, useStaticQuery } from "gatsby"
 import React from "react"
-import "./layout.css"
 
 export default function Layout({ children }) {
     const data = useStaticQuery(graphql`
