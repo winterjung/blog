@@ -46,7 +46,8 @@ p, h1, h2, h3, h4, h5, h6 {
 kbd {
     display: inline-block;
     padding: 0.25rem;
-    font-size: 85%;
+    font-size: 11px;
+    font-family: Fira Code, SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
     line-height: 10px;
     vertical-align: middle;
     background-color: #f6f8fa;
@@ -56,7 +57,7 @@ kbd {
     box-shadow: inset 0 -1px 0 #d1d9e0b3;
 }
 
-code, pre, kbd {
+code, pre {
     font-family:
         Fira Code,
         SFMono-Regular,
