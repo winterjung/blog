@@ -1,1 +1,1 @@
-import "./static/theme/github-light.css"
+import "./src/components/layout.css"
