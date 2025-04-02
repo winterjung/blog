@@ -59,7 +59,7 @@ def from_iterable(iterables):
 ```
 
 ### 리스트 컴프리헨션 (list comprehension)
-어찌보면 phtonic하다고 볼 수도 있는데 개인적으로는 코드가 그리 직관적으로 다가오진 않는다.
+어찌보면 pythonic하다고 볼 수도 있는데 개인적으로는 코드가 그리 직관적으로 다가오진 않는다.
 
 ```python
 >>> list_of_lists = [[1, 2], [3, 4]]
