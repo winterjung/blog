@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
+import { defaultLang, languages } from '../../i18n/ui'
 import PostLayout from '../../layouts/PostLayout.astro'
-import { languages, defaultLang } from '../../i18n/ui'
 
 export async function getStaticPaths() {
   const nonDefaultLangs = Object.keys(languages).filter((lang) => lang !== defaultLang) as Array<

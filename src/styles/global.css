@@ -335,12 +335,39 @@ nav {
   font-size: 0.875rem;
 }
 
-/* H2 Permalink styling */
-h2 a {
-  color: inherit;
+/* Heading permalink styling */
+.heading-link {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  margin-left: 0.3em;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.heading-link:hover {
+  color: var(--color-link);
   text-decoration: none;
 }
 
-h2 a:hover {
-  text-decoration: underline;
+h2:hover .heading-link,
+h3:hover .heading-link,
+h4:hover .heading-link,
+h5:hover .heading-link,
+h6:hover .heading-link {
+  opacity: 1;
+}
+
+.heading-link-icon {
+  font-size: 0.8em;
+}
+
+/* Mobile: always show heading link */
+@media (max-width: 768px) {
+  .heading-link {
+    opacity: 0.5;
+  }
+
+  .heading-link:active {
+    opacity: 1;
+  }
 }

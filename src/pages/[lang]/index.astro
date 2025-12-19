@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content'
-import BaseLayout from '../../layouts/BaseLayout.astro'
-import { languages, defaultLang, ui } from '../../i18n/ui'
+import { defaultLang, languages, ui } from '../../i18n/ui'
 import { useTranslations } from '../../i18n/utils'
+import BaseLayout from '../../layouts/BaseLayout.astro'
 
 export function getStaticPaths() {
   return Object.keys(languages)

@@ -36,6 +36,23 @@ const displayDate = lastmod || date
     </main>
     <!-- Plausible Analytics -->
     <script defer data-domain="winterjung.dev" src="https://plausible.io/js/script.js"></script>
+    <!-- Heading link copy to clipboard -->
+    <script>
+      document.querySelectorAll('.heading-link').forEach(link => {
+        link.addEventListener('click', async (e) => {
+          e.preventDefault()
+          const url = decodeURI(new URL(link.getAttribute('href') || '', window.location.href).href)
+          await navigator.clipboard.writeText(url)
+
+          const icon = link.querySelector('.heading-link-icon')
+          if (icon) {
+            const original = icon.textContent
+            icon.textContent = '✓'
+            setTimeout(() => { icon.textContent = original }, 1000)
+          }
+        })
+      })
+    </script>
   </body>
 </html>
 

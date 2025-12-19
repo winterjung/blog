@@ -21,9 +21,10 @@
   },
   "homepage": "https://www.winterjung.dev",
   "dependencies": {
-    "astro": "^5.1.1",
+    "@astrojs/rss": "^4.0.10",
     "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/rss": "^4.0.10"
+    "astro": "^5.1.1",
+    "hastscript": "^9.0.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
