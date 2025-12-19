@@ -1,0 +1,56 @@
+---
+import BaseHead from '../components/BaseHead.astro'
+import Giscus from '../components/Giscus.astro'
+import Header from '../components/Header.astro'
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description?: string
+  image?: string
+  date: string
+  lastmod?: string
+}
+
+const { title, description, image, date, lastmod } = Astro.props
+const displayDate = lastmod || date
+---
+
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+  </head>
+  <body>
+    <Header />
+    <hr />
+    <main>
+      <article>
+        <header>
+          <h1>{title}</h1>
+          <time datetime={displayDate}>{displayDate}</time>
+        </header>
+        <slot />
+      </article>
+      <Giscus />
+    </main>
+    <!-- Plausible Analytics -->
+    <script defer data-domain="winterjung.dev" src="https://plausible.io/js/script.js"></script>
+  </body>
+</html>
+
+<style>
+  article header {
+    margin-bottom: 2rem;
+  }
+
+  article header h1 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  article header time {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+</style>

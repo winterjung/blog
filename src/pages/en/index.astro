@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const posts = await getCollection('posts', ({ id, data }) => {
+  return id.startsWith('en/') && (import.meta.env.DEV || !data.draft)
+})
+
+// Extract date and slug from filename pattern: YYYY-MM-DD-slug.md
+const sortedPosts = posts
+  .map((post) => {
+    const filename = post.id.replace('en/', '').replace('.md', '')
+    const match = filename.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/)
+    return {
+      ...post,
+      date: match?.[1] || '',
+      slug: match?.[2] || filename,
+    }
+  })
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+---
+
+<BaseLayout title="winterjung blog" description="Software engineer who writes">
+  <div>
+    {sortedPosts.length > 0 ? (
+      sortedPosts.map(post => (
+        <div class="post-item">
+          <a href={`/en/${post.slug}/`}>
+            <h3>{post.data.title}</h3>
+          </a>
+          <p class="post-date">
+            {post.date} - {post.body?.slice(0, 100)}...
+          </p>
+        </div>
+      ))
+    ) : (
+      <p>No English posts yet. Check out the <a href="/">Korean posts</a>.</p>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .post-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-item h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .post-item a {
+    text-decoration: none;
+  }
+
+  .post-item a:hover h3 {
+    text-decoration: underline;
+  }
+
+  .post-date {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+</style>

@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content'
+import PostLayout from '../../layouts/PostLayout.astro'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ id, data }) => {
+    return id.startsWith('en/') && (import.meta.env.DEV || !data.draft)
+  })
+
+  return posts.map((post) => {
+    const filename = post.id.replace('en/', '').replace('.md', '')
+    const match = filename.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/)
+    const slug = match?.[2] || filename
+    const date = match?.[1] || ''
+
+    return {
+      params: { slug },
+      props: { post, date },
+    }
+  })
+}
+
+interface Props {
+  post: Awaited<ReturnType<typeof getCollection>>[number]
+  date: string
+}
+
+const { post, date } = Astro.props
+const { Content } = await post.render()
+
+// Generate excerpt for description
+const excerpt = post.body?.replace(/[#*`\[\]]/g, '').slice(0, 160) || ''
+---
+
+<PostLayout
+  title={post.data.title}
+  description={excerpt}
+  image={post.data.image}
+  date={date}
+  lastmod={post.data.lastmod}
+>
+  <Content />
+</PostLayout>

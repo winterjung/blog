@@ -1,0 +1,58 @@
+---
+interface Props {
+  title?: string
+  description?: string
+  image?: string
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const {
+  title = 'winterjung blog',
+  description = '글 쓰는 소프트웨어 엔지니어',
+  image = '/header.png',
+} = Astro.props
+
+const imageURL = new URL(image.startsWith('/') ? image : `/${image}`, Astro.site)
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="canonical" href={canonicalURL} />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="image" content={imageURL} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={title} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:type" content={Astro.url.pathname === '/' ? 'website' : 'article'} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />
+<meta name="twitter:creator" content="@res_tin" />
+
+<!-- Pretendard Font -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link
+  rel="preload"
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+  as="style"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+/>
+
+<!-- Theme initialization (FOUC prevention) -->
+<script is:inline>
+  const theme = localStorage.getItem('theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+</script>

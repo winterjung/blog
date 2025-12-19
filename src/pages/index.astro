@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+// 마크다운 문법을 제거하고 plain text로 변환
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/^---[\s\S]*?---/m, '') // frontmatter 제거
+    .replace(/```[\s\S]*?```/g, '') // 코드 블록 제거
+    .replace(/`([^`]+)`/g, '$1') // 인라인 코드
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '') // 이미지
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // 링크
+    .replace(/^#{1,6}\s+/gm, '') // 헤딩
+    .replace(/(\*\*|__)(.*?)\1/g, '$2') // 볼드
+    .replace(/(\*|_)(.*?)\1/g, '$2') // 이탤릭
+    .replace(/~~(.*?)~~/g, '$1') // 취소선
+    .replace(/^\s*[-*+]\s+/gm, '') // 리스트
+    .replace(/^\s*\d+\.\s+/gm, '') // 순서 리스트
+    .replace(/^\s*>\s+/gm, '') // 인용
+    .replace(/\n+/g, ' ') // 줄바꿈을 공백으로
+    .replace(/\s+/g, ' ') // 연속 공백 제거
+    .trim()
+}
+
+const posts = await getCollection('posts', ({ id, data }) => {
+  return id.startsWith('ko/') && (import.meta.env.DEV || !data.draft)
+})
+
+// Extract date and slug from filename pattern: YYYY-MM-DD-slug.md
+const sortedPosts = posts
+  .map((post) => {
+    const filename = post.id.replace('ko/', '').replace('.md', '')
+    const match = filename.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/)
+    const plainText = stripMarkdown(post.body || '')
+    return {
+      ...post,
+      date: match?.[1] || '',
+      slug: match?.[2] || filename,
+      excerpt: plainText.slice(0, 150),
+    }
+  })
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+---
+
+<BaseLayout>
+  <div>
+    {sortedPosts.map(post => (
+      <div class="post-item">
+        <a href={`/${post.slug}/`}>
+          <h3>{post.data.title}</h3>
+        </a>
+        <p class="post-date">
+          {post.date} - {post.excerpt}...
+        </p>
+      </div>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .post-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-item h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .post-item a {
+    text-decoration: none;
+  }
+
+  .post-item a:hover h3 {
+    text-decoration: underline;
+  }
+
+  .post-date {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+</style>

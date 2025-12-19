@@ -1,0 +1,24 @@
+---
+interface Props {
+  to: string
+}
+
+const { to } = Astro.props
+const destination = to.startsWith('/') ? to : `/${to}`
+---
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="refresh" content={`0;url=${destination}`} />
+  <link rel="canonical" href={destination} />
+  <title>Redirecting...</title>
+  <script define:vars={{ destination }}>
+    window.location.replace(destination);
+  </script>
+</head>
+<body>
+  <p>Redirecting to <a href={destination}>{destination}</a></p>
+</body>
+</html>
