@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content'
+import PostLayout from '../../layouts/PostLayout.astro'
+import { languages, defaultLang } from '../../i18n/ui'
+
+export async function getStaticPaths() {
+  const nonDefaultLangs = Object.keys(languages).filter((lang) => lang !== defaultLang) as Array<
+    keyof typeof languages
+  >
+
+  const paths = []
+
+  for (const lang of nonDefaultLangs) {
+    const posts = await getCollection('posts', ({ id, data }) => {
+      return id.startsWith(`${lang}/`) && (import.meta.env.DEV || !data.draft)
+    })
+
+    for (const post of posts) {
+      const filename = post.id.replace(`${lang}/`, '').replace('.md', '')
+      const match = filename.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/)
+      const slug = match?.[2] || filename
+      const date = match?.[1] || ''
+
+      paths.push({
+        params: { lang, slug },
+        props: { post, date },
+      })
+    }
+  }
+
+  return paths
+}
+
+interface Props {
+  post: Awaited<ReturnType<typeof getCollection>>[number]
+  date: string
+}
+
+const { post, date } = Astro.props
+const { Content } = await post.render()
+
+const excerpt = post.body?.replace(/[#*`\[\]]/g, '').slice(0, 160) || ''
+---
+
+<PostLayout
+  title={post.data.title}
+  description={excerpt}
+  image={post.data.image}
+  date={date}
+  lastmod={post.data.lastmod}
+>
+  <Content />
+</PostLayout>
