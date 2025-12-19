@@ -1,0 +1,99 @@
+---
+import { getCollection } from 'astro:content'
+import { defaultLang, languages, ui } from '../../i18n/ui'
+import { useTranslations } from '../../i18n/utils'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export function getStaticPaths() {
+  return Object.keys(languages)
+    .filter((lang) => lang !== defaultLang)
+    .map((lang) => ({ params: { lang } }))
+}
+
+const { lang } = Astro.params as { lang: keyof typeof languages }
+const t = useTranslations(lang)
+
+// 마크다운 문법과 HTML을 제거하고 plain text로 변환
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/^---[\s\S]*?---/m, '')
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/(\*\*|__)(.*?)\1/g, '$2')
+    .replace(/(\*|_)(.*?)\1/g, '$2')
+    .replace(/~~(.*?)~~/g, '$1')
+    .replace(/^\s*[-*+]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    .replace(/^\s*>\s+/gm, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\n+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+const posts = await getCollection('posts', ({ id, data }) => {
+  return id.startsWith(`${lang}/`) && (import.meta.env.DEV || !data.draft)
+})
+
+const sortedPosts = posts
+  .map((post) => {
+    const filename = post.id.replace(`${lang}/`, '').replace('.md', '')
+    const match = filename.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/)
+    const plainText = stripMarkdown(post.body || '')
+    return {
+      ...post,
+      date: match?.[1] || '',
+      slug: match?.[2] || filename,
+      excerpt: plainText.slice(0, 150),
+    }
+  })
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+---
+
+<BaseLayout title={t('site.title')} description={t('site.description')}>
+  <div>
+    {sortedPosts.length > 0 ? (
+      sortedPosts.map((post) => (
+        <div class="post-item">
+          <a href={`/${lang}/${post.slug}/`}>
+            <h3>{post.data.title}</h3>
+          </a>
+          <p class="post-date">
+            {post.date} - {post.excerpt}...
+          </p>
+        </div>
+      ))
+    ) : (
+      <p>
+        {t('home.empty')} <a href="/">{t('home.checkOther')}</a>
+      </p>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .post-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-item h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .post-item a {
+    text-decoration: none;
+  }
+
+  .post-item a:hover h3 {
+    text-decoration: underline;
+  }
+
+  .post-date {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+</style>

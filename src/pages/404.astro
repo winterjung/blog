@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const posts = await getCollection('posts', ({ id, data }) => {
+  return id.startsWith('ko/') && !data.draft
+})
+
+// Get 5 most recent posts
+const recentPosts = posts
+  .map((post) => {
+    const filename = post.id.replace('ko/', '').replace('.md', '')
+    const match = filename.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/)
+    return {
+      title: post.data.title,
+      date: match?.[1] || '',
+      slug: match?.[2] || filename,
+    }
+  })
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, 5)
+---
+
+<BaseLayout title="Page Not Found - winterjung blog">
+  <h1>Page Not Found</h1>
+  <p>요청하신 페이지가 존재하지 않습니다. 아래 최근 포스트를 확인해보세요:</p>
+  <ul>
+    {recentPosts.map(post => (
+      <li>
+        <a href={`/${post.slug}/`}>{post.title}</a>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

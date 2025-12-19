@@ -1,0 +1,35 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils'
+import ThemeToggle from './ThemeToggle.astro'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+---
+
+<a href="/">
+  <h2 class="home">winterjung blog</h2>
+</a>
+<nav>
+  <a href="/">{t('nav.posts')}</a>
+  <a href="/resume/">{t('nav.resume')}</a>
+  <a href="/rss.xml">{t('nav.rss')}</a>
+  <a href="https://github.com/winterjung" target="_blank" rel="noopener noreferrer">github</a>
+  <a href="https://www.linkedin.com/in/jungwinter/" target="_blank" rel="noopener noreferrer">linkedin</a>
+  {lang === 'ko' ? (
+    <a href="/en/">en</a>
+  ) : (
+    <a href="/">ko</a>
+  )}
+  <ThemeToggle />
+</nav>
+
+<style>
+  nav a {
+    margin-right: 10px;
+    text-decoration: none;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
+  }
+</style>

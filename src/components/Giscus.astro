@@ -1,0 +1,33 @@
+---
+interface Props {
+  lang?: string
+}
+
+const { lang = 'ko' } = Astro.props
+---
+
+<section class="giscus-container">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="winterjung/blog"
+    data-repo-id="MDEwOlJlcG9zaXRvcnkyMzYyNTc3MDc="
+    data-category="Comments"
+    data-category-id="DIC_kwDODhUBq84Cj2FN"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang={lang}
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+  ></script>
+</section>
+
+<style>
+  .giscus-container {
+    margin-top: 2rem;
+  }
+</style>

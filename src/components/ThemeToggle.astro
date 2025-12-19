@@ -1,0 +1,75 @@
+---
+---
+
+<button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+  <span class="to-light">light</span>
+  <span class="to-dark">dark</span>
+</button>
+
+<style>
+  #theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: inherit;
+    color: var(--color-link);
+  }
+
+  #theme-toggle:hover {
+    text-decoration: underline;
+  }
+
+  .to-light {
+    display: none;
+  }
+
+  .to-dark {
+    display: inline;
+  }
+
+  :global([data-theme="dark"]) .to-light {
+    display: inline;
+  }
+
+  :global([data-theme="dark"]) .to-dark {
+    display: none;
+  }
+</style>
+
+<script>
+  function initThemeToggle() {
+    const toggle = document.getElementById('theme-toggle');
+
+    const getTheme = () => {
+      const stored = localStorage.getItem('theme');
+      if (stored) return stored;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+
+    const setTheme = (theme: string) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+
+      // Update Giscus theme
+      const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+      if (iframe?.contentWindow) {
+        iframe.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: theme === 'dark' ? 'dark' : 'light' } } },
+          'https://giscus.app'
+        );
+      }
+    };
+
+    toggle?.addEventListener('click', () => {
+      const current = getTheme();
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  // Run on initial load
+  initThemeToggle();
+
+  // Re-run after Astro page transitions
+  document.addEventListener('astro:after-swap', initThemeToggle);
+</script>
