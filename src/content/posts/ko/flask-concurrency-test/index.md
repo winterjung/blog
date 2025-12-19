@@ -113,13 +113,13 @@ compute는 다른 두개의 테스트와 다르게 CPU bound 작업을 수행하
 
 이 글을 쓰기 전 수행했던 테스트는 flask와 gunicorn을 조합할 때 어떤 옵션이 가장 좋은가에 중점을 두었기 때문에 flask는 기본적인 로직만 구현했고 머신의 성능이나 실무에서 쓰일법한 동작을 고려하지 않았다. 원래는 워커는 많을수록 좋겠고 스레드도 마찬가지겠는데 워커 클래스는 뭘 선택하지에서 출발했기에 아무래도 부족한 점이 있을 수 있다. 그래도 flask 앱을 gunicorn으로 배포하자고 결정할 때 작은 도움이 되길 바라며 잘못된 정보, 오타 혹은 보완할 점이 있으면 [트위터](https://twitter.com/res_tin), [메일](mailto:wintermy201@gmail.com) 등으로 알려주시면 감사하겠습니다.
 
-[flask앱은 기본적으로 동기적(synchronous)]: http://flask.pocoo.org/docs/0.12/design/#thread-locals
+[flask앱은 기본적으로 동기적(synchronous)]: https://flask.palletsprojects.com/en/stable/design/
 [aiohttp 라이브러리 버전이 1.3.5 이하]: https://github.com/benoitc/gunicorn/issues/1526
 [`gaiohttp`를 사용하기 위한 다른 방법]: http://docs.gunicorn.org/en/latest/design.html#asyncio-workers
 [flask 앱을 감싸는 방법]: https://github.com/benoitc/gunicorn/blob/master/examples/frameworks/flaskapp_aiohttp_wsgi.py
-[Github에 올려둔 `blocking_flask.py` 코드]: https://github.com/JungWinter/Code_Study/blob/master/Python/Research/gunicorn_flask_test/blocking_flask.py
+[Github에 올려둔 `blocking_flask.py` 코드]: #테스트
 [공식 문서에서 권장하는 워커와 스레드의 개수]: http://docs.gunicorn.org/en/stable/settings.html#worker-processes
 [httpbin.org]: http://httpbin.org
 [apache benchmark tool인 ab]: https://httpd.apache.org/docs/2.4/programs/ab.html
-[간단한 스크립트]: https://github.com/JungWinter/Code_Study/blob/master/Python/Research/gunicorn_flask_test/gunicorn_test.py
-[jupyter notebook 코드]: https://github.com/JungWinter/Code_Study/blob/master/Python/Research/gunicorn_flask_test/analysis.ipynb
+[간단한 스크립트]: #테스트
+[jupyter notebook 코드]: #결과

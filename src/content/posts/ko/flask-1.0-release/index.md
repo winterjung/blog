@@ -11,7 +11,7 @@ date: 2018-04-27
 
 ## Highlight change
 
-- Python 2.6과 3.3 지원을 중단했다. [[pallets/meta#24]](https://github.com/pallets/meta/issues/24)
+- Python 2.6과 3.3 지원을 중단했다.
 
 - `JSONIFY_PRETTYPRINT_REGULAR` config 값은 `jsonify()`가 반환하는 응답의 포맷을 결정하는데 이젠 debug 모드가 아닐 때 기본적으로 False로 설정되어 json 응답이 compact하게 출력된다. debug 모드에선 기본적으로 True로 설정된다. [[#2193]](https://github.com/pallets/flask/pull/2193)
 

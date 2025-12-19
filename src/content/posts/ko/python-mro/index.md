@@ -29,7 +29,7 @@ Python 2.3 이후 아래 이미지와 같은 상속을 시도하려하면 `TypeE
 ![](https://makina-corpus.com/blog/metier/2014/python-mro-conflict)
 
 #### Reference
-* [INHERITANCE(상속), MRO](https://kimdoky.github.io/python/2017/11/28/python-inheritance.html)
+* [Python MRO 공식 문서](https://docs.python.org/3/howto/mro.html)
 * [What does mro do](https://stackoverflow.com/questions/2010692/what-does-mro-do)
 * [Python 2.3이후의 MRO 알고리즘에 대한 파이썬 공식 문서](https://www.python.org/download/releases/2.3/mro/)
 * [What is a method in python](https://stackoverflow.com/questions/3786881/what-is-a-method-in-python/3787670#3787670)

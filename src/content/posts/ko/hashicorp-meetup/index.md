@@ -368,7 +368,7 @@ HashiCorp 한국 사용자 모임이 주최하여 2018년 7월 28일 공개SW개
 ## 그들이 서비스와 엔터프라이즈 인프라를 AWS 위에서 다루는 방법 - [박훈](https://1ambda.blog/)
 
 - ZEPL, 소프트웨어 엔지니어
-- [슬라이드 주소](https://docs.google.com/presentation/d/17BuIWIkuh9ews6MsFimi0z1g3vt859j3cL_BBpNM95E/edit?usp=sharing)
+- [밋업 정리 글](https://www.44bits.io/ko/post/news--2018-seoul-meetup-of-hashicorp-krug)
 
 ### 문제
 
