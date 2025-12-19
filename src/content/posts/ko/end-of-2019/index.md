@@ -61,7 +61,7 @@ image: ./end-of-2019.png
 
 테스트 코드가 프로덕션 서비스를 넘어서 이런 템플릿 프로젝트에서조차 어떻게 귀찮음을 덜어내고 자신감을 높여줄 수 있는지 다시 한번 느낄 수 있었다.
 
-#### [파이콘 한국 2019 발표](https://archive.pycon.kr/2019/) - 파이썬 3.7 어찌 그렇게 빨라졌나
+#### [파이콘 한국 2019 발표](https://blog.banksalad.com/tech/pycon19/) - 파이썬 3.7 어찌 그렇게 빨라졌나
 
 <figure>
   <a href="https://speakerdeck.com/jungwinter/why-is-python-3-dot-7-fastest">
