@@ -1,0 +1,58 @@
+---
+title: shottr로 스크린샷 효율 극대화하기
+date: 2025-03-30
+image: ./shottr_screen.png
+---
+
+노션으로 문서를 작성하거나, 슬랙 같은 커뮤니케이션 도구를 사용하다 보면 이미지를 첨부하고 공유할 일이 참 많다. 주로 백엔드 개발을 하면서 코드보다도 은근히 figma나 [excalidraw](https://excalidraw.com/)로 그린 관계도나 터미널 출력, sql 쿼리와 결과, 서버의 에러 로그, datadog이나 grafana같은 모니터링 툴의 화면 등을 캡처해 공유하는 일이 여러 번 필요하다. 그럴 때마다 기본 제공하는 스크린샷 단축키를 써오다, [geeknews](https://news.hada.io/topic?id=6977)에서 소개하는 **[shottr](https://shottr.cc/)앱**을 알게 된 이후로는 이 앱에 정착해 꾸준히 유용하게 써오고 있어 이번 기회에 소개하고자 한다.
+
+> 참고로 shottr 앱은 이후 [매일 사용하는 추천 macOS앱을 알려주세요](https://news.hada.io/topic?id=15295), [근처 사람들은 잘 안 쓰는데, 유용하게 쓰고 계신 유틸리티가 있으신가요? \(2023\)](https://news.hada.io/topic?id=12460) 등의 글에도 꾸준히 소개되고, 주변 여러 사람들도 만족하며 쓰고 있다.
+
+## 보통은 어떻게 캡처했나
+
+mac os에선 기본으로 아래 단축키를 제공한다.
+- <kbd>⌘</kbd><sub>command</sub>+<kbd>⇧</kbd><sub>shift</sub>+<kbd>3</kbd>: 전체 화면을 파일로 저장
+- <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>4</kbd>: 선택 영역을 파일로 저장
+
+### 잠깐 시간 들여 알아두면 좋을 팁
+
+굳이 shottr 같은 스크린샷 앱을 쓰지 않더라도 아래 내용은 참고해 두면 좋다.
+- 위 단축키 조합에 <kbd>⌃</kbd><sub>control</sub>을 추가하면 파일 저장 대신 **클립보드에 복사**한다. 바탕화면에서 방금 캡처한 스크린샷을 굳이 찾지 않고도 붙여 넣을 수 있어 사용이 편하다.
+  - 참고로 윈도우에선 <kbd>⊞</kbd>+<kbd>⇧</kbd>+<kbd>s</kbd>로 선택 영역을 클립보드에 복사할 수 있다
+- <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>4</kbd> 혹은 <kbd>⌘</kbd>+<kbd>⌃</kbd>+<kbd>⇧</kbd>+<kbd>4</kbd> 상태에서 <kbd>space</kbd>를 누르면 창 선택기가 켜져서 캡처하고 싶은 창만 고를 수 있다.
+- <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>5</kbd>로 여러 옵션과 함께 고정된 영역을 캡처하거나 비디오로 녹화할 수 있다.
+- [raycast](https://www.raycast.com/)에서 기본 제공되는 [clipboard history](https://www.raycast.com/core-features/clipboard-history) 기능(<kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>v</kbd>)을 사용하면 아래 사진처럼 한 번에 여러 장을 클립보드에 캡처해 두고 몰아서 붙여넣기 편하다.
+  - ![raycast clipboard history](./raycast_clipboard_history.png)
+- 이미지를 최적화해 주는 [clop 앱](https://lowtechguys.com/clop/)까지 설치해 같이 사용하면 클립보드에 복사된 이미지가 자동으로 압축되어 더 좋다.
+
+이렇게 기본 제공되는 기능으로도 원하는 부분을 캡처해 공유하기엔 좋지만, 아무래도 주목시키고 싶은 특정 영역을 포커싱하거나 이미지에 부가적인 텍스트를 적기엔 부족함이 있다. 그렇다고 이를 매번 키노트나 다른 사진 편집 앱을 통해 수정하기도 번거로운데 이때 shottr가 그 영역을 아주 편한 사용성으로 커버한다.
+
+## shottr 화면과 사용 사례
+
+![shottr app screen](./shottr_screen.png)
+- [앱 홈페이지의 소개](https://shottr.cc/#section-about)를 보면 여러 기능이 있지만 보통 위 사진에 나오는 기능을 제일 많이 쓰게된다.
+- 이후 편집된 이미지는 파일로 저장할 수도, 클립보드에 복사할 수도, 핀으로 둥둥 떠다니게 고정해둘 수도 있다.
+- 사용성이 아주 좋은데 그 중 단축키가 매우 직관적이다.
+  - 이미지에 화살표<sub>arrow</sub>를 넣고 싶으면 <kbd>a</kbd>
+  - 사각형<sub>rectangle</sub>은 <kbd>r</kbd>
+  - 흐림효과<sub>blur</sub>는 <kbd>b</kbd>인 식이다.
+- 상단 메뉴바로 스크롤링 캡처, 지연 캡처도 가능하고, 클립보드로부터 이미지를 불러와 수정할 수도 있다.
+  - 지연 캡처는 모니터링 대시보드를 캡처하거나 커서를 치우면 없어져 버리는 팝업 메시지를 캡처할 때 특히 유용하게 쓸 수 있다.
+  - ![shottr menu bar](./shottr_menubar.png)
+- qrcode를 인식하거나 영어, 한국어 텍스트 ocr도 가능한데 아직 그렇게 적극적으로 사용할 일은 없었다.
+- 대부분의 유용한 기능은 **무료**로 제공되며 딱 2가지 기능이 유료 기능이다.
+  - backdrop이라고 캡처한 스크린샷 주변으로 이쁜 백그라운드를 넣어준다. 개인적으로 아직 그렇게 필요한 순간이 오진 않았다.
+  - 여러 캡처 합치기 기능이 유료다. 필요한 순간이 종종 생겨서 이 기능 하나 때문에라도 유료 전환을 고민 중이다.
+
+## 아쉬운 점
+이미지를 캡처할 땐 매우 유용하나 아직 gif, video 캡처 기능을 제공하지 않는다.
+![shottr whats next](./shottr_whats_next.png)
+다만 제작자도 이를 인지하고 있으니 향후 지원을 기대해 볼 수 있겠다.
+
+## 다른 스크린샷 도구
+- [cleanshot x](https://cleanshot.com/): 좀 더 정밀한 캡처나 마우스 포인터 캡처, 키 스트로크 캡처, 클라우드 업로드와 permalink, 다양한 텍스트 포맷 등 shottr의 상위 호환이라 할 수 있을 만큼 더 풍부한 기능을 제공한다. 다만 기본적으로 유료고 모든 기능을 다 잘 쓸 자신도 없어 실제로 사용해 보진 않았다.
+- [ishot](https://www.better365.info/ishot.html): shottr을 알기 전까지 잠시 썼던 도구. 기능은 많았으나 화면이나 단축키가 그다지 직관적이지 않고 심미성과 사용성이 좋지만은 않아 곧 사용하지 않게됐다.
+- [xnapper](https://xnapper.com/ko): cleanshot x만큼 유려하나 이미 shottr를 잘 쓰고 있을 때 알게 되어 굳이 사용해 보진 않았다.
+
+## 총평
+다른 스크린샷 앱에 비해 고점이 낮을 순 있어도 편한 사용성과 기본 옵션만으로도 충분히 만족할 결과를 내주는 도구다. 다른 도구를 써본 적이 없다면 무료로도 평생 쓸만한 shottr을 추천한다.
