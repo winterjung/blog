@@ -150,7 +150,6 @@ n_lol = np.array(list_of_lists)
 
 ## 결과 비교 그래프
 성능들을 한눈에 알아보기 쉽게 하기 위해 `matplotlib`를 통해 그래프로 시각화 시켜주었다.  
-[그래프를 생성하는 Jupyter 코드](https://github.com/JungWinter/Code_Study/blob/master/Etc/list%20of%20lists%20to%20flatten.ipynb)  
 
 ![결과](./result.png)
 log스케일의 그래프임으로 x축에서 1칸의 차이는 실질적으로 10배의 차이다.  
