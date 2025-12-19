@@ -27,16 +27,15 @@ const posts = await getCollection('posts', ({ id, data }) => {
   return id.startsWith('ko/') && (import.meta.env.DEV || !data.draft)
 })
 
-// Extract date and slug from filename pattern: YYYY-MM-DD-slug.md
+// Extract slug from folder name: ko/slug/index.md → slug
 const sortedPosts = posts
   .map((post) => {
-    const filename = post.id.replace('ko/', '').replace('.md', '')
-    const match = filename.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/)
+    const slug = post.id.replace('ko/', '').replace('/index.md', '').replace('.md', '')
     const plainText = stripMarkdown(post.body || '')
     return {
       ...post,
-      date: match?.[1] || '',
-      slug: match?.[2] || filename,
+      date: post.data.date,
+      slug,
       excerpt: plainText.slice(0, 150),
     }
   })

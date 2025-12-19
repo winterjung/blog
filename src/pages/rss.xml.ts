@@ -9,14 +9,12 @@ export async function GET(context: APIContext) {
 
   const items = posts
     .map((post) => {
-      const filename = post.id.replace('ko/', '').replace('.md', '')
-      const match = filename.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/)
-      const slug = match?.[2] || filename
-      const date = match?.[1] || ''
+      // ko/slug/index.md → slug
+      const slug = post.id.replace('ko/', '').replace('/index.md', '').replace('.md', '')
 
       return {
         title: post.data.title,
-        pubDate: new Date(date),
+        pubDate: new Date(post.data.date),
         link: `/${slug}/?utm_source=feed&utm_medium=feed&utm_campaign=feed`,
         description: post.body?.replace(/[#*`\[\]]/g, '').slice(0, 200) || '',
       }

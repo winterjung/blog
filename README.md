@@ -22,20 +22,21 @@ npm run dev
 
 ### 파일 생성
 
-`src/content/posts/ko/` 디렉토리에 마크다운 파일 생성:
+`src/content/posts/ko/` 디렉토리에 포스트 폴더 생성:
 
 ```
-src/content/posts/ko/YYYY-MM-DD-slug.md
+src/content/posts/ko/slug/index.md
 ```
 
-예시: `2025-01-15-my-new-post.md`
+예시: `src/content/posts/ko/my-new-post/index.md`
 
 ### Frontmatter 작성
 
 ```yaml
 ---
 title: 포스트 제목
-image: images/YYYYMMDD/thumbnail.png  # 선택사항
+date: 2025-01-15
+image: ./thumbnail.png  # 선택사항, 같은 폴더 내 이미지
 lastmod: 2025-01-20  # 선택사항, 수정일
 draft: true  # 선택사항, 작성 중일 때
 ---
@@ -45,9 +46,18 @@ draft: true  # 선택사항, 작성 중일 때
 
 ### 이미지 추가
 
-1. `public/images/YYYYMMDD/` 디렉토리 생성
-2. 이미지 파일 추가
-3. 마크다운에서 참조: `![alt](/images/YYYYMMDD/image.png)`
+포스트 폴더에 이미지를 함께 저장하고 상대 경로로 참조:
+
+```
+src/content/posts/ko/my-new-post/
+├── index.md
+├── thumbnail.png
+└── screenshot.png
+```
+
+마크다운에서 참조: `![alt](./screenshot.png)`
+
+> Astro가 자동으로 이미지를 최적화 (webp 변환, 압축)
 
 ### 점검 및 확인
 
@@ -93,7 +103,7 @@ src/
 │   └── rss.xml.ts        # RSS 피드
 ├── content/          # 콘텐츠 (마크다운)
 │   ├── config.ts         # 스키마 정의
-│   └── posts/ko/*.md     # 포스트 파일
+│   └── posts/ko/*/       # 포스트 폴더 (index.md + 이미지)
 ├── styles/
 │   └── global.css        # 전역 스타일, CSS 변수
 └── i18n/             # 다국어 설정
