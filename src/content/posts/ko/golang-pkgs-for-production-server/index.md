@@ -1,6 +1,7 @@
 ---
 title: 프로덕션 서버 개발을 위한 golang 패키지 추천
 date: 2024-10-13
+lastmod: 2026-03-04
 image: ./golang-pkgs.png
 ---
 
@@ -11,6 +12,8 @@ image: ./golang-pkgs.png
 go 언어에서 기본으로 제공하는 내장 패키지에도 [`net/http/httptest`](https://pkg.go.dev/net/http/httptest), [`crypto/rand`](https://pkg.go.dev/crypto/rand) 패키지처럼 믿고 쓸 수 있고 잘 만들어진 패키지는 많으나 이 글에선 서드 파티 패키지에 집중했다.
 
 > 글을 쓸 때 마다 항상 드는 고민이 '이 정도면 "golang xxx package" 같은 키워드로 검색해도 금방 나올 텐데 괜히 적는 거 아닌가?'라는 부분이다. 그럼에도 누군가의 의사결정 비용과 고민을 줄여주길 바라며, 또 이 글을 읽은 다양한 사람들이 얹어주는 한마디씩을 통해 이 글이 더 발전되길 바라며 소개해 본다.
+>
+> 업데이트: [2025 Go Developer Survey](https://go.dev/blog/survey2025#challenges) 설문에서 "Go 개발자들이 직면한 가장 큰 도전은 무엇인가요?" 질문에 응답자의 26%가 "신뢰할 수 있는 Go 모듈과 패키지 찾기"라고 답한만큼 그래도 이 글이 유용하길 바란다.
 
 ## [stretchr/testify](https://github.com/stretchr/testify)
 ```go
@@ -153,6 +156,21 @@ func main() {
 - 대용량 트래픽에서 좀 더 성능 튜닝이 필요하다면 [creativecreature/sturdyc](https://github.com/creativecreature/sturdyc), [maypok86/otter](https://github.com/maypok86/otter) 패키지도 참고해 볼 수 있다.
   - 성능을 위해선 로컬 캐시에서 무엇이 중요한지 [Writing a very fast cache service with millions of entries in Go](https://blog.allegro.tech/2016/03/writing-fast-cache-service-in-go.html) 블로그 글에서 다루고 있으니 읽어볼 만하다.
 
+## [coocood/freecache](https://github.com/coocood/freecache)
+```go
+cacheSize := 100 * 1024 * 1024 // 100MB
+cache := freecache.NewCache(cacheSize)
+
+cache.Set([]byte("key"), []byte("value"), 60) // 60 seconds TTL
+value, err := cache.Get([]byte("key"))
+```
+> A cache library for Go with zero GC overhead
+- gc overhead를 최소화한 인메모리 로컬 캐시다. entry 수와 무관하게 512개의 포인터만 사용한다.
+- 별도의 메모리 블록(ring buffer)을 할당해 mark-and-sweep 시 gc가 읽어야 할 object 수가 적다.
+- 단, key, value 모두 `[]byte`로 직렬화해야 한다. 이미 protobuf를 쓰고 있었다면 전환 부담이 적다.
+  - 직렬화 오버헤드보다 heap gc overhead가 더 클 때 유용하다.
+- ristretto가 범용 로컬 캐시라면, freecache는 gc 튜닝이 중요한 대규모 캐시에 적합하다.
+
 ## [volatiletech/sqlboiler](https://github.com/volatiletech/sqlboiler)
 ```go
 import (
@@ -171,6 +189,9 @@ func main() {
 - go 코드로 db 모델을 관리하는게 아닌, 이미 존재하는 db 모델을 따르는 go 코드를 생성해 준다.
 - 쿼리를 만들 때도 string을 직접 사용하지 않고 이미 생성된 타입을 그대로 사용할 수 있어 경험이 좋았다.
 - 다른 패키지도 많은데 개인적인 경험으론 [sqlc-dev/sqlc](https://github.com/sqlc-dev/sqlc)는 사용하기가 불편했고, [go-gorm/gorm](https://github.com/go-gorm/gorm)는 취향에 맞다면 사용해볼만 하다 느껴졌다.
+- 다만 sqlboiler는 [maintenance mode에 진입](https://github.com/aarondl/sqlboiler#maintenance-mode)했다. 보안 패치 등 최소한의 유지보수만 이루어지고 있어 새 프로젝트에선 대안을 탐색해볼 필요가 있다.
+  - [sqlc-dev/sqlc](https://github.com/sqlc-dev/sqlc)는 SQL 쿼리에서 타입 세이프한 코드를 생성해 주고, [stephenafamo/bob](https://github.com/stephenafamo/bob)은 타입 세이프한 쿼리 빌더로 sqlboiler의 정신적 후속작에 가깝다.
+  - 참고: [Golang ORM, 무엇이 좋을까?](https://blog.billo.io/devposts/go_orm_recommandation/)
 
 ## [DATA-DOG/go-sqlmock](https://github.com/DATA-DOG/go-sqlmock)
 ```go
@@ -189,6 +210,131 @@ func TestShouldUpdateStats(t *testing.T) {
   - 쓰다 보면 패키지 경로가 이상한데 싶긴 한데 그래도 별 문제는 없다.
 - '왜 사람이 직접 sql 문을 쓰고 검사해야하지?!' 싶은 사람에겐 추천하지 않는다.
 
+## [golangci/golangci-lint](https://github.com/golangci/golangci-lint) & [mvdan/gofumpt](https://github.com/mvdan/gofumpt)
+```yaml
+# .golangci.yml
+linters:
+  enable:
+    - govet
+    - errcheck
+    - staticcheck
+
+formatters:
+  enable:
+    - gofumpt
+  settings:
+    gofumpt:
+      extra-rules: true
+```
+> golangci-lint: Fast linters runner for Go / gofumpt: A stricter gofmt
+- golangci-lint은 go의 de facto 린터 러너다. 100개 이상의 린터를 통합하고 병렬 실행하여 CI에서도 빠르게 돌릴 수 있다.
+- gofumpt는 gofmt보다 엄격한 포매터로, 팀 내 코드 스타일을 통일하는 데 유용하다.
+- golangci-lint 설정에 gofumpt를 포함시키면 린트와 포매팅을 한 번에 돌릴 수 있다.
+
+## [failsafe-go/failsafe-go](https://github.com/failsafe-go/failsafe-go)
+```go
+retryPolicy := retrypolicy.NewBuilder[*http.Response]().
+	HandleIf(func(r *http.Response, err error) bool {
+		return r != nil && r.StatusCode == http.StatusTooManyRequests
+	}).
+	WithBackoff(time.Second, 30*time.Second).
+	WithMaxRetries(3).
+	Build()
+
+resp, err := failsafe.With(retryPolicy).Get(func() (*http.Response, error) {
+	return http.Get("https://example.com")
+})
+```
+> Fault tolerance and resilience patterns for Go
+- java의 resilience4j 패키지처럼 유용한 패턴들을 제공하는 fault tolerance 패키지다.
+- retry, circuit breaker, rate limiter, bulkhead, adaptive throttler 등 다양한 컴포넌트와 정책을 조합할 수 있다.
+- 경량 retry만 필요하면 아래의 go-retryablehttp로 충분하고, 종합적인 resilience 패턴이 필요하면 failsafe-go가 좋다.
+
+## [hashicorp/go-retryablehttp](https://github.com/hashicorp/go-retryablehttp)
+```go
+client := retryablehttp.NewClient()
+client.RetryMax = 3
+
+resp, err := client.Get("https://example.com/api")
+```
+> Retryable HTTP client in Go
+- net/http 위에 얇은 retry 레이어를 씌운 패키지다.
+- 기존 `http.Client` API를 거의 그대로 사용하면서 retry를 추가할 수 있어 도입 비용이 낮아서 쓸만하다.
+
+## [twmb/franz-go](https://github.com/twmb/franz-go)
+```go
+// producer
+client, _ := kgo.NewClient(kgo.SeedBrokers("localhost:9092"))
+defer client.Close()
+
+ctx := context.Background()
+client.Produce(ctx, &kgo.Record{Topic: "my-topic", Value: []byte("hello")}, nil)
+
+// consumer
+client, _ := kgo.NewClient(
+	kgo.SeedBrokers("localhost:9092"),
+	kgo.ConsumeTopics("my-topic"),
+	kgo.ConsumerGroup("my-group"),
+)
+for {
+	fetches := client.PollFetches(ctx)
+	fetches.EachRecord(func(r *kgo.Record) {
+		fmt.Println(string(r.Value))
+	})
+}
+```
+> franz-go is a feature complete, pure Go library for Kafka from 0.8.0 through 4.1+. Producing, consuming, transacting, administrating, etc.
+- pure go로 작성된 kafka 패키지. [confluent-kafka-go](https://github.com/confluentinc/confluent-kafka-go)는 cgo 환경과 librdkafka 의존성이 필요해 빌드 환경이 까다로워서 추천하지 않는다.
+- package api가 인체공학적이고 제공하는 플러그인이 유용하다.
+- sarama는 오래된 de facto로 생태계가 넓지만, 새 프로젝트라면 franz-go를 추천한다.
+
+## [go-resty/resty](https://github.com/go-resty/resty) & [dghubble/sling](https://github.com/dghubble/sling)
+```go
+// resty
+client := resty.New()
+resp, err := client.R().
+	SetHeader("Accept", "application/json").
+	SetResult(&ApiResponse{}).
+	Get("https://api.example.com/users/1")
+
+// sling
+type Issue struct {
+	Title string `json:"title"`
+	Body  string `json:"body"`
+}
+issue := new(Issue)
+resp, err := sling.New().Base("https://api.github.com/").
+	Path("repos/user/repo/").
+	Get("issues/1").
+	ReceiveSuccess(issue)
+```
+> go-resty: Simple HTTP, REST, and SSE client library for Go / dghubble/sling: A Go HTTP client library for creating and sending API requests
+- 대부분의 경우 net/http만으로 충분하지만, structured api client를 작성할 때 유용하다.
+- resty: 체이닝 api, JSON 자동 마샬링, 내장 retry 등 풍부한 기능을 제공한다.
+- sling: 가볍고 composable한 api 빌더로 좀 더 미니멀하다.
+
+## [go-chi/chi](https://github.com/go-chi/chi)
+```go
+r := chi.NewRouter()
+r.Use(middleware.Logger)
+r.Use(middleware.Recoverer)
+
+r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("hello"))
+})
+r.Route("/users", func(r chi.Router) {
+	r.Get("/", listUsers)
+	r.Post("/", createUser)
+	r.Get("/{userID}", getUser)
+})
+
+http.ListenAndServe(":3000", r)
+```
+> lightweight, idiomatic and composable router for building Go HTTP services
+- echo가 널리 알려져 있지만 chi가 좀 더 go-ish하다. `net/http` 핸들러와 완전히 호환되고 경량이다.
+- 라우터 수가 적으면 go 1.22+의 `net/http` 라우팅 개선만으로도 충분하다. 참고: [Routing Enhancements for Go 1.22](https://go.dev/blog/routing-enhancements)
+- [gin은 쓰지 마세요](https://eblog.fly.dev/ginbad.html).
+
 ## 그 외
 - 슬랙으로 뭔가를 보내야 한다면 [slack-go/slack](https://github.com/slack-go/slack)을 쓰자.
 - github api가 필요하다면 [google/go-github](https://github.com/google/go-github)을 쓰자.
@@ -200,16 +346,28 @@ func TestShouldUpdateStats(t *testing.T) {
 - 시맨틱 버저닝으로 뭔갈 해야 한다면 [Masterminds/semver](https://github.com/Masterminds/semver)를 쓰자.
 - uuid가 필요하다면 [google/uuid](https://github.com/google/uuid)를 쓰자.
   - uuid v7도 지원한다.
+  - 더 짧은 id가 필요하면 [matoous/go-nanoid](https://github.com/matoous/go-nanoid) 류를 고려해볼 수 있다.
+  - [oklog/ulid](https://github.com/oklog/ulid): timestamp 순 정렬이 되는 짧은 id로 프로덕션에서 사용하고 있다. uuid v7도 timestamp 정렬이 되지만, 더블클릭으로 한 번에 복사가 안 되는 게 소소하게 불편하다.
 - kubernetes에 배포한다면 [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs)로 cpu 세팅을 맞춰주자.
   - 안 그러면 pod에 할당된 cpu 리소스는 1인데 32가 들어가 있고 그런다.
 - statsd 메트릭을 찍는다면 [smira/go-statsd](https://github.com/smira/go-statsd) 를 쓰자.
   - 쓰는 쪽에서 별도의 인터페이스를 선언해 noop client 구현과 함께쓰길 추천한다. 그래야 테스트가 편하다.
 - redis를 쓴다면 [redis/rueidis](https://github.com/redis/rueidis)를 쓰자.
   - 빌더 패턴이 호불호가 갈릴 수 있는데 성능이 좋다.
-  - 그냥 [redis/go-redis](https://github.com/redis/go-redis)를 써도 기본은 한다.
+  - rueidis는 [valkey-go](https://github.com/valkey-io/valkey-go)와 동일한 메인테이너, 코드베이스를 공유해 valkey, redis 모두 지원한다.
+  - [redis/go-redis](https://github.com/redis/go-redis)는 기본적으로 쓸만하지만, large scale에서 [elasticache 클러스터 모드 연결 시 이슈가 있어](https://github.com/redis/go-redis/issues/2046) 대규모 환경에선 rueidis를 추천한다.
   - 유닛테스트를 하고 싶다면 [alicebob/miniredis](https://github.com/alicebob/miniredis)와 같이 쓰자.
 - 통합 테스트를 한다면 [testcontainers/testcontainers-go](https://github.com/testcontainers/testcontainers-go)도 쓸만하다.
   - 통합 테스트 방법은 조직마다 상황에 따라 많은 방법이 있겠으나 테스트컨테이너도 옵션 중 하나로 고려해보기 좋다.
+- 국제화 기능이 필요하다면 [biter777/countries](https://github.com/biter777/countries)와 [nyaruka/phonenumbers](https://github.com/nyaruka/phonenumbers)를 참고하자.
+  - countries는 국가 코드, 통화, 언어 등을 다루고, phonenumbers는 google의 libphonenumber go 포트다. 보통은 안 쓰지만 국제화가 필요할 때 유용하다.
+- cgo 없는 Go 앱의 컨테이너 이미지를 빌드한다면 [ko-build/ko](https://github.com/ko-build/ko)를 실험해볼 만하다.
+  - Dockerfile 없이 Go 앱을 distroless 이미지로 빌드, 푸시해 준다. lightweight goreleaser가 필요할 때 고려해보자.
 
 ---
 이렇게 그 동안 자주 사용하고 유용한 패키지를 정리해봤다. 위 내용은 서버 개발에 치중되어 있고, 너무 지엽적인 패키지(e.g. 레벤슈타인 거리 구하는 패키지)는 제외했는데 이 외에도 추천할만한 패키지가 있다면 계속 업데이트 할 예정이다.
+
+## 참고할만한 다른 자료
+- [mingrammer/go-web-framework-stars](https://github.com/mingrammer/go-web-framework-stars)
+- [Which Go router should I use?](https://www.alexedwards.net/blog/which-go-router-should-i-use)
+- [Go Libraries/Packages I Like | Ben E. C. Boyter](https://boyter.org/posts/go-libraries-i-like/)
