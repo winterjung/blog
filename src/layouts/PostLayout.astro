@@ -16,7 +16,6 @@ interface Props {
 
 const { title, description, image, date, lastmod } = Astro.props
 const imageUrl = image?.src
-const displayDate = lastmod || date
 ---
 
 <!DOCTYPE html>
@@ -31,7 +30,14 @@ const displayDate = lastmod || date
       <article>
         <header>
           <h1>{title}</h1>
-          <time datetime={displayDate}>{displayDate}</time>
+          {lastmod ? (
+            <div class="dates">
+              <time datetime={date}>{date}</time>
+              <span class="last-edited">last edited {lastmod}</span>
+            </div>
+          ) : (
+            <time datetime={date}>{date}</time>
+          )}
         </header>
         <slot />
       </article>
@@ -69,8 +75,20 @@ const displayDate = lastmod || date
     margin-bottom: 0.5rem;
   }
 
-  article header time {
+  article header time,
+  article header .last-edited {
     color: var(--color-text-secondary);
     font-size: 0.875rem;
+  }
+
+  .dates {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .last-edited::before {
+    content: '·';
+    margin-right: 0.75rem;
   }
 </style>
