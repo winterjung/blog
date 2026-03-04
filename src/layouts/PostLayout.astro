@@ -12,10 +12,14 @@ interface Props {
   image?: ImageMetadata
   date: string
   lastmod?: string
+  contentId?: string
 }
 
-const { title, description, image, date, lastmod } = Astro.props
+const { title, description, image, date, lastmod, contentId } = Astro.props
 const imageUrl = image?.src
+const historyUrl = contentId
+  ? `https://github.com/winterjung/blog/commits/main/src/content/posts/${contentId}`
+  : undefined
 ---
 
 <!DOCTYPE html>
@@ -33,7 +37,12 @@ const imageUrl = image?.src
           {lastmod ? (
             <div class="dates">
               <time datetime={date}>{date}</time>
-              <span class="last-edited">last edited {lastmod}</span>
+              <span class="separator">·</span>
+              {historyUrl ? (
+                <a href={historyUrl} class="last-edited" target="_blank" rel="noopener noreferrer">last edited {lastmod}</a>
+              ) : (
+                <span class="last-edited">last edited {lastmod}</span>
+              )}
             </div>
           ) : (
             <time datetime={date}>{date}</time>
@@ -76,8 +85,13 @@ const imageUrl = image?.src
   }
 
   article header time,
-  article header .last-edited {
+  article header span.last-edited {
     color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+
+  article header a.last-edited {
+    color: var(--color-link);
     font-size: 0.875rem;
   }
 
@@ -87,8 +101,8 @@ const imageUrl = image?.src
     align-items: center;
   }
 
-  .last-edited::before {
-    content: '·';
-    margin-right: 0.75rem;
+  .separator {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
   }
 </style>

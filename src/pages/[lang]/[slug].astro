@@ -48,6 +48,7 @@ const excerpt = post.body?.replace(/[#*`\[\]]/g, '').slice(0, 160) || ''
   image={post.data.image}
   date={date}
   lastmod={post.data.lastmod}
+  contentId={post.id}
 >
   <Content />
 </PostLayout>
