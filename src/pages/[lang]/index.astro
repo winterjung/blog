@@ -40,13 +40,12 @@ const posts = await getCollection('posts', ({ id, data }) => {
 
 const sortedPosts = posts
   .map((post) => {
-    const filename = post.id.replace(`${lang}/`, '').replace('.md', '')
-    const match = filename.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/)
+    const slug = post.id.replace(`${lang}/`, '').replace('/index.md', '').replace('.md', '')
     const plainText = stripMarkdown(post.body || '')
     return {
       ...post,
-      date: match?.[1] || '',
-      slug: match?.[2] || filename,
+      date: post.data.date,
+      slug,
       excerpt: plainText.slice(0, 150),
     }
   })
