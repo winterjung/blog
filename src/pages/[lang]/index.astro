@@ -51,25 +51,86 @@ const sortedPosts = posts
     }
   })
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
+// 번역된 포스트가 없으면 기본 언어 포스트를 가져와서 번역된 제목으로 보여줌
+const titleTranslations: Record<string, string> = {
+  "2024-geeknews-meetup-summary": "Geeknight 2024 GeekNews Meetup Recap",
+  "3f86e8": "Review: 'Quantum Computing for Everyone'",
+  "b93308": "Maximizing Screenshot Efficiency with shottr",
+  "deterministic-testing-in-go": "Deterministic Testing in Go",
+  "end-of-2019": "2019 Year in Review: How I Lived",
+  "fc8307": "Shell Snippets I Use All the Time",
+  "file-on-blockchain": "Building File on Blockchain",
+  "flask-1.0-release": "What's New in Flask 1.0",
+  "flask-concurrency-test": "Handling Concurrent Requests in Flask with gunicorn",
+  "floating-point-in-python": "Fixing Floating Point Errors in Python",
+  "golang-pkgs-for-production-server": "Recommended Go Packages for Production Server Development",
+  "hashicorp-meetup": "HashiCorp Korea User Group Meetup Notes",
+  "how-to-read-idl": "How to Read IDL (Protocol Buffers)",
+  "list-of-lists-to-flatten": "Flattening a Nested List in Python",
+  "my-refined-github-settings": "My Refined GitHub Settings for a Better GitHub Experience",
+  "ndc2018-durango": "NDC2018 Wild Terra: Durango Session Notes",
+  "new-blog-techspec": "New Blog Tech Spec",
+  "no-blame": "No Blame",
+  "pyinstaller": "Packaging PyQt5 Code into an EXE with PyInstaller",
+  "python-await-vs-return": "Python: await vs return vs return await",
+  "python-books-for-intermediate": "Book Recommendations for Intermediate Python Developers",
+  "python-gc": "How Python GC Works",
+  "python-generator": "Understanding Python Generators",
+  "python-make-command": "Moving Beyond python script.py",
+  "python-mro": "How Python Method Resolution Works (MRO)",
+  "reactivity-in-python": "Implementing Reactivity in Python",
+  "realistic-smart-contract": "Practical Considerations for Smart Contracts",
+  "references-to-deploy-smart-contract": "Getting Started with Smart Contract Development",
+  "resume-rewriting-for-developer": "Rewriting My Resume After 5 Years",
+  "smart-contract-with-python": "Developing Smart Contracts with Python",
+  "string-concat-performance-benchmark-in-go": "Go String Concatenation Performance: 15 Methods Compared",
+  "support-meta-tags": "Release: Meta Tag Support",
+  "the-software-developers-career-handbook-review": "Review: 'The Software Developer's Career Handbook'",
+  "zero-allocation-string-and-bytes-conversion-in-go": "7x Faster string ⇄ []byte Conversion in Go with Zero Allocation",
+}
+
+// 기본 언어 포스트 중 번역되지 않은 것들을 가져옴
+const translatedSlugs = new Set(sortedPosts.map((p) => p.slug))
+const defaultPosts = await getCollection('posts', ({ id, data }) => {
+  return id.startsWith(`${defaultLang}/`) && (import.meta.env.DEV || !data.draft)
+})
+const untranslatedPosts = defaultPosts
+  .map((post) => {
+    const slug = post.id.replace(`${defaultLang}/`, '').replace('/index.md', '').replace('.md', '')
+    return {
+      ...post,
+      date: post.data.date,
+      slug,
+    }
+  })
+  .filter((post) => !translatedSlugs.has(post.slug))
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 ---
 
 <BaseLayout title={t('site.title')} description={t('site.description')}>
   <div>
-    {sortedPosts.length > 0 ? (
-      sortedPosts.map((post) => (
-        <div class="post-item">
-          <a href={`/${lang}/${post.slug}/`}>
-            <h3>{post.data.title}</h3>
-          </a>
-          <p class="post-date">
-            {post.date} - {post.excerpt}...
-          </p>
-        </div>
-      ))
-    ) : (
-      <p>
-        {t('home.empty')} <a href="/">{t('home.checkOther')}</a>
-      </p>
+    {sortedPosts.map((post) => (
+      <div class="post-item">
+        <a href={`/${lang}/${post.slug}/`}>
+          <h3>{post.data.title}</h3>
+        </a>
+        <p class="post-date">
+          {post.date} - {post.excerpt}...
+        </p>
+      </div>
+    ))}
+
+    {untranslatedPosts.length > 0 && (
+      <div class="untranslated-section">
+        <p class="untranslated-heading">Posts in Korean — titles translated, content not yet available in English</p>
+        {untranslatedPosts.map((post) => (
+          <div class="untranslated-item">
+            <span class="untranslated-date">{post.date}</span>
+            <a href={`/${post.slug}/`}>{titleTranslations[post.slug] || post.data.title}</a>
+          </div>
+        ))}
+      </div>
     )}
   </div>
 </BaseLayout>
@@ -95,5 +156,38 @@ const sortedPosts = posts
     color: var(--color-text-secondary);
     font-size: 0.9rem;
     line-height: 1.5;
+  }
+
+  .untranslated-section {
+    margin-top: 3rem;
+    border-top: 1px solid var(--color-text-secondary);
+    padding-top: 1.5rem;
+  }
+
+  .untranslated-heading {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .untranslated-item {
+    display: flex;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  .untranslated-item a {
+    text-decoration: none;
+  }
+
+  .untranslated-item a:hover {
+    text-decoration: underline;
+  }
+
+  .untranslated-date {
+    color: var(--color-text-secondary);
+    margin-right: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
   }
 </style>
