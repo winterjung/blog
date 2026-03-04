@@ -15,6 +15,7 @@ dist/
 # Logs
 *.log
 npm-debug.log*
+.translate-logs/
 
 # Editor
 .vscode/
