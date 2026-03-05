@@ -1,6 +1,6 @@
 import { execFile } from 'node:child_process'
 import { access, mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
-import { dirname, join } from 'node:path'
+import { dirname, join, relative } from 'node:path'
 import { parseArgs } from 'node:util'
 
 // --- Config ---
@@ -105,6 +105,10 @@ const red = (s: string) => (isTTY ? `\x1b[31m${s}\x1b[0m` : s)
 
 function log(msg: string) {
   process.stderr.write(`${msg}\n`)
+}
+
+function rel(absPath: string): string {
+  return relative(process.cwd(), absPath)
 }
 
 // --- Chunk Status Map (disk-partition style visualization) ---
@@ -442,12 +446,19 @@ async function translateChunkWithRetry(
 
 // --- Phase 3: Review ---
 
+interface ReviewResult {
+  notes: string
+  translation: string
+}
+
+const REVIEW_SEPARATOR = '---FINAL_TRANSLATION---'
+
 async function reviewTranslation(
   source: string,
   translated: string,
   guide: string,
   config: ModelConfig,
-): Promise<string> {
+): Promise<ReviewResult> {
   log(
     `\n${bold('Phase 3')} ${cyan('Review & Polish')} ${dim(`[${config.review}, effort=${config.reviewEffort}]`)}`,
   )
@@ -455,15 +466,25 @@ async function reviewTranslation(
   const result = await callClaude(
     `You are a professional Korean-to-English translation reviewer.
 
-Below is the original Korean blog post, the translation guide used, and the English translation. Review the translation and output a FINAL corrected version.
+Below is the original Korean blog post, the translation guide used, and the English translation. Review the translation for issues and produce a corrected version.
 
-Fix any issues with:
+Check for:
 - Accuracy (mistranslations, omissions)
 - Naturalness (awkward phrasing)
 - Consistency (terminology should match the guide)
 - Formatting (markdown, HTML, and links must be preserved exactly)
 
-IMPORTANT: Output ONLY the final corrected English translation. No commentary, no explanations.
+Output format — you MUST output BOTH sections in this exact order:
+
+## Review Notes
+For each issue found, write:
+- What was wrong (quote the original phrase)
+- What you changed it to and why
+If nothing needed fixing, say "No issues found."
+
+${REVIEW_SEPARATOR}
+
+(The complete final corrected English translation goes here, with all fixes applied.)
 
 === TRANSLATION GUIDE ===
 ${guide}
@@ -476,7 +497,17 @@ ${translated}`,
     { model: config.review, effort: config.reviewEffort, phase: 'review' },
   )
   logCallStats('review', result)
-  return result.text
+
+  // Parse: split on separator
+  const sepIdx = result.text.indexOf(REVIEW_SEPARATOR)
+  if (sepIdx === -1) {
+    // Fallback: no separator found, treat entire output as translation
+    return { notes: '(Review notes not found in output)', translation: result.text }
+  }
+
+  const notes = result.text.slice(0, sepIdx).trim()
+  const translation = result.text.slice(sepIdx + REVIEW_SEPARATOR.length).trim()
+  return { notes, translation }
 }
 
 // --- Frontmatter ---
@@ -535,7 +566,7 @@ async function translatePost(
   try {
     await access(srcPath)
   } catch {
-    throw new Error(`Post not found: ${srcPath}`)
+    throw new Error(`Post not found: ${rel(srcPath)}`)
   }
 
   const source = await readFile(srcPath, 'utf-8')
@@ -547,8 +578,8 @@ async function translatePost(
   const codeSkip = chunks.filter((c) => c.type === 'code' && !KOREAN_RE.test(c.content)).length
 
   log(bold(`\n┌─ Translating: ${slug}`))
-  log(`│  Source:  ${srcPath}`)
-  log(`│  Output:  ${destPath}`)
+  log(`│  Source:  ${rel(srcPath)}`)
+  log(`│  Output:  ${rel(destPath)}`)
   log(`│  Length:  ${formatNum(source.length)} chars`)
   log(
     `│  Chunks:  ${chunks.length} total (${textChunks} text, ${codeChunks} code, ${codeSkip} code-skip)`,
@@ -580,7 +611,7 @@ async function translatePost(
   // Phase 1
   const guide = await generateGuide(source, config)
   const guidePath = await saveLog(slug, 'guide', guide)
-  log(`    ${dim(`log: ${guidePath}`)}`)
+  log(`    ${dim(`log: ${rel(guidePath)}`)}`)
 
   // Frontmatter
   log(`\n${bold('Frontmatter')} ${dim(`[${config.chunk}]`)}`)
@@ -623,15 +654,17 @@ async function translatePost(
     log(`\n${dim('Phase 3 skipped (--skip-review)')}`)
     final = assembled
   } else {
-    final = await reviewTranslation(source, assembled, guide, config)
-    const reviewPath = await saveLog(slug, 'review', final)
-    log(`    ${dim(`log: ${reviewPath}`)}`)
+    await saveLog(slug, 'assembled', assembled)
+    const review = await reviewTranslation(source, assembled, guide, config)
+    final = review.translation
+    const notesPath = await saveLog(slug, 'review-notes', review.notes)
+    log(`    ${dim(`log: ${rel(notesPath)}`)}`)
   }
 
   // Write
   await mkdir(dirname(destPath), { recursive: true })
   await writeFile(destPath, final, 'utf-8')
-  log(`\n${green('✓')} Written to ${destPath}`)
+  log(`\n${green('✓')} Written to ${rel(destPath)}`)
 }
 
 // --- CLI ---
