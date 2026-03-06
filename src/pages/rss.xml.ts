@@ -10,8 +10,7 @@ export async function GET(context: APIContext) {
   const items = posts
     .map((post) => {
       // ko/slug/index.md → slug
-      const slug = post.id.replace('ko/', '').replace('/index.md', '').replace('.md', '')
-
+      const slug = post.id.replace('ko/', '')
       return {
         title: post.data.title,
         pubDate: new Date(post.data.date),

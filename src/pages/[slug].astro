@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import PostLayout from '../layouts/PostLayout.astro'
 
 export async function getStaticPaths() {
@@ -9,8 +9,7 @@ export async function getStaticPaths() {
 
   return posts.map((post) => {
     // ko/slug/index.md → slug
-    const slug = post.id.replace('ko/', '').replace('/index.md', '').replace('.md', '')
-
+    const slug = post.id.replace('ko/', '')
     return {
       params: { slug },
       props: { post },
@@ -23,7 +22,7 @@ interface Props {
 }
 
 const { post } = Astro.props
-const { Content } = await post.render()
+const { Content } = await render(post)
 
 // Generate excerpt for description
 const excerpt = post.body?.replace(/[#*`\[\]]/g, '').slice(0, 160) || ''

@@ -40,7 +40,7 @@ const posts = await getCollection('posts', ({ id, data }) => {
 
 const sortedPosts = posts
   .map((post) => {
-    const slug = post.id.replace(`${lang}/`, '').replace('/index.md', '').replace('.md', '')
+    const slug = post.id.replace(`${lang}/`, '')
     const plainText = stripMarkdown(post.body || '')
     return {
       ...post,
@@ -99,7 +99,7 @@ const defaultPosts = await getCollection('posts', ({ id, data }) => {
 })
 const untranslatedPosts = defaultPosts
   .map((post) => {
-    const slug = post.id.replace(`${defaultLang}/`, '').replace('/index.md', '').replace('.md', '')
+    const slug = post.id.replace(`${defaultLang}/`, '')
     return {
       ...post,
       date: post.data.date,

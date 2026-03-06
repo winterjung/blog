@@ -30,7 +30,7 @@ const posts = await getCollection('posts', ({ id, data }) => {
 // Extract slug from folder name: ko/slug/index.md → slug
 const sortedPosts = posts
   .map((post) => {
-    const slug = post.id.replace('ko/', '').replace('/index.md', '').replace('.md', '')
+    const slug = post.id.replace('ko/', '')
     const plainText = stripMarkdown(post.body || '')
     return {
       ...post,

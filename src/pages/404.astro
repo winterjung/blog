@@ -9,7 +9,7 @@ const posts = await getCollection('posts', ({ id, data }) => {
 // Get 5 most recent posts
 const recentPosts = posts
   .map((post) => {
-    const filename = post.id.replace('ko/', '').replace('.md', '')
+    const filename = post.id.replace('ko/', '')
     const match = filename.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/)
     return {
       title: post.data.title,
