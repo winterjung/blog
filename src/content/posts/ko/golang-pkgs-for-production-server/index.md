@@ -149,7 +149,7 @@ func main() {
 ```
 > A high performance memory-bound Go cache
 - 프로덕션에서 고성능 로컬 캐시가 필요할 때 무난히 쓸 수 있다.
-  - 패키지의 탄생 배경과 주안점은 [Introducing Ristretto 블로그 글](https://dgraph.io/blog/post/introducing-ristretto-high-perf-go-cache/)을 참고하자.
+  - 패키지의 탄생 배경과 주안점은 [Introducing Ristretto 블로그 글](https://web.archive.org/web/20250207211235/https://dgraph.io/blog/post/introducing-ristretto-high-perf-go-cache/)을 참고하자.
   - 최적의 설정은 상황에 따라 다르므로 여러 메트릭과 벤치마크를 통해 결정하길 권장한다.
 - 제네릭도 지원한다.
   - [patrickmn/go-cache](https://github.com/patrickmn/go-cache) 패키지는 제네릭을 지원하지 않고 유지보수 되지 않고 있어 추천하지 않는다.

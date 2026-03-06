@@ -163,7 +163,7 @@ func main() {
 
 > A high performance memory-bound Go cache
 - A solid choice when you need a high-performance in-memory local cache in production.
-  - For background on why this package was built and what it prioritizes, check out the [Introducing Ristretto blog post](https://dgraph.io/blog/post/introducing-ristretto-high-perf-go-cache/).
+  - For background on why this package was built and what it prioritizes, check out the [Introducing Ristretto blog post](https://web.archive.org/web/20250207211235/https://dgraph.io/blog/post/introducing-ristretto-high-perf-go-cache/).
   - Optimal configuration varies by situation, so it's recommended to determine your settings through metrics and benchmarking.
 - Generics are supported.
   - The [patrickmn/go-cache](https://github.com/patrickmn/go-cache) package does not support generics and is no longer maintained, so it's not recommended.
