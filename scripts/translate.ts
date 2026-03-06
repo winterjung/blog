@@ -47,9 +47,9 @@ function formatNum(n: number): string {
 
 function estimateCost(model: string, input: number, output: number): number {
   const pricing: Record<string, { input: number; output: number }> = {
-    opus: { input: 15, output: 75 },
+    opus: { input: 5, output: 25 },
     sonnet: { input: 3, output: 15 },
-    haiku: { input: 0.8, output: 4 },
+    haiku: { input: 1, output: 5 },
   }
   const key = Object.keys(pricing).find((k) => model.includes(k)) ?? 'sonnet'
   const p = pricing[key]
@@ -221,12 +221,21 @@ interface ClaudeResult {
 
 function callClaude(
   prompt: string,
-  opts: { model: string; effort: string; systemPrompt?: string; phase: string },
+  opts: {
+    model: string
+    effort: string
+    systemPrompt?: string
+    phase: string
+    allowedTools?: string[]
+  },
 ): Promise<ClaudeResult> {
   return new Promise((resolve, reject) => {
     const args = ['-p', '--model', opts.model, '--output-format', 'json', '--effort', opts.effort]
     if (opts.systemPrompt) {
       args.push('--system-prompt', opts.systemPrompt)
+    }
+    if (opts.allowedTools?.length) {
+      args.push('--allowedTools', opts.allowedTools.join(','))
     }
 
     const env = { ...process.env }
@@ -446,19 +455,12 @@ async function translateChunkWithRetry(
 
 // --- Phase 3: Review ---
 
-interface ReviewResult {
-  notes: string
-  translation: string
-}
-
-const REVIEW_SEPARATOR = '---FINAL_TRANSLATION---'
-
 async function reviewTranslation(
   source: string,
-  translated: string,
+  destPath: string,
   guide: string,
   config: ModelConfig,
-): Promise<ReviewResult> {
+): Promise<string> {
   log(
     `\n${bold('Phase 3')} ${cyan('Review & Polish')} ${dim(`[${config.review}, effort=${config.reviewEffort}]`)}`,
   )
@@ -466,48 +468,35 @@ async function reviewTranslation(
   const result = await callClaude(
     `You are a professional Korean-to-English translation reviewer.
 
-Below is the original Korean blog post, the translation guide used, and the English translation. Review the translation for issues and produce a corrected version.
+Below is the original Korean blog post and the translation guide used. The English translation is at the file path: ${destPath}
 
-Check for:
+Review the translation for issues:
 - Accuracy (mistranslations, omissions)
 - Naturalness (awkward phrasing)
 - Consistency (terminology should match the guide)
 - Formatting (markdown, HTML, and links must be preserved exactly)
 
-Output format — you MUST output BOTH sections in this exact order:
+If you find issues, use the Edit tool to fix them directly in the file. Make targeted, surgical edits — do NOT rewrite the entire file.
 
-## Review Notes
-For each issue found, write:
-- What was wrong (quote the original phrase)
-- What you changed it to and why
-If nothing needed fixing, say "No issues found."
-
-${REVIEW_SEPARATOR}
-
-(The complete final corrected English translation goes here, with all fixes applied.)
+After reviewing (and editing if needed), output ONLY your review notes:
+- For each issue found, write what was wrong and what you changed
+- If nothing needed fixing, say "No issues found."
 
 === TRANSLATION GUIDE ===
 ${guide}
 
 === ORIGINAL (Korean) ===
-${source}
-
-=== TRANSLATION (English) ===
-${translated}`,
-    { model: config.review, effort: config.reviewEffort, phase: 'review' },
+${source}`,
+    {
+      model: config.review,
+      effort: config.reviewEffort,
+      phase: 'review',
+      allowedTools: ['Edit', 'Read'],
+    },
   )
   logCallStats('review', result)
 
-  // Parse: split on separator
-  const sepIdx = result.text.indexOf(REVIEW_SEPARATOR)
-  if (sepIdx === -1) {
-    // Fallback: no separator found, treat entire output as translation
-    return { notes: '(Review notes not found in output)', translation: result.text }
-  }
-
-  const notes = result.text.slice(0, sepIdx).trim()
-  const translation = result.text.slice(sepIdx + REVIEW_SEPARATOR.length).trim()
-  return { notes, translation }
+  return result.text
 }
 
 // --- Frontmatter ---
@@ -645,26 +634,21 @@ async function translatePost(
 
   log('')
 
-  // Assemble
+  // Assemble & write
   const assembled = `---\n${translatedFrontmatter}\n---\n${translatedChunks.map((c) => c.trimEnd()).join('\n\n')}`
+  await mkdir(dirname(destPath), { recursive: true })
+  await writeFile(destPath, assembled, 'utf-8')
+  log(`\n${green('✓')} Written to ${rel(destPath)}`)
 
-  // Phase 3
-  let final: string
+  // Phase 3: review edits the file in place
   if (opts.skipReview) {
     log(`\n${dim('Phase 3 skipped (--skip-review)')}`)
-    final = assembled
   } else {
     await saveLog(slug, 'assembled', assembled)
-    const review = await reviewTranslation(source, assembled, guide, config)
-    final = review.translation
-    const notesPath = await saveLog(slug, 'review-notes', review.notes)
+    const notes = await reviewTranslation(source, destPath, guide, config)
+    const notesPath = await saveLog(slug, 'review-notes', notes)
     log(`    ${dim(`log: ${rel(notesPath)}`)}`)
   }
-
-  // Write
-  await mkdir(dirname(destPath), { recursive: true })
-  await writeFile(destPath, final, 'utf-8')
-  log(`\n${green('✓')} Written to ${rel(destPath)}`)
 }
 
 // --- CLI ---
