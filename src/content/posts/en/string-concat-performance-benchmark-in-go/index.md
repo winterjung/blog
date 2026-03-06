@@ -1,5 +1,5 @@
 ---
-title: Go String Concatenation Performance Optimization: Comparing 15 Methods
+title: "Go String Concatenation Performance Optimization: Comparing 15 Methods"
 date: 2025-01-05
 image: ./fixed_sec.png
 ---
