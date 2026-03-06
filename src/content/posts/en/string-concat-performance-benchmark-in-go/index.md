@@ -629,7 +629,7 @@ To wrap up the results:
 1. `strings.Builder` with pre-allocated capacity via the `.Grow()` method, or `strings.Join()`, was the fastest and most efficient approach in every scenario.
     - Surprisingly, `strings.Join()` turned out to be quite fast as well.
 2. In fixed-argument scenarios, simply concatenating with `+` was more than adequate.
-3. It would certainly be worthwhile to dig into *why* the slow methods are slow and the fast ones are fast — but I'll leave that as an exercise for the curious reader.
+3. It would certainly be worthwhile to dig into *why* the slow methods are slow and the fast ones are fast — but that's a rabbit hole I'll let you enjoy on your own.
 
 ## Further Reading
 
