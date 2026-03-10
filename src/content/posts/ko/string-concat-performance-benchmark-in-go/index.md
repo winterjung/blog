@@ -634,7 +634,5 @@ geomean                            3.050
 
 * 2024년 [Max Hoffman](https://github.com/max-hoffman)의 글: [fmt.Sprintf vs String Concat](https://www.dolthub.com/blog/2024-11-08-sprintf-vs-concat/)
     * 왜 `fmt.Sprintf`는 느리고 `+`는 빠른지 설명해준다.
-* 2020년 [cloudrain21](https://github.com/cloudrain21)의 글: [Go – String 을 어떻게 빠르게 이어붙일까?(String Concatenation)](http://cloudrain21.com/go-how-to-concatenate-strings)
-    * "golang string concat" 키워드로 검색했을 때 한국어 상위 결과로 나오는 글
-    * `bytes.Buffer`와 `strings.Join` 내부 동작을 설명해준다.
-    * 이 글에선 인자의 고정 여부를 엄밀히 구분하진 않았고, 벤치마크로 수행된 결과가 아니라 결과 해석에 한계가 있다.
+* [Brandur Leach](https://brandur.org)의 글: [Go's bytes.Buffer vs. strings.Builder](https://brandur.org/fragments/bytes-buffer-vs-strings-builder)
+    * `bytes.Buffer`와 `strings.Builder`의 차이를 비교한 글.

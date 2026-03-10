@@ -635,7 +635,5 @@ To wrap up the results:
 
 * A 2024 post by [Max Hoffman](https://github.com/max-hoffman): [fmt.Sprintf vs String Concat](https://www.dolthub.com/blog/2024-11-08-sprintf-vs-concat/)
     * Explains why `fmt.Sprintf` is slow and `+` is fast.
-* A 2020 post by [cloudrain21](https://github.com/cloudrain21): [Go – How to Concatenate Strings Quickly (String Concatenation)](http://cloudrain21.com/go-how-to-concatenate-strings)
-    * A top Korean-language result when searching for "golang string concat"
-    * Explains the internal workings of `bytes.Buffer` and `strings.Join`.
-    * This post doesn't strictly distinguish between fixed- and variable-argument scenarios, and since the results aren't derived from benchmarks, there are limits to how the findings can be interpreted.
+* A post by [Brandur Leach](https://brandur.org): [Go's bytes.Buffer vs. strings.Builder](https://brandur.org/fragments/bytes-buffer-vs-strings-builder)
+    * Compares the differences between `bytes.Buffer` and `strings.Builder`.
