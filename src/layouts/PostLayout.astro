@@ -20,6 +20,7 @@ const imageUrl = image?.src
 const historyUrl = contentId
   ? `https://github.com/winterjung/blog/commits/main/src/content/posts/${contentId}`
   : undefined
+const isEnglish = contentId?.startsWith('en/')
 ---
 
 <!DOCTYPE html>
@@ -50,7 +51,7 @@ const historyUrl = contentId
         </header>
         <slot />
       </article>
-      <Giscus />
+      {!isEnglish && <Giscus />}
     </main>
     <!-- Plausible Analytics -->
     <script defer data-domain="winterjung.dev" src="https://plausible.io/js/script.js"></script>
