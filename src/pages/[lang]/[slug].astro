@@ -35,6 +35,17 @@ const { post } = Astro.props
 const { Content } = await render(post)
 
 const excerpt = post.body?.replace(/[#*`\[\]]/g, '').slice(0, 160) || ''
+
+// Build hreflang alternates
+const lang = Astro.params.lang as string
+const slug = post.id.replace(`${lang}/`, '')
+const allPosts = await getCollection('posts')
+const hasKo = allPosts.some((p) => p.id === `ko/${slug}`)
+const alternates = [{ hreflang: lang, href: `/${lang}/${slug}/` }]
+if (hasKo) {
+  alternates.push({ hreflang: 'ko', href: `/${slug}/` })
+  alternates.push({ hreflang: 'x-default', href: `/${slug}/` })
+}
 ---
 
 <PostLayout
@@ -44,6 +55,7 @@ const excerpt = post.body?.replace(/[#*`\[\]]/g, '').slice(0, 160) || ''
   date={post.data.date}
   lastmod={post.data.lastmod}
   contentId={post.id}
+  alternates={alternates}
 >
   <Content />
 </PostLayout>

@@ -1,8 +1,14 @@
 ---
+interface Alternate {
+  hreflang: string
+  href: string
+}
+
 interface Props {
   title?: string
   description?: string
   image?: string
+  alternates?: Alternate[]
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
@@ -10,6 +16,7 @@ const {
   title = 'winterjung blog',
   description = '글 쓰는 소프트웨어 엔지니어',
   image = '/header.png',
+  alternates = [],
 } = Astro.props
 
 const imageURL = new URL(image.startsWith('/') ? image : `/${image}`, Astro.site)
@@ -19,6 +26,9 @@ const imageURL = new URL(image.startsWith('/') ? image : `/${image}`, Astro.site
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/png" href="/favicon.png" />
 <link rel="canonical" href={canonicalURL} />
+{alternates.map((alt) => (
+  <link rel="alternate" hreflang={alt.hreflang} href={new URL(alt.href, Astro.site)} />
+))}
 
 <title>{title}</title>
 <meta name="description" content={description} />

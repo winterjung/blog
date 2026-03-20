@@ -6,6 +6,11 @@ import '../styles/global.css'
 
 import type { ImageMetadata } from 'astro'
 
+interface Alternate {
+  hreflang: string
+  href: string
+}
+
 interface Props {
   title: string
   description?: string
@@ -13,9 +18,10 @@ interface Props {
   date: string
   lastmod?: string
   contentId?: string
+  alternates?: Alternate[]
 }
 
-const { title, description, image, date, lastmod, contentId } = Astro.props
+const { title, description, image, date, lastmod, contentId, alternates } = Astro.props
 const imageUrl = image?.src
 const historyUrl = contentId
   ? `https://github.com/winterjung/blog/commits/main/src/content/posts/${contentId}`
@@ -26,7 +32,7 @@ const isEnglish = contentId?.startsWith('en/')
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-    <BaseHead title={title} description={description} image={imageUrl} />
+    <BaseHead title={title} description={description} image={imageUrl} alternates={alternates} />
   </head>
   <body>
     <Header />

@@ -26,6 +26,16 @@ const { Content } = await render(post)
 
 // Generate excerpt for description
 const excerpt = post.body?.replace(/[#*`\[\]]/g, '').slice(0, 160) || ''
+
+// Build hreflang alternates
+const slug = post.id.replace('ko/', '')
+const allPosts = await getCollection('posts')
+const hasEn = allPosts.some((p) => p.id === `en/${slug}`)
+const alternates = [{ hreflang: 'ko', href: `/${slug}/` }]
+if (hasEn) {
+  alternates.push({ hreflang: 'en', href: `/en/${slug}/` })
+  alternates.push({ hreflang: 'x-default', href: `/${slug}/` })
+}
 ---
 
 <PostLayout
@@ -35,6 +45,7 @@ const excerpt = post.body?.replace(/[#*`\[\]]/g, '').slice(0, 160) || ''
   date={post.data.date}
   lastmod={post.data.lastmod}
   contentId={post.id}
+  alternates={alternates}
 >
   <Content />
 </PostLayout>
