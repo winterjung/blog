@@ -30,11 +30,11 @@ try {
     // Hide everything except .resume content and adjust for print
     await page.evaluate(() => {
       // Hide blog header, nav, separator, PDF download link, analytics
-      document.querySelectorAll(
-        'h2.home, nav, body > hr, main > hr:first-child, .pdf-link, script[data-domain]'
-      ).forEach((el) => {
+      for (const el of document.querySelectorAll(
+        'h2.home, nav, body > hr, main > hr:first-child, .pdf-link, script[data-domain]',
+      )) {
         el.style.display = 'none'
-      })
+      }
       // Also hide the blog title link (parent of h2.home)
       const homeLink = document.querySelector('h2.home')?.parentElement
       if (homeLink?.tagName === 'A') homeLink.style.display = 'none'
@@ -60,7 +60,7 @@ try {
 } finally {
   await browser.close()
   // Kill preview server
-  execSync("kill $(lsof -ti:4322) 2>/dev/null || true")
+  execSync('kill $(lsof -ti:4322) 2>/dev/null || true')
 }
 
 console.log('Done!')

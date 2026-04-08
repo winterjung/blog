@@ -125,15 +125,33 @@
   ],
   "extracurricular": {
     "ko": [
-      { "text": "당근 테크 블로그 기고 「카테고리 분류에 2조 토큰을 쓰면서 알게된 것들」", "url": "https://medium.com/daangn/2조-토큰을-카테고리-분류에-쓰면서-알게된-것들-f619f1db6b7b" },
-      { "text": "뱅크샐러드 테크 블로그 기고 「프로덕션 환경에서 사용하는 golang과 gRPC」", "url": "https://blog.banksalad.com/tech/production-ready-grpc-in-golang/" },
-      { "text": "뱅크샐러드 테크 블로그 기고 「뱅크샐러드 Go 코딩 컨벤션」", "url": "https://blog.banksalad.com/tech/go-best-practice/" },
+      {
+        "text": "당근 테크 블로그 기고 「카테고리 분류에 2조 토큰을 쓰면서 알게된 것들」",
+        "url": "https://medium.com/daangn/2조-토큰을-카테고리-분류에-쓰면서-알게된-것들-f619f1db6b7b"
+      },
+      {
+        "text": "뱅크샐러드 테크 블로그 기고 「프로덕션 환경에서 사용하는 golang과 gRPC」",
+        "url": "https://blog.banksalad.com/tech/production-ready-grpc-in-golang/"
+      },
+      {
+        "text": "뱅크샐러드 테크 블로그 기고 「뱅크샐러드 Go 코딩 컨벤션」",
+        "url": "https://blog.banksalad.com/tech/go-best-practice/"
+      },
       { "text": "2019 PyCon Korea 발표 「왜 Python 3.7이 가장 빠른가」" }
     ],
     "en": [
-      { "text": "Karrot tech blog posting \"Lessons from Spending 2 Trillion Tokens on Category Classification\"", "url": "https://medium.com/daangn/2조-토큰을-카테고리-분류에-쓰면서-알게된-것들-f619f1db6b7b" },
-      { "text": "Banksalad tech blog posting \"Production ready gRPC in Golang\"", "url": "https://blog.banksalad.com/tech/production-ready-grpc-in-golang/" },
-      { "text": "Banksalad tech blog posting \"Banksalad Golang coding convention\"", "url": "https://blog.banksalad.com/tech/go-best-practice/" },
+      {
+        "text": "Karrot tech blog posting \"Lessons from Spending 2 Trillion Tokens on Category Classification\"",
+        "url": "https://medium.com/daangn/2조-토큰을-카테고리-분류에-쓰면서-알게된-것들-f619f1db6b7b"
+      },
+      {
+        "text": "Banksalad tech blog posting \"Production ready gRPC in Golang\"",
+        "url": "https://blog.banksalad.com/tech/production-ready-grpc-in-golang/"
+      },
+      {
+        "text": "Banksalad tech blog posting \"Banksalad Golang coding convention\"",
+        "url": "https://blog.banksalad.com/tech/go-best-practice/"
+      },
       { "text": "2019 PyCon Korea speech \"Why is Python 3.7 fastest\"" }
     ]
   },
