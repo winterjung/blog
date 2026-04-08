@@ -19,7 +19,9 @@ execSync('npx astro preview --port 4322 &', {
 // Wait for server to be ready
 await new Promise((resolve) => setTimeout(resolve, 2000))
 
-const browser = await puppeteer.launch()
+const browser = await puppeteer.launch({
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+})
 
 try {
   for (const { path, output, name } of pages) {
