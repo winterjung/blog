@@ -4,6 +4,11 @@ import ThemeToggle from './ThemeToggle.astro'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+
+// Build language switch path based on current page
+const pathname = Astro.url.pathname
+const pathWithoutLang = lang === 'ko' ? pathname : pathname.replace(/^\/en/, '') || '/'
+const langSwitchPath = lang === 'ko' ? `/en${pathname}` : pathWithoutLang
 ---
 
 <a href={lang === 'ko' ? '/' : '/en/'}>
@@ -11,15 +16,11 @@ const t = useTranslations(lang)
 </a>
 <nav>
   <a href={lang === 'ko' ? '/' : '/en/'}>{t('nav.posts')}</a>
-  <a href="/resume/">{t('nav.resume')}</a>
+  <a href={lang === 'ko' ? '/about/' : '/en/about/'}>{t('nav.about')}</a>
   <a href="/rss.xml">{t('nav.rss')}</a>
   <a href="https://github.com/winterjung" target="_blank" rel="noopener noreferrer">github</a>
   <a href="https://www.linkedin.com/in/jungwinter/" target="_blank" rel="noopener noreferrer">linkedin</a>
-  {lang === 'ko' ? (
-    <a href="/en/">en</a>
-  ) : (
-    <a href="/">ko</a>
-  )}
+  <a href={langSwitchPath}>{lang === 'ko' ? 'en' : 'ko'}</a>
   <ThemeToggle />
 </nav>
 

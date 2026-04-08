@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import ResumeContent from '../components/ResumeContent.astro'
+
+const alternates = [
+  { hreflang: 'ko', href: '/about/' },
+  { hreflang: 'en', href: '/en/about/' },
+  { hreflang: 'x-default', href: '/about/' },
+]
+---
+
+<BaseLayout title="About - winterjung blog" description="정겨울의 이력서" alternates={alternates}>
+  <ResumeContent lang="ko" />
+  <p class="pdf-link"><a href="/resume/">PDF 다운로드</a></p>
+</BaseLayout>
+
+<style>
+  .pdf-link {
+    margin-top: 2rem;
+    text-align: center;
+  }
+</style>

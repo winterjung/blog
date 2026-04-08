@@ -1,0 +1,138 @@
+---
+import resume from '../data/resume.json'
+
+interface Props {
+  lang: 'ko' | 'en'
+}
+
+const { lang } = Astro.props
+---
+
+<div class="resume">
+  <header class="resume-header">
+    <h1>{resume.name[lang]}</h1>
+    <p class="contact">
+      {resume.contact.location} ▪
+      <a href={`mailto:${resume.contact.email}`}>{resume.contact.email}</a> ▪
+      <a href={`https://${resume.contact.github}`}>{resume.contact.github}</a>
+    </p>
+  </header>
+
+  {resume.experience.map((exp) => (
+    <section class="experience">
+      <div class="section-header">
+        <h2>{exp.company}</h2>
+        <span class="meta">{exp.period}, {exp.location}</span>
+      </div>
+      {exp.roles.map((role) => (
+        <div class="role">
+          <div class="role-header">
+            <h3>{role.title[lang]}</h3>
+            <span class="meta">{role.period}</span>
+          </div>
+          <ul>
+            {role.bullets[lang].map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+  ))}
+
+  <hr />
+
+  <section class="extra">
+    <h2>Extracurricular</h2>
+    <ul>
+      {resume.extracurricular[lang].map((item) => (
+        <li>
+          {item.url ? <a href={item.url}>{item.text}</a> : item.text}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <hr />
+
+  <section class="education">
+    <h2>Education</h2>
+    {resume.education.map((edu) => (
+      <div class="section-header">
+        <div>
+          <h3>{edu.school[lang]}</h3>
+          <p><em>{edu.degree[lang]}</em></p>
+        </div>
+        <span class="meta">{edu.period}, {edu.location}</span>
+      </div>
+    ))}
+  </section>
+</div>
+
+<style>
+  .resume {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .resume-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .resume-header h1 {
+    margin-bottom: 0.5rem;
+  }
+
+  .contact {
+    color: var(--color-text-secondary, #555);
+  }
+
+  .contact a {
+    color: inherit;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .meta {
+    color: var(--color-text-secondary, #555);
+    white-space: nowrap;
+  }
+
+  .role-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  h2 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  h3 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+  }
+
+  li {
+    margin-bottom: 0.4rem;
+  }
+
+  hr {
+    margin: 2rem 0;
+  }
+
+  .education p {
+    margin: 0;
+  }
+</style>

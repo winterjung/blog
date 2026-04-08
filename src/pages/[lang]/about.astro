@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import ResumeContent from '../../components/ResumeContent.astro'
+import { defaultLang, languages } from '../../i18n/ui'
+
+export function getStaticPaths() {
+  return Object.keys(languages)
+    .filter((lang) => lang !== defaultLang)
+    .map((lang) => ({ params: { lang } }))
+}
+
+const lang = Astro.params.lang as 'ko' | 'en'
+const alternates = [
+  { hreflang: 'ko', href: '/about/' },
+  { hreflang: 'en', href: '/en/about/' },
+  { hreflang: 'x-default', href: '/about/' },
+]
+---
+
+<BaseLayout title="About - winterjung blog" description="Winter Jung's resume" alternates={alternates}>
+  <ResumeContent lang={lang} />
+  <p class="pdf-link"><a href={`/${lang}/resume/`}>PDF Download</a></p>
+</BaseLayout>
+
+<style>
+  .pdf-link {
+    margin-top: 2rem;
+    text-align: center;
+  }
+</style>

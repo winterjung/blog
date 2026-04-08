@@ -3,19 +3,25 @@ import BaseHead from '../components/BaseHead.astro'
 import Header from '../components/Header.astro'
 import '../styles/global.css'
 
+interface Alternate {
+  hreflang: string
+  href: string
+}
+
 interface Props {
   title?: string
   description?: string
   image?: string
+  alternates?: Alternate[]
 }
 
-const { title, description, image } = Astro.props
+const { title, description, image, alternates } = Astro.props
 ---
 
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-    <BaseHead title={title} description={description} image={image} />
+    <BaseHead title={title} description={description} image={image} alternates={alternates} />
   </head>
   <body>
     <Header />
