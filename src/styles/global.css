@@ -309,7 +309,7 @@ nav {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: baseline;
-  gap: 0.5rem;
+  gap: 10px;
 }
 
 .home {

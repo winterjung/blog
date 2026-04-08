@@ -20,17 +20,47 @@ const langSwitchPath = lang === 'ko' ? `/en${pathname}` : pathWithoutLang
   <a href="/rss.xml">{t('nav.rss')}</a>
   <a href="https://github.com/winterjung" target="_blank" rel="noopener noreferrer">github</a>
   <a href="https://www.linkedin.com/in/jungwinter/" target="_blank" rel="noopener noreferrer">linkedin</a>
-  <a href={langSwitchPath}>{lang === 'ko' ? 'en' : 'ko'}</a>
-  <ThemeToggle />
+  <span class="utils">
+    <a href={langSwitchPath}>{lang === 'ko' ? 'en' : 'ko'}</a>
+    <ThemeToggle />
+  </span>
 </nav>
 
 <style>
   nav a {
-    margin-right: 10px;
     text-decoration: none;
   }
 
   nav a:hover {
     text-decoration: underline;
+  }
+
+  nav > a::after {
+    content: '·';
+    margin-left: 10px;
+    color: var(--color-text-secondary);
+    pointer-events: none;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  nav > a:last-of-type::after {
+    content: none;
+  }
+
+  .utils {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+
+  .utils a::after {
+    content: '·';
+    margin-left: 10px;
+    color: var(--color-text-secondary);
+    pointer-events: none;
+    text-decoration: none;
+    display: inline-block;
   }
 </style>
