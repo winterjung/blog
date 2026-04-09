@@ -57,7 +57,8 @@
   font: inherit;
 }
 
-strong, b {
+strong,
+b {
   font-weight: bold;
 }
 
