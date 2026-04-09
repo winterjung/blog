@@ -54,9 +54,28 @@ try {
       // Also hide the blog title link (parent of h2.home)
       const homeLink = document.querySelector("h2.home")?.parentElement;
       if (homeLink?.tagName === "A") homeLink.style.display = "none";
+
+      // Hide Atlas Labs experience section
+      for (const section of document.querySelectorAll(".experience")) {
+        const h2 = section.querySelector("h2");
+        if (h2?.textContent?.includes("Atlas Labs")) {
+          section.style.display = "none";
+        }
+      }
+
       // Remove body padding — Puppeteer margin handles page margins
       document.body.style.padding = "0";
       document.body.style.maxWidth = "none";
+
+      // PDF-specific spacing adjustments
+      const header = document.querySelector(".resume-header");
+      if (header) header.style.marginBottom = "0.25rem";
+      for (const li of document.querySelectorAll(".resume li")) {
+        li.style.marginBottom = "0.2rem";
+      }
+      for (const hr of document.querySelectorAll(".resume hr")) {
+        hr.style.margin = "1rem 0";
+      }
     });
 
     // Ensure output directories exist
@@ -66,7 +85,7 @@ try {
     await page.pdf({
       path: output,
       format: "A4",
-      margin: { top: "1.5cm", bottom: "1.5cm", left: "2cm", right: "2cm" },
+      margin: { top: "1cm", bottom: "1cm", left: "1.7cm", right: "1.7cm" },
       printBackground: true,
     });
 

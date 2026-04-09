@@ -23,10 +23,12 @@ const { lang } = Astro.props
     </p>
   </header>
 
+  <p class="summary">{resume.summary[lang]}</p>
+
   {resume.experience.map((exp) => (
     <section class="experience">
       <div class="section-header">
-        <h2>{exp.company}</h2>
+        <h2>{exp.company[lang]}</h2>
         <span class="meta">{exp.period}, {exp.location}</span>
       </div>
       {exp.roles.map((role) => (
@@ -86,9 +88,15 @@ const { lang } = Astro.props
     font-size: 0.875rem;
   }
 
+  .summary {
+    color: var(--color-text-secondary, #555);
+    text-align: center;
+    margin-top: 0;
+  }
+
   .resume-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
   }
 
   .resume-header h1 {

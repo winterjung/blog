@@ -8,9 +8,13 @@
     "email": "me@winterjung.dev",
     "github": "github.com/winterjung"
   },
+  "summary": {
+    "ko": "당근의 백엔드 엔지니어로, 8년 이상 대규모 트래픽 시스템, 비용 최적화, 추천 인프라를 다뤄왔습니다. 최근에는 LLM 파이프라인을 프로덕션에서 직접 구축하고 운영하며 AI와 코드 에이전트를 실용적인 도구로 활용해 더 빠르고 좋은 결과물을 만들고 있습니다.",
+    "en": "Backend Engineer at Karrot (40M MAU) with 8+ years of experience in high-throughput systems, cost optimization, and recommendation infrastructure. I also build and operate LLM pipelines in production — from classification and evaluation to cost-efficient serving — leveraging AI and code agents as practical tools to ship faster and better."
+  },
   "experience": [
     {
-      "company": "Karrot",
+      "company": { "ko": "당근", "en": "Karrot" },
       "period": "2024.04–Present",
       "location": "Seoul",
       "roles": [
@@ -25,20 +29,20 @@
               "피쳐로깅 파이프라인(Kafka → Go consumer → GCS → BigQuery 배치 로드) 재설계로 <strong>연 $1M+ 비용 절감</strong>. 초당 3GB 규모의 추천 이벤트 트래픽 처리, 출시 이후 4.5배 트래픽 증가에도 안정적으로 운영 중.",
               "LLM 기반 taxonomy 분류 시스템 구축 및 운영. 프로덕션에서 <strong>누적 2조 토큰 이상 처리</strong>, <strong>10,000개 이상의 카테고리</strong>에 대해 LLM-as-a-Judge 평가 체계 운영. 임베딩 사전 필터링, 프롬프트 캐싱, 하이브리드 검색(BM25 + 시맨틱)을 통해 <strong>LLM 비용 90% 이상 절감</strong>.",
               "당근 홈피드를 지탱하는 추천 인프라 운영. 피쳐스토어 <strong>p999 &lt;30ms</strong>, 추천엔진 <strong>일 1,000만+ 요청</strong> 처리. 캐러셀 기반 추천을 가능하게 한 set type 지원 주도.",
-              "GopherCon Korea 2024 발표: 「Deterministic Testing in Go」"
+              "<a href=\"https://www.youtube.com/live/zdMuLvK0pNg?t=16102\">GopherCon Korea 2024 발표: 「Deterministic Testing in Go」</a>"
             ],
             "en": [
               "<strong>Saved ~$1M+/year</strong> by redesigning the feature logging pipeline (Kafka → Go consumer → GCS → BigQuery batch load) handling 3GB/s of recommendation event traffic, scaling to 4.5x growth with stable operation.",
               "Built and operate a production LLM pipeline (<strong>2T+ tokens processed</strong>) that classifies marketplace listings into <strong>10,000+ category taxonomy</strong> with attribute extraction. <strong>Reduced LLM costs by 90%</strong> through embedding-based pre-filtering, prompt caching, and hybrid retrieval (BM25 + semantic search). Designed LLM-as-a-Judge evaluation framework for continuous quality monitoring.",
               "Operated the feature store and recommendation engine powering Karrot's home feed — serving <strong>10M+ daily requests at p999 &lt;30ms</strong>. Led set type support enabling carousel-based recommendations.",
-              "Speaker at GopherCon Korea 2024: \"Deterministic Testing in Go\""
+              "Speaker at <a href=\"https://www.youtube.com/live/zdMuLvK0pNg?t=16102\">GopherCon Korea 2024: \"Deterministic Testing in Go\"</a>"
             ]
           }
         }
       ]
     },
     {
-      "company": "Banksalad",
+      "company": { "ko": "뱅크샐러드", "en": "Banksalad" },
       "period": "2018.11–2023.09",
       "location": "Seoul",
       "roles": [
@@ -99,7 +103,7 @@
       ]
     },
     {
-      "company": "Atlas Labs",
+      "company": { "ko": "Atlas Labs", "en": "Atlas Labs" },
       "period": "2018.03–2018.09",
       "location": "Seoul",
       "roles": [
@@ -137,7 +141,7 @@
         "text": "뱅크샐러드 테크 블로그 기고 「뱅크샐러드 Go 코딩 컨벤션」",
         "url": "https://blog.banksalad.com/tech/go-best-practice/"
       },
-      { "text": "2019 PyCon Korea 발표 「왜 Python 3.7이 가장 빠른가」" }
+      { "text": "2019 PyCon Korea 발표 「왜 Python 3.7이 가장 빠른가」", "url": "https://www.youtube.com/watch?v=6I9lTzLAHaA" }
     ],
     "en": [
       {
@@ -152,7 +156,7 @@
         "text": "Banksalad tech blog posting \"Banksalad Golang coding convention\"",
         "url": "https://blog.banksalad.com/tech/go-best-practice/"
       },
-      { "text": "2019 PyCon Korea speech \"Why is Python 3.7 fastest\"" }
+      { "text": "2019 PyCon Korea speech \"Why is Python 3.7 fastest\"", "url": "https://www.youtube.com/watch?v=6I9lTzLAHaA" }
     ]
   },
   "education": [
