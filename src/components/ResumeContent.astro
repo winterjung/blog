@@ -9,6 +9,11 @@ const { lang } = Astro.props
 ---
 
 <div class="resume">
+  <p class="pdf-link">
+    <a href={lang === 'ko' ? '/resume/' : `/${lang}/resume/`}>
+      {lang === 'ko' ? 'PDF 보기' : 'View PDF'}
+    </a>
+  </p>
   <header class="resume-header">
     <h1>{resume.name[lang]}</h1>
     <p class="contact">
@@ -73,6 +78,12 @@ const { lang } = Astro.props
   .resume {
     max-width: 720px;
     margin: 0 auto;
+  }
+
+  .pdf-link {
+    text-align: right;
+    margin: 0;
+    font-size: 0.875rem;
   }
 
   .resume-header {
