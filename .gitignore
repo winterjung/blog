@@ -3,6 +3,8 @@ node_modules/
 
 # Build output
 dist/
+public/resume.pdf
+public/en/resume.pdf
 
 # Astro
 .astro/
