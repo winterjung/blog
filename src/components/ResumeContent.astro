@@ -32,7 +32,7 @@ const { lang } = Astro.props
           </div>
           <ul>
             {role.bullets[lang].map((bullet) => (
-              <li>{bullet}</li>
+              <li set:html={bullet} />
             ))}
           </ul>
         </div>

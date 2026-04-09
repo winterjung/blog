@@ -57,6 +57,10 @@
   font: inherit;
 }
 
+strong, b {
+  font-weight: bold;
+}
+
 :root {
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;

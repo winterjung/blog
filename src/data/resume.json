@@ -22,15 +22,15 @@
           "period": "2024.04–Present",
           "bullets": {
             "ko": [
-              "피쳐로깅 파이프라인(Kafka → Go consumer → GCS → BigQuery 배치 로드) 재설계로 연 $1M+ 비용 절감. 초당 3GB 규모의 추천 이벤트 트래픽 처리, 출시 이후 4.5배 트래픽 증가에도 안정적으로 운영 중.",
-              "LLM 기반 taxonomy 분류 시스템 구축 및 운영. 프로덕션에서 누적 2조 토큰 이상 처리, 10,000개 이상의 카테고리에 대해 LLM-as-a-Judge 평가 체계 운영. 임베딩 사전 필터링, 프롬프트 캐싱, 하이브리드 검색(BM25 + 시맨틱)을 통해 LLM 비용 90% 이상 절감.",
-              "당근 홈피드를 지탱하는 추천 인프라 운영. 피쳐스토어 p999 <30ms, 추천엔진 일 1,000만+ 요청 처리. 캐러셀 기반 추천을 가능하게 한 set type 지원 주도.",
+              "피쳐로깅 파이프라인(Kafka → Go consumer → GCS → BigQuery 배치 로드) 재설계로 <strong>연 $1M+ 비용 절감</strong>. 초당 3GB 규모의 추천 이벤트 트래픽 처리, 출시 이후 4.5배 트래픽 증가에도 안정적으로 운영 중.",
+              "LLM 기반 taxonomy 분류 시스템 구축 및 운영. 프로덕션에서 <strong>누적 2조 토큰 이상 처리</strong>, <strong>10,000개 이상의 카테고리</strong>에 대해 LLM-as-a-Judge 평가 체계 운영. 임베딩 사전 필터링, 프롬프트 캐싱, 하이브리드 검색(BM25 + 시맨틱)을 통해 <strong>LLM 비용 90% 이상 절감</strong>.",
+              "당근 홈피드를 지탱하는 추천 인프라 운영. 피쳐스토어 <strong>p999 &lt;30ms</strong>, 추천엔진 <strong>일 1,000만+ 요청</strong> 처리. 캐러셀 기반 추천을 가능하게 한 set type 지원 주도.",
               "GopherCon Korea 2024 발표: 「Deterministic Testing in Go」"
             ],
             "en": [
-              "Saved ~$1M+/year by redesigning the feature logging pipeline (Kafka → Go consumer → GCS → BigQuery batch load) handling 3GB/s of recommendation event traffic, scaling to 4.5x growth with stable operation.",
-              "Built and operate a production LLM pipeline (2T+ tokens processed) that classifies marketplace listings into 10,000+ category taxonomy with attribute extraction. Reduced LLM costs by 90% through embedding-based pre-filtering, prompt caching, and hybrid retrieval (BM25 + semantic search). Designed LLM-as-a-Judge evaluation framework for continuous quality monitoring.",
-              "Operated the feature store and recommendation engine powering Karrot's home feed — serving 10M+ daily requests at p999 <30ms. Led set type support enabling carousel-based recommendations.",
+              "<strong>Saved ~$1M+/year</strong> by redesigning the feature logging pipeline (Kafka → Go consumer → GCS → BigQuery batch load) handling 3GB/s of recommendation event traffic, scaling to 4.5x growth with stable operation.",
+              "Built and operate a production LLM pipeline (<strong>2T+ tokens processed</strong>) that classifies marketplace listings into <strong>10,000+ category taxonomy</strong> with attribute extraction. <strong>Reduced LLM costs by 90%</strong> through embedding-based pre-filtering, prompt caching, and hybrid retrieval (BM25 + semantic search). Designed LLM-as-a-Judge evaluation framework for continuous quality monitoring.",
+              "Operated the feature store and recommendation engine powering Karrot's home feed — serving <strong>10M+ daily requests at p999 &lt;30ms</strong>. Led set type support enabling carousel-based recommendations.",
               "Speaker at GopherCon Korea 2024: \"Deterministic Testing in Go\""
             ]
           }
@@ -50,21 +50,21 @@
           "period": "2022.01–2023.09",
           "bullets": {
             "ko": [
-              "사내 Go 라이브러리에 first committer로 15개 이상의 패키지를 기여. 50개 이상의 리포지토리에서 사용.",
+              "사내 Go 라이브러리에 <strong>first committer로</strong> 15개 이상의 패키지를 기여. 50개 이상의 리포지토리에서 사용.",
               "3년에 걸쳐 gRPC 프로젝트 생성기, IDL 리포지토리(Protocol Buffers 기반 회사 전체 API 인터페이스 저장소), DDL 리포지토리(DB 스키마 저장소)를 개발.",
-              "120개 이상의 리포지토리에서 10K+ GitHub PR 리뷰. 매년 코드 리뷰 1위. 서버 엔지니어 20명 이상의 기술 사양 리뷰.",
-              "일 2.6억 쿼리를 처리하는 핵심 서비스에 Redis 및 인메모리 캐시 레이어를 추가해 p99 레이턴시 90%, 쿼리 95%, RDS CPU 피크 15%p 감소.",
-              "70TiB, 260억 행의 단일 MySQL 테이블을 AWS Athena로 마이그레이션해 월 비용 80% 절감.",
-              "2년에 걸쳐 레거시 서비스 16개 종료, 레거시 API 엔드포인트 250개 이상 제거.",
+              "120개 이상의 리포지토리에서 <strong>10K+ GitHub PR 리뷰</strong>. 매년 코드 리뷰 <strong>1위</strong>. 서버 엔지니어 20명 이상의 기술 사양 리뷰.",
+              "일 2.6억 쿼리를 처리하는 핵심 서비스에 Redis 및 인메모리 캐시 레이어를 추가해 <strong>p99 레이턴시 90%</strong>, 쿼리 95%, RDS CPU 피크 15%p 감소.",
+              "70TiB, 260억 행의 단일 MySQL 테이블을 AWS Athena로 마이그레이션해 <strong>월 비용 80% 절감</strong>.",
+              "2년에 걸쳐 <strong>레거시 서비스 16개 종료</strong>, 레거시 API 엔드포인트 250개 이상 제거.",
               "서버 챕터 온보딩 프로세스를 2년 이상 기획 및 운영."
             ],
             "en": [
-              "Contributed 15+ packages as the first committer to an in-house Go library used by 50+ repositories.",
+              "Contributed 15+ packages <strong>as the first committer</strong> to an in-house Go library used by 50+ repositories.",
               "Over 3 years, developed a gRPC project generator, an IDL repository (a company-wide API interface repo based on Protocol Buffers), and a DDL repository (a DB schema repo).",
-              "Reviewed 10K+ GitHub PRs across 120+ repositories. Consistently ranking #1 in code reviews annually. Reviewed technical specifications for 20+ server engineers, ensuring code quality and optimal implementation.",
-              "Reduced p99 latency by 90%, queries by 95% and RDS CPU peak by 15%p for the core service that performed 260M queries/day by adding Redis and in-memory cache layer.",
-              "Reduced monthly costs by 80% by migrating a single MySQL table with 70TiB and 26 billion rows into AWS Athena.",
-              "Over 2 years, shut down 16 legacy services and removed 250+ legacy API endpoints.",
+              "<strong>Reviewed 10K+ GitHub PRs</strong> across 120+ repositories. Consistently <strong>ranking #1</strong> in code reviews annually. Reviewed technical specifications for 20+ server engineers, ensuring code quality and optimal implementation.",
+              "<strong>Reduced p99 latency by 90%</strong>, queries by 95% and RDS CPU peak by 15%p for the core service that performed 260M queries/day by adding Redis and in-memory cache layer.",
+              "<strong>Reduced monthly costs by 80%</strong> by migrating a single MySQL table with 70TiB and 26 billion rows into AWS Athena.",
+              "Over 2 years, <strong>shut down 16 legacy services</strong> and removed 250+ legacy API endpoints.",
               "Planned and operated the server chapter onboarding process for over two years."
             ]
           }
@@ -77,20 +77,20 @@
           "period": "2018.11–2021.12",
           "bullets": {
             "ko": [
-              "마이데이터 서버 개발 프로젝트에 테크 리드로 참여. 250개 이상의 금융사에서 일 1억 트래픽 처리. 2년 이상 성능 개선 및 이슈 해결 담당.",
-              "마이데이터 보안 요건 충족을 위해 130개 이상의 자체 호스팅 Kubernetes 서비스를 무중단으로 AWS EKS로 마이그레이션.",
-              "Python, MongoDB 기반 모놀리식 레거시 API 200개 이상을 Golang, MySQL, gRPC 기반 마이크로서비스 15개로 분해. dual-write와 shadowing 활용.",
+              "마이데이터 서버 개발 프로젝트에 <strong>테크 리드로 참여</strong>. <strong>250개 이상의 금융사에서 일 1억 트래픽</strong> 처리. 2년 이상 성능 개선 및 이슈 해결 담당.",
+              "마이데이터 보안 요건 충족을 위해 <strong>130개 이상의 자체 호스팅 Kubernetes 서비스</strong>를 <strong>무중단</strong>으로 AWS EKS로 마이그레이션.",
+              "Python, MongoDB 기반 모놀리식 레거시 API 200개 이상을 <strong>Golang, MySQL, gRPC 기반 마이크로서비스 15개로 분해. dual-write와 shadowing 활용</strong>.",
               "연말정산 알고리즘 개발로 금융 카드사 연동 318%, 국세청 연동 868% 증가.",
-              "새로운 ChatOps CI/CD 파이프라인 구축으로 배포 단계 80% 감소, 주간 프로덕션 배포 400% 증가.",
+              "새로운 ChatOps CI/CD 파이프라인 구축으로 <strong>배포 단계 80% 감소</strong>, <strong>주간 프로덕션 배포 400% 증가</strong>.",
               "Packer와 Ansible을 사용해 프라이빗 클라우드 IDC에서 VM과 L4 스위치 기반 무중단 배포 시스템 구축.",
               "회사 전체 Python 스타일 가이드 수립."
             ],
             "en": [
-              "Participated as a tech lead in the MyData server development project, handling 100M daily traffic from 250+ financial companies. Managed performance improvements and issue resolutions for over 2 years.",
-              "Migrated 130+ self-hosted Kubernetes services to AWS EKS with no downtime to comply with MyData security requirements.",
-              "Decomposed 200+ monolithic legacy APIs built on Python, MongoDB into 15 microservices based on Golang, MySQL, and gRPC with dual-write and shadowing.",
+              "<strong>Participated as a tech lead</strong> in the MyData server development project, handling <strong>100M daily traffic from 250+ financial companies</strong>. Managed performance improvements and issue resolutions for over 2 years.",
+              "<strong>Migrated 130+ self-hosted Kubernetes services</strong> to AWS EKS with <strong>no downtime</strong> to comply with MyData security requirements.",
+              "Decomposed 200+ monolithic legacy APIs built on Python, MongoDB into <strong>15 microservices based on Golang, MySQL, and gRPC with dual-write and shadowing</strong>.",
               "Increased the financial card company integration by 318% and the Korea-government tax service integration by 868% by developing the year-end tax reconciliation algorithm.",
-              "Built a new ChatOps CI/CD pipeline, reducing deployment steps by 80% and increasing production deployments by 400% per week.",
+              "Built a new ChatOps CI/CD pipeline, <strong>reducing deployment steps by 80%</strong> and <strong>increasing production deployments by 400% per week</strong>.",
               "Built a zero-downtime deployment system based on VMs and L4 switches in a private cloud IDC using Packer and Ansible.",
               "Established a company-wide Python style guide."
             ]
